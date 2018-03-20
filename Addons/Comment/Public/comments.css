@@ -1,0 +1,45 @@
+.document-comments .clear {clear:both;height:0;}
+.document-comments {margin:0 0 20px 0;}
+.document-comments .document-comments-title {margin-bottom:10px;font-size:16px;}
+.document-comments .comment-child {margin-left:20px;}
+.document-comments .comment-wrapper {padding:10px 0 0;border-top:1px solid #eee;}
+.document-comments .card {font-size:12px;}
+.document-comments .nickname {float:left;color:#333;}
+.document-comments .datetime {float:left;padding-left:1em;color:#666;}
+.document-comments .quote {float:left;display:none;padding-left:1em;}
+.document-comments .comment-content {margin:10px 0;font-size:14px;color:#333;clear:both;}
+.document-comments .no-quote {font-size:12px;color:#ccc;}
+
+.addon-comment-form {margin-top:10px;}
+.addon-comment-form input.cancel-quote {display:none;}
+.addon-comment-form .verify-code {margin-bottom:10px;}
+.addon-comment-form .verify-code img {border:1px solid #dedede;}
+
+.addon-comment-error {padding:20px 0;font-size:12px;color:red;}
+.addon-comment-form .need-login {font-size:12px;color:#999;}
+.addon-comment-form .disable {font-size:12px;color:#999;}
+
+.addon-comment-pagination {margin:15px 0;}
+.addon-comment-pagination span,
+.addon-comment-pagination a {padding:5px 8px;margin-right:8px;border:1px solid #ccc;border-radius:3px;font-size:12px;color:#999;}
+.addon-comment-pagination .current {border:1px solid #999;color:#333;}
+.join-wrap-w{line-height:24px;height:24px;overflow:hidden;font-family:"\5FAE\8F6F\96C5\9ED1","\5B8B\4F53"}
+.wrap-name-w{font-size: 17px;}
+.wrap-join-w{font-size: 16px;}
+.join-strong-gw{font-family: Georgia;font-size: 18px; color: #e74851;}
+.clear-g::after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+.round {
+    padding:10px; width:300px; height:50px;
+    border: 5px solid #dedede;
+    -moz-border-radius: 15px;      /* Gecko browsers */
+    -webkit-border-radius: 15px;   /* Webkit browsers */
+    border-radius:15px;            /* W3C syntax */
+}
+.block-head-w{float: left;width: 42px;}
+.nocomment{line-height:24px;height:24px;overflow:hidden;font-family:"\5FAE\8F6F\96C5\9ED1","\5B8B\4F53"}

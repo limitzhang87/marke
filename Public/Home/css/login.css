@@ -1,0 +1,241 @@
+.main {
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: calc(100vh - 2rem);
+    overflow: hidden;
+    background: url('../images/ubg.png') no-repeat center, url('../images/ubg.png') no-repeat center;
+    -webkit-background-size: auto 100%, 100% 100%;
+    opacity: 1;
+    -webkit-transition-duration: 500ms;
+    padding-bottom: 2rem;
+}
+
+.login_logo {
+    list-style-type: none;
+    width: 5em;
+    height: 5em;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    background: url('../images/login.png') no-repeat;
+    background-size: auto 5em;
+}
+
+.center {
+    width: 280px;
+    margin: 0 auto;
+}
+
+input,select{
+    border: solid #fff;
+    border-width: 0 0 1px 0;
+    width: 280px;
+    height: 40px;
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 30px;
+    background-color: #fff !important;
+    color: rgb(0, 0, 0) !important;
+}
+select>option{
+    text-align: center;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #000;
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset; //transition: background-color 5000s ease-in-out 0s;
+    border: solid #fff;
+    border-width: 0 0 1px 0;
+    width: 280px;
+    height: 40px;
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 30px;
+    background-color: rgba(0, 0, 0, 0) !important;
+    color: rgb(0, 0, 0) !important;
+}
+
+.code {
+    background: url('../images/icon/code.png') no-repeat;
+    background-position: 6px 10px;
+    background-size: 25px 20px;
+}
+
+.phone {
+    background: url('../images/icon/login_icon.png') no-repeat -5px -5px;
+    background-size: 50px 90px;
+}
+
+.password {
+    background: url('../images/icon/login_icon.png') no-repeat -5px -46px;
+    background-size: 50px 90px;
+}
+
+.user {
+    background: url('../images/icon/user_icon.png') no-repeat 7px 6px;
+    background-size: 25px 25px;
+}
+
+.btn {
+    width: 280px;
+    height: 40px;
+    border-radius: 25px;
+    font-size: 20px;
+    color: #fff;
+    border: none;
+}
+
+.login_btn {
+    background-color: #f8a81d;
+}
+
+.tip {
+    text-align: center;
+    color: red;
+    display: none;
+}
+
+.load_icon_1 {
+    list-style-type: none;
+    height: 30px;
+    width: 30px;
+    margin: 10px auto;
+    background: url('../images/icon/load_1.gif');
+    background-size: 30px 30px;
+    display: none;
+}
+
+.load_icon_2 {
+    list-style-type: none;
+    height: 30px;
+    width: 30px;
+    margin: 10px auto;
+    background: url('../images/icon/load_2.gif');
+    background-size: 30px 30px;
+    display: none;
+}
+
+.load_icon_3 {
+    list-style-type: none;
+    height: 30px;
+    width: 30px;
+    margin: 10px auto;
+    background: url('../images/icon/load_3.gif');
+    background-size: 30px 30px;
+    display: none;
+}
+
+
+.foot {
+    color: #f5b02d;
+    font-weight: bolder;
+    font-size: 1em;
+    width: 100%;
+    margin: 0 auto;
+    line-height: 2em;
+    background-size: 100%;
+    margin-top: -2rem;
+}
+
+.foot center {
+    display: block;
+    width: 100%;
+    height: 2em;
+    color: #f5b02d;
+    font-weight: bolder;
+    font-size: 1em;
+    font-family: Tahoma, Geneva, sans-serif;
+}
+
+center {
+    display: block;
+    width: 100%;
+    height: 3em;
+    color: #f5b02d;
+    font-weight: bolder;
+    font-size: 1em;
+    font-family: Tahoma, Geneva, sans-serif;
+}
+
+strong {
+    color: #f5b02d;
+    font-weight: bolder;
+    font-size: 1.5em;
+    font-family: Tahoma, Geneva, sans-serif;
+}
+
+.dialog {
+    position: static;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.newdialog {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.dialog_shadow {
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+
+.dialog_window {
+    position: fixed;
+    width: 80%;
+    top: 0;
+    left: 0;
+    background-color: white;
+    margin: 10% 10%;
+    border: #EBEBEB solid;
+    border-width: 1px;
+    border-radius: 10px;
+    z-index: 1002;
+}
+
+.dialog_close {
+    position: absolute;
+    right: 1px;
+    font-size: 20px;
+    color: #BBBBBB;
+}
+
+.dialog_content {
+    width: 90%;
+    height: 92%;
+    margin: 20px auto;
+    border: #EBEBEB solid;
+    border-width: 1px;
+    border-radius: 10px;
+}
+
+.c_title {
+    width: 100%;
+    font-size: 20px;
+    text-align: center;
+    margin: 5px 0;
+}
+
+.c_main {
+    padding: 5px 10px;
+}

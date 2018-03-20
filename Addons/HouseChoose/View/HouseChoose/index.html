@@ -1,0 +1,141 @@
+
+<script type="text/javascript" src="{$addon_path}Public/js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="{$addon_path}Public/js/jquery.dragsort-0.5.1.min.js"></script>
+<script type="text/javascript" src="{$addon_path}Public/js/jquery.getpy.js"></script>
+<script type="text/javascript" src="{$addon_path}Public/js/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{$addon_path}Public/style/style.css" media="all">
+<link rel="stylesheet" type="text/css" href="{$addon_path}Public/style/base.css" media="all">
+<link rel="stylesheet" type="text/css" href="{$addon_path}Public/style/module.css" media="all">
+<link rel="stylesheet" type="text/css" href="{$addon_path}Public/style/jquery-ui.min.css" media="all">
+
+<div style="width:700px; height:500px; padding: 15px;" >
+<h2 >楼盘多选</h2>
+<div class="form-item cf">
+<div style="margin:5 70 10 5;">
+<label class="item-label" style="width:300;" >表单显示排序<span class="check-tips">（直接拖动进行排序）</span></label>
+<DIV class="search-form" style="float:right;"><input type="text" id="nickname" name="nickname"  class="search-input" value="{:I('nickname')}" placeholder="请输入楼盘名或ID">
+<a class="sch-btn" href="javascript:;" id="search" url="{:addons_url('HouseChoose://HouseChoose/GetSearch')}"><i class="btn-search"></i></a></DIV>
+</div>
+
+
+<div class="form-item cf edit_sort edit_sort_l form_field_sort">
+<span>所需楼盘</span>
+<ul class="dragsort needdragsort" id="list2" data-group="2">
+<foreach name="fields2" item="field" key="k">
+
+<li class="getSort">
+<em data="{$field['id']}">{$field['id']}.{$field['title']}</em>
+<input type="hidden" name="field_sort[2][]" value="{$field['id']}"/>
+</li>
+
+</foreach>
+</ul>
+</div>
+<div class="form-item cf edit_sort edit_sort_l form_field_sort">
+<span>所有楼盘</span>
+<ul class="dragsort needdragsort" id="list1" data-group="1">
+<foreach name="fields1" item="field" key="k">
+
+<li class="getSort">
+<em data="{$field['id']}">{$field['id']}.{$field['title']} </em>
+<input type="hidden" value="{$field['id']}"/>
+</li>
+
+</foreach>
+</ul>
+</div>
+</div>
+
+<div style="text-align:center;margin-top:20;">
+<button id="ok"  class="btn submit-btn" type="submit" >确 定</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<a class="btn btn-return " href="javascript:myclose();" id="back">关 闭</a>
+</div>
+
+</div>
+<script type="text/javascript">
+//拖曳插件初始化
+$(".needdragsort").dragsort({
+dragSelector:'li',
+placeHolderTemplate: '<li class="draging-place">&nbsp;</li>',
+dragBetween:true,	//允许拖动到任意地方
+dragEnd:function(){
+var self = $(this);
+self.find('input').attr('name', 'field_sort[' + self.closest('ul').data('group') + '][]');
+}
+});
+
+function myclose(){ parent.$.fancybox.close(); }
+
+	$("#ok").click(function(){
+		var ids =new Array();
+		var arr_id =new Array();
+		var arr_title =new Array();
+		var arr_list =new Array();
+		
+		$('#list2 em').each(function(i,k){ids[i]=$(this).html().split(".")});//得到此时所需楼盘中的数量		
+		$('#list2 em').each(function(i,k){arr_list[i]=$(this).html()});//得到此时所需楼盘中list		
+		$.each(ids,function(key,val){arr_id[key] = ids[key][0];})
+		$.each(ids,function(key,val){arr_title[key] = ids[key][1];})
+		window.parent.houses_id.value=arr_id.join(",");	//传值ids
+		window.parent.document.getElementById('houses_span').innerHTML = "<li>"+arr_list.join("</li><li>")+"</li>";	//传值title
+		var url= "{:addons_url('HouseChoose://HouseChoose/HouseChoose/')}"+"&houses_id="+arr_id.join(",");
+		window.parent.document.getElementById('bo').href=url ;									//赋值父页面URL
+		
+		
+		
+		
+		parent.$.fancybox.close();
+		
+		})
+	
+ 
+//搜索功能
+	$("#search").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+		
+		$.get(url,function(data){			
+			$("#list1").html(data); //刷新部分页面
+		});
+		 
+		//window.location.href = url;
+	});
+	//回车搜索
+	$(".search-input").keyup(function(e){
+		if(e.keyCode === 13){
+			$("#search").click();
+			return false;
+		}
+	});
+	///////自动完成
+	$("#nickname").autocomplete({
+	
+    source: function(request, response){
+				
+				var url = "{:addons_url('HouseChoose://HouseChoose/GetCheck/')}"+'&term='+request.term;
+				
+					$.ajax( {
+						'url': url,
+						dataType: 'json',
+						success: function(dataObj){
+							response(dataObj); //将数据交给autocomplete去展示
+						}
+					} );		
+				}
+	
+});	
+
+        
+	
+	
+	
+</script>
+
+

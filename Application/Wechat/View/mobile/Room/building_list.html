@@ -1,0 +1,133 @@
+<extend name="Base/common" />
+<block name="body">
+    <style type="text/css">
+    body {
+        background-color: #EBEBEB;
+    }
+    
+    </style>
+    <div style="height: 30px;width: 100%;border: #ccc solid;border-width: 0 0 2px 0;background-color: #fff;">
+        <div class="left" style="height:100%;width: 50%; font-size: 1.5rem;line-height: 30px;text-align: center;" onclick="redirect('{:U('Room/house_info_set')}')">楼栋管理</div>
+        <span style="padding-left: 1px;background-color: #EBEBEB;padding-bottom: 17px;" ></span>
+        <div class="right" style="height:100%;width: 49%;font-size: 1.5rem;line-height: 30px;text-align: center;color: #f00;border: #f00 solid;border-width: 0 0 2px 0;" >单元管理</div>
+    </div>
+    <div class="building">
+        <volist name="_list" id="building">
+        <div class="building_info">
+            <div style="display: -webkit-box;">
+                <div class="building_title">{$building.b_name}</div>
+                <if condition="$building['status'] eq '1' ">
+                <div class="status_success sell_status" onclick="changeStauts('b','{$building.id}','{$building.status}')">在售</div>
+                <else/>
+                <div class="status_error sell_status" onclick="changeStauts('b','{$building.id}','{$building.status}')">待售</div>
+                </if>
+            </div>
+            <div class="unit_info">
+            <volist name="building['is_w']" id="is_w" >
+                <div class="unit_list">
+                    <if condition="$is_w eq 0 ">
+                        <div class="unit_name left">
+                            {$key+1}单元
+                        </div>
+
+                        <div class="unit_edit right" onclick="redirect('__CONTROLLER__/unit_set/b_id/{$building.id}/b_name/{$building.b_name}/u_order/{$key}')" >
+                            <li class="edit_s_icon"></li>
+                        </div>
+                        <div class="status_over sellU_status right" style="height: 2rem;">未编辑</div>
+                    <else/>
+                        <div class="unit_name left">
+                            {$building['unit'][$is_w]['u_name']}
+                        </div>
+                        <div class="unit_edit right" onclick="redirect('__CONTROLLER__/unit_edit/b_id/{$building.id}/b_name/{$building.b_name}/u_order/{$key}')" >
+                            <li class="edit_s_icon"></li>
+                        </div>
+                        <div class="status_success sellU_status right">已编辑</div>
+                    </if>
+
+                    <if condition="$building['unit'][$is_w]['status'] eq '1' ">
+                        <div class="status_success sellU_status right" onclick="changeStauts('u', '{$building['unit'][$is_w]['id']}' ,'{$building['unit'][$is_w]['status']}','{$building.id}')">在售</div>
+                    <elseif condition="$building['unit'][$is_w]['status'] eq '-1'" />
+                        <div class="status_error sellU_status right" onclick="changeStauts('u','{$building['unit'][$is_w]['id']}','{$building['unit'][$is_w]['status']}','{$building.id}')">待售</div>
+                    </if>
+                    <!-- <div class="status_success sellU_status right">在售</div> -->
+                </div>
+            </volist>
+            </div>
+        </div>
+        </volist>
+    </div>
+</block>
+<block name="script">
+    <script type="text/javascript" charset="utf-8">
+        /**
+         * [changeStauts description]
+         * @param  {string} $type   修改状态的类型，b代表的是修改栋号，u代表修改单元
+         * @param  {int} $id     栋ID或者单元ID
+         * @param  {状态} $status 当前状态
+         * @return {[type]}         [description]
+         */
+        function changeStauts($type,$id,$status,$b_id){
+            $b_id = $b_id != undefined ? $b_id : 0;
+            $status = $status * -1;
+            console.log($type+$id+$status+$b_id);
+            var a = confirm('确认修改当前的可售状态？');
+            if(!a){
+                return;
+            }
+            $.ajax({
+                url:'__CONTROLLER__/changeBUStatus',
+                data:{'type':$type,'id':$id,'status':$status,'b_id':$b_id},
+                type:'POST',
+                error:function(){
+                    console.log(错误);
+                },
+                success:function(msg){
+                    history.go(0);
+                }
+            })
+        }
+
+        // var $houses_id = '{$house}';
+        // $.ajax({
+        //     url: '__CONTROLLER__/get_building_list',
+        //     type: 'POST',
+        //     data: 'houses_id=' + $houses_id,
+        //     success: function(msg){
+        //         if(msg.error == 0){
+        //             building_html(msg.list);
+        //         }else{
+
+        //         }
+        //     },
+        // })
+        // /**
+        //  * 渲染页面
+        //  * @param  {array} $list 栋号基本信息
+        //  * @return {[type]}       [description]
+        //  */
+        // function building_html($list){
+        //     $($list).each(function(i,item){
+        //         var html = '';
+        //         html += '<div class="building_info">'+
+        //                     '<div class="building_title">'+item.b_name+'栋</div>'+
+        //                     '<div class="unit_info">';
+        //         var $is_w = item.is_w;
+        //         $is_w = $is_w.split(',');
+        //         $($is_w).each(function(k, itemI){
+        //             html += '<div class="unit_list">'+
+        //                         '<div class="unit_name">'+(k+1)+'单元</div>'+
+        //                         '<div class="unit_w">'+
+        //                         ((itemI == 0)? '<div class="status_over">未编辑</div>' : '<div class="status_success">已编辑</div>')+
+        //                         '</div>'+
+        //                        ' <div class="unit_edit" '+ ((itemI == 0)? 'onclick="redirect(\'__CONTROLLER__/unit_set/b_id/'+item.id+'/b_name/'+item.b_name+'/u_order/'+(k)+'\')"' : 'onclick="redirect(\'__CONTROLLER__/unit_edit/b_id/'+item.id+'/b_name/'+item.b_name+'/u_order/'+(k)+'\')"') +'><li class="edit_s_icon"></li></div>'+
+        //                    ' </div>';
+        //         });
+        //         html+=      '</div>'+
+        //                 '</div>';
+        //         $('.building').append(html);
+        //     });
+        //      $('.building').append('<div style="height:50px;"></div>');
+        // }
+        hightLine('Room/index');
+    </script>
+</block>

@@ -1,0 +1,64 @@
+<extend name="Base/common" />
+<block name="body">
+    <include file="nav"/>
+    <div id="content">
+        <volist name="_list" id="vo" >
+        <div class="item_s" onclick="toRoom('{$vo.id}');">
+            <div class="item_info" style="width: 100%;">
+                <div class="item_title_ss">{$vo.b_name}-{$vo.u_name}-{$vo.room_number}</div>
+                <if condition="$vo['is_check'] eq 1">
+                     <div class="item_status status_success">已审核</div>
+                     <div style="position: absolute;bottom: 0.1rem;left: 2rem;">审核人:{$vo.check_name}</div>
+                <else/>
+                    <div class="item_status status_over">未审核</div>
+                    <div style="position: absolute;bottom: 0.1rem;left: 2rem;">待审核</div>
+                </if>
+                <div style="position: absolute;bottom: 0.1rem;right: 1rem;">{$vo.submit_time|date="Y年m月d号 H:i:s",###}</div>
+            </div>
+        </div>
+        </volist>
+        <div id="navigation" align="center">
+        <!-- 页面导航-->
+            <a href="{:U('Business/lock')}&page=2"></a>
+            <!-- 此处可以是url，可以是action，要注意不是每种html都可以加，是跟当前网页有相同布局的才可以。另外一个重要的地方是page参数，这个一定要加在这里，它的作用是指出当前页面页码，每加载一次数据，page自动+1,我们可以从服务器用request拿到他然后进行后面的分页处理。-->
+        </div>
+    </div>
+    <center>没有更多数据了！</center>
+</block>
+<block name="script">
+    <script type="text/javascript" src="__STATIC__/plugins/infinitescroll/jquery.infinitescroll.js" charset="UTF-8"></script>
+    <script type="text/javascript">
+        hightLine('Business/index');
+        var totalpage = '{$totalpage}';
+        $(document).ready(function() { //别忘了加这句，除非你没学Jquery
+
+            $("#content").infinitescroll({
+                loading: {
+                    finished: undefined,
+                    finishedMsg: "<em>很抱歉，内容已经浏览完了！</em>",
+                    msgText: "<div id='msgText'  style='text-align: center;' ><img style='width:2rem;' src='__STATIC__/plugins/infinitescroll/images/loading.gif' /><if condition='$totalpage eq 1'>已没有更多数据<else/>请稍等.正在加载中...</if></div>",
+                    selector: null,
+                    speed: 'fast',
+                    start: undefined
+                },
+                maxPage: totalpage,
+                bufferPx: 1,
+                navSelector: "#navigation", //导航的选择器，会被隐藏 
+                nextSelector: "#navigation a", //包含下一页链接的选择器  
+                itemSelector: "#content ", //你将要取回的选项(内容块)  
+                animate: true, //当有新数据加载进来的时候，页面是否有动画效果，默认没有 
+                extraScrollPx: 10, //滚动条距离底部多少像素的时候开始加载，默认150  
+                errorCallback: function() {
+                    $('div#msgText').html('');
+                }, //当出错的时候，比如404页面的时候执行的函数  
+            }, function(arrayOfNewElems) {
+                //程序执行完的回调函数  
+            });
+        });
+
+        function toRoom(id){
+            var url = ThinkPHP.APP + '/Home/Room/room_info/id/' + id;
+            window.location.href = url;
+        }
+    </script>
+</block>

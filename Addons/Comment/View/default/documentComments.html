@@ -1,0 +1,48 @@
+<notempty name="addon_comment_error">
+    <div class="addon-comment-error">!!!{$addon_comment_error}!!!</div>
+</notempty>
+<div class="document-comments" id="addon-document-comments">
+    <div class="document-comments-title">{$addon_comment_title}</div>
+    <?php foreach ($addon_comment_data['list'] as $item) { ?>
+    <div class="comment-wrapper comment-id-{$item['id']}" data-pid={$item['pid']}>
+        <div class="card<?php if ($item['invalid'] == 1) {echo ' invalid';} ?>">
+            <div class="nickname">{$item['username']}</div>
+            <div class="datetime">{:time_format($item['create_time'])}</div>
+            <div class="quote" data-pid="{$item['id']}"><a href="#quote">引用</a></div>
+            <div class="clear"></div>
+        </div>
+        <div class="comment-content">{$item['content']}</div>
+    </div>
+    <?php } ?>
+</div>
+<div class="addon-comment-pagination">
+    {$addon_comment_page}
+</div>
+<div class="addon-comment-form">
+    <?php if ($addon_comment_config['comment_enable'] == 0) { ?>
+        <div class="disable">评论已经被关闭</div>
+    <?php } elseif ($addon_comment_config['comment_need_login'] == 1 && is_login() === 0) { ?>
+        <div class="need-login">登录后才可以评论</div>
+    <?php } else { ?>
+    <label for="content"><div class="username"><strong>{$addon_comment_data['nickname']}</strong> 你好，说点什么吧：</div></label>
+    <form action="{:addons_url('Comment://Comment/submit')}">
+        <?php foreach ($addon_comment_data['form'] as $key => $value) { ?>
+        <input type="hidden" name="{$key}" value="{$value}" />
+        <?php } ?>
+        <div class="input">
+            <textarea name="content" id="content" style="width:100%;" rows="10"></textarea>
+        </div>
+        <?php if ($addon_comment_config['comment_verify'] == 1) { ?>
+        <label for="verify_code">验证码</label>
+        <div class="input">
+            <input type="text" class="string" name="verify_code" id="verify_code" />
+        </div>
+        <div class="verify-code">
+            <img src="{:addons_url('Comment://Comment/verifyCode')}" />
+        </div>
+        <?php } ?>
+        <input type="button" class="btn submit-btn submit-comment" value="提交" />
+        <input type="button" class="btn submit-btn cancel-quote" value="取消" />
+    </form>
+    <?php } ?>
+</div>

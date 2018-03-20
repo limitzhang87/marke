@@ -1,0 +1,77 @@
+<extend name="Base/common" />
+<block name="body">
+    <form action="" method="POST">
+        <div style="width: 90%;margin-left: 5%;,margin-top: 10px;">
+            <center style="font-size: 1.5rem;">备注</center>
+            <textarea style="width: 100%;" name="remark">{$info.remark}</textarea>
+        </div>
+        <div>
+            <center>
+                <div class="button btn_submit" onclick="fileSelect()">更换背景图片</div>
+                <input type="hidden" name="bg_img" id="bg_color">
+            </center>
+            <div id="showPic" style="max-width: 90%;margin-left: 5%;">
+                <if condition="$info eq '' ">
+                    <center>暂无设置背景图片</center>
+                <else/>
+                    <img src="./{:get_cover($info['bg_img'])}">
+                </if>
+           </div>
+        </div>
+        <div style="display: -webkit-box;margin-top: 10px;">
+            <input type="hidden" name="id" value="{$info.id}">
+            <input style="width: 40%;margin: 0px 5%;;display: block;padding:0px;" class="button btn_submit status_success"  onclick="javascript:history.back(-1);" value="返回 ">
+            <input type="submit" style="width: 40%;margin: 0px 5%;;display: block;padding:0px;" class="button btn_submit" value="提交 ">
+        </div>
+    </form>
+   <form method="POST" enctype="multipart-data" id="formPic">
+       <input type="file" class="hide" id="picUpload" name="picUpload" onchange="pic2Upload()">
+   </form>
+</block>
+<block name="script">
+    <script type="text/javascript">
+        function fileSelect() {
+            var a = confirm('是否替换背景图片');
+            if(!a){
+                return;
+            }
+            $('#picUpload').click();
+        }
+         /**
+          * 当图片选择框选择文件时自动上传。
+          */
+         function pic2Upload() {
+             var formData = new FormData($('#formPic')[0]); //获取表单
+             //formData.append('brand_name',$('option[value="'+$('select').val()+'"]').html());
+             //FormData的参数只能是 HTMLFormElement,而JQ拿到的是一个对象，但是下标0的属性就是 HTMLFormElement
+             $.ajax({
+                 url: ThinkPHP.APP + '/Home/UploadPic/uploadPicture',
+                 type: 'POST',
+                 data: formData, // Form数据
+                 cache: false,
+                 contentType: false, // 告诉jQuery不要去设置Content-Type请求头，然后在表单里面设置Content-Type为enctype="multipart/form-data"
+                 processData: false, // 告诉jQuery不要去处理发送的数据
+                 beforeSend: function() {
+                     var html = '<div class="img_div" id="loading">' +
+                         '<img class="up_pic"  src="'+ThinkPHP.ROOT+'/Public/Mobile/images/icon/load.gif">' +
+                         '</div>';
+                     $('#showPic').append(html);
+                 },
+                 success: function(msg) {
+                     $('#loading').remove();
+                     if (msg.status == 1) {
+                        info = msg.info.picUpload;
+                        var html = '<img src="'+ThinkPHP.ROOT+info.path+'"/>';
+                        $('#showPic').html(html);
+                        $('#bg_color').val(info.id);
+                     } else {
+                         alert(msg.info);
+                     }
+                 },
+                 error: function() {
+                     alert('上传失败');
+                 },
+             });
+         }
+    </script>
+</block>

@@ -1,0 +1,80 @@
+<extend name="Base/common" />
+<block name="body">
+    <div>
+        <img class="swiper_img" src="__MIMG__/banner_1.png" style="width: 100%;">
+    </div>
+    <div>
+        <include file="nav"/>
+        <div style="width: 100%;height:30px; background-color: #EBEBEB;">
+            <div style="padding: 5px 0 0 20px;">权限设置()</div>
+        </div>
+        <div>
+            <div class="item">
+                <div class="item_info">
+                    <span class="item_menu">这是一个菜单</span>
+                    <span class="menu_auth">
+                        <div class="auth_item status_success" data-v="1" data-name="send">发布</div>
+                        <div class="auth_item status_over" data-v="1" data-name="del">删除</div>
+                    </span>
+                </div>
+                <div class="item_more">
+                    <div class="auth">
+                        <li class="auth_on"></li><span>允许</span>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item_info">
+                    <span class="item_menu">这是一个菜单</span>
+                    <span class="menu_auth">
+                        <div class="auth_item status_success" data-v="1" data-name="send">发布</div>
+                        <div class="auth_item status_over" data-v="1" data-name="check">删除</div>
+                        <div class="auth_item status_over" data-v="1" data-name="del">删除</div>
+                    </span>
+                </div>
+                <div class="item_more">
+                    <div class="auth">
+                        <li class="auth_on"></li><span>允许</span>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item_info">
+                    <span class="item_menu">这是一个菜单</span>
+                    <span class="menu_auth">
+                        <div class="auth_item status_over" data-v="1" data-name="send">发布</div>
+                        <div class="auth_item status_over" data-v="1" data-name="check">删除</div>
+                        <div class="auth_item status_over" data-v="1" data-name="del">删除</div>
+                    </span>
+                </div>
+                <div class="item_more">
+                    <div class="auth">
+                        <li class="auth_off"></li><span>拒绝</span>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item_info">
+                    <span class="item_menu">这是一个菜单</span>
+                    <span class="menu_auth">
+                        <div class="auth_item status_over" data-v="1" data-name="send">发布</div>
+                        <div class="auth_item status_over" data-v="1" data-name="check">删除</div>
+                        <div class="auth_item status_over" data-v="1" data-name="del">删除</div>
+                    </span>
+                </div>
+                <div class="item_more">
+                    <div class="auth">
+                        <li class="auth_off"></li><span>拒绝</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>
+<block name="script">
+    <script type="text/javascript">
+        hightLine('Group/auth');
+        var left = $('.group_on').offset().left - $(window).width() / 2 + $('.group_on').width() / 2;
+        $('.group_scroll').scrollLeft(left);
+    </script>
+</block>

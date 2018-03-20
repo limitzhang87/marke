@@ -1,0 +1,94 @@
+<extend name="Base/common" />
+<block name="body">
+    <style type="text/css">
+        input[type="checkbox"] {
+            margin-right: -5px;
+            margin-top: 0.4rem;
+        }
+        .room_info{
+            width: calc(100% - 3.5rem);
+        }
+        .div_houses {
+            margin-top: 5px;
+        }
+    </style>
+    <div class="div_houses">
+        <div class="houses_head">
+            <div id="houses_title" class="houses_title left" style="">
+                <li class="building_icon"></li>
+                <span class="font_title " style="padding-left: 5px; padding-top: 10px;">销控管理
+                </span>
+            </div>
+            <div id="hosues_search" class="hosues_search right hide">
+                <span class="right" style="padding-right: 10px;padding-top: 5px;">
+                    <li class="search_icon"></li>
+                    <span id="search">搜索：</span>
+                    <span style="color: red;" id="search_b">栋号</span>
+                    <span style="color: red;">|</span>
+                    <span style="color: red;" id="search_u">单元</span>
+                </span>
+                <span id="search_input" class="right hide" >
+                    <input type="text" name="search_kw" id="search_kw" style="margin: 0 0 0 10px;width: 1px;">
+                </span>
+            </div>
+            <if condition="is_auth(AUTH_ROOM_CHECK)">
+            <div class="sellStatus">
+                <div class="sellStatus_on" onclick="changeSellStatus(1)">在售</div>
+                <div  onclick="changeSellStatus(-1)">待售</div>
+            </div>
+            </if>
+        </div>
+        <div class="select">
+            <div class="select_name">栋号</div>
+            <div class="scroll_list" id="building_list">
+            </div>
+        </div>
+        <div class="select">
+            <div class="select_name">单元</div>
+            <div class="scroll_list" id="unit_list">
+            </div>
+        </div>
+        <div class="houses_tip">
+            <center>
+                <span class="status_success"></span>&nbsp;未售
+                <span class="status_waring"></span>&nbsp;锁定
+                <span class="status_error"></span>&nbsp;已售
+            </center>
+            <center>
+                <if condition="is_auth(AUTH_CHECK)">
+                    <span class="status_check1"></span>&nbsp;锁定审核
+                    <span class="status_check2"></span>&nbsp;成交审核
+                </if>
+                <if condition="is_auth(AUTH_MARKETINCON)">
+                    <span class="status_none"></span>&nbsp;销控
+                </if>
+            </center>
+        </div>
+        <form method="POST">
+        <div class="houses" id="room_list">
+        </div>
+        <center >
+            <input type="hidden" name="u_id" id="submit_u_id" value="">
+            <button class="button btn_submit">提交</button>
+        </center>
+        </form>
+    </div>
+    <div id="dialog" class="dialog" name="dialog" >
+        <div class="dialog_shadow" onclick="hidedialog()"></div>
+        <div class="dialog_window">
+            <li class="dialog_close">X</li>
+            <div class="dialog_content">
+                <label class="c_title">这是标题</label>
+                <div class="c_main">这话四内提供 阿斯蒂芬姐啊算咯姐姐啊弗朗基安静啊咧啊垃圾</div>
+            </div>
+        </div>
+    </div>
+</block>
+<block name="script">
+    <script type="text/javascript" src="__MJS__/getHouseMarketing.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        houses_id = '{$house}';
+        getBuilding();
+        hightLine('Room/index');
+    </script>
+</block>

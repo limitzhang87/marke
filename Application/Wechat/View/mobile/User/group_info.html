@@ -1,0 +1,19 @@
+<extend name="Base/common" />
+<block name="body">
+    <div class="form_group">
+        <center><strong style="font-size: 2rem">{$group.name}</strong></center>
+        <div>
+            <div>备注：</div>
+            <div>{$group.remark}</div>
+        </div>
+    </div>
+    <center>
+        <div class="button btn_submit status_success" onclick="javascript:history.go(-1)">返回</div>
+    </center>
+</block>
+<block name="script">
+    <script type="text/javascript" charset="utf-8">
+    var houses_id = '{$house}';
+    hightLine('User/index');
+    </script>
+</block>

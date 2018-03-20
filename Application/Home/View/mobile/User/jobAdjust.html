@@ -1,0 +1,32 @@
+<extend name="Base/common" />
+<block name="body">
+    <style type="text/css">
+
+        .item_info {
+            font-size: 1.5rem;
+            padding-left: 10px;
+            line-height: 4.5rem;
+        }
+        .item_info input[type="radio"]{
+            height: auto;
+        }
+        .btn_submit {
+            width: 12rem;
+        }
+    </style>
+    <form method="POST">
+        <volist name="group" id="vo">
+        <div class="item_s">
+            <div class="item_info">
+                <input type="radio" name="g_id" <if condition="$vo['id'] eq  $groupuser['g_id']"> checked="checked"</if> value="{$vo.id}">{$vo.name}
+            </div>
+        </div>
+        </volist>
+        <center style="display: -webkit-box;width: 100%:">
+            <input type="hidden" name="gu_id" value="{$groupuser.id}">
+            <input type="hidden" name="uid" value="{$groupuser.uid}">
+            <button class="button btn_submit status_success" type="button" onclick="javascript:history.go(-1);">返回</button>
+            <button class="button btn_submit" type="submit">提交</button>
+        </center>
+    </form>
+</block>

@@ -1,0 +1,95 @@
+<extend name="Base/common" />
+<block name="body">
+    <style type="text/css">
+    .tip {
+        font-size: 1.5rem;
+        line-height: 2rem;
+        height: 2rem;
+        padding-left: 1rem;
+        margin: 10px 0;
+        color: #AAAAAA;
+    }
+
+    .btn_submit {
+        width: 12rem;
+    }
+    </style>
+    <form accept="" method="POST" enctype="multipart/from-data">
+            <switch name="field">
+                <case value="head_img">
+                    <input type="hidden" name="head_img" value="{$user.head_img}">
+                    <include file="uploadHeadThumb"/>
+                    <div class="tip"><div>点击头像上传</div></div>
+                </case>
+                <case value="phone">
+                    <center>
+                        <div class="tip">
+                            原手机号码:{$user.phone}
+                        </div>
+                        <div>
+                            <div class="tip">请输入新的手机号码：</div>
+                            <div>
+                                <input type="number" name="phone"  value="{$user.phone}"> </div>
+                        </div>
+                    </center>
+                </case>
+                <case value="nick_name">
+                    <center>
+                        <div class="tip">
+                            原姓名:{$user.nick_name}
+                        </div>
+                        <div>
+                            <div class="tip">请输入新的姓名：</div>
+                            <div>
+                                <input type="text" name="nick_name" value="{$user.nick_name}">
+                            </div>
+                        </div>
+                    </center>
+                </case>
+                <case value="sex">
+                    <center class="tip">
+                        修改性别
+                    </center>
+                    <div style="display: -webkit-box;height: 1rem; width: 18rem;margin: 10px auto;">
+                        <div style="width: 6rem;">
+                            <input type="radio" name="sex" value="1" <if condition="$user['sex'] eq 1 ">checked</if>><span>男  </span>
+                        </div>
+                        <div style="width: 6rem;">
+                            <input type="radio" name="sex" value="2" <if condition="$user['sex'] eq 2 ">checked</if>>女
+                        </div>
+                        <div style="width: 6rem;">
+                            <input type="radio" name="sex" value="0" <if condition="$user['sex'] eq 0 ">checked</if>>未知
+                        </div>
+                    </div>
+                </case>
+                <case value="password">
+                    <table style="width: 90%;margin: 10px auto;">
+                        <tr>
+                            <td style="text-align: right;">旧密码:</td>
+                            <td><input type="password" name="password_old"></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;">新密码:</td>
+                            <td><input type="password" name="password"></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;">再次输入:</td>
+                            <td><input type="password" name="password_re"></td>
+                        </tr>
+                    </table>
+                </case>
+            </switch>
+        <center style="display: -webkit-box;width: 100%:">
+            <input type="hidden" name="field" value="{$field}">
+            <button class="button btn_submit status_success" type="button" onclick="javascript:history.go(-1);">返回</button>
+            <button class="button btn_submit" type="submit">提交</button>
+        </center>
+    </form>
+</block>
+<block name="footer"></block>
+<block name="script">
+    <script type="text/javascript" charset="utf-8">
+    hightLine('User/index');
+
+    </script>
+</block>

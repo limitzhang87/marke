@@ -1,0 +1,148 @@
+<extend name="Base/common" />
+<block name="body">
+	<style type="text/css">
+        .list{
+            display: block;
+            height: 7rem;
+            width: 96%;
+            margin: 10px 2%;
+            border: solid #E0E0E0 1px;
+            border-radius: 3px;
+            background-color: #FBFBFB;
+            font-size: 1.2rem;
+        }
+         .list table{
+            width: 100%;
+         }
+        .list table tr{
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+        }
+        .list table tr td{
+            padding: 0.1em 0.2em;
+            min-height: 1.2em;
+            line-height: 1.2em;
+        }
+
+        .tit{
+            border-top: 1px dashed #d9d9d9;
+            font-size: 0.9em;
+            line-height: 1.8em;
+            color: #f19411;
+            text-align: center;
+        }
+        .tit>strong{
+            font-weight: normal;
+            display: block;
+            margin: 0 auto;
+            line-height: 1.6em !important;
+        }
+        a, a:visited {
+            text-decoration: none;
+            color: #000;
+        }
+        .star{
+            float: right;
+            width: 120px !important;
+        }
+        .star img{
+            width: auto;
+        }
+    </style>
+    <div>
+        <div id="content">
+        </div>
+        <center class="tip">
+            正在获取数据...
+        </center>
+    </div>
+
+    <if condition="is_auth(AUTH_TRACK_ADD) || is_auth(AUTH_TRACK_MANAGE)">
+    <div class="fixed_add" style="background-color: {$bg_color}; padding: 6px;" onclick="redirect('{:U('add')}')">
+        <img src="__MIMG__/icon/add_big.png">
+    </div>
+    </if>
+</block>
+<block name="script">
+    <script type="text/javascript" src="__STATIC__/raty-2.5.2/lib/jquery.raty.min.js"></script>
+    <script type="text/javascript">
+        var p = 1;
+        var row = 10;
+        var status = 0;
+        var uid = '{$uid}';
+        $(function(){
+            getList();
+        });
+
+        function getList() {
+            status = 0;
+            $.ajax({
+                url: ThinkPHP.APP + '/Home/Track/getList2',
+                type:'POST',
+                data:{'p':p,'uid':uid},
+                beforeSend:function(){
+                    $('.tip').removeClass('hide');
+                },
+                error:function(){
+                    alert('获取数据失败！');
+                },
+                success:function(msg){
+                    if(msg.status == 1){
+                        $('.tip').addClass('hide');
+                        listHtml(msg.info._data);
+                    }else{
+                        alert('获取数据失败！');
+                    }
+                }
+            })
+        }
+        function listHtml(list) {
+            var html = '';
+            $.each(list,function(i,item){
+                html += '<a class="list" href="'+ ThinkPHP.APP + '/Home/Track/detail/id/'+item.id +'">'+
+                            '<table>'+
+                                '<tr><td>客户姓名：'+item.name+'</td><td><span class="star" id="intention'+item.id+'" data-score="'+item.intention+'"></span></td></tr>'+
+                                '<tr><td>客户电话：'+item.phone+'</td><td style="text-align:right;">置业顾问：'+item.sales_name+'</td></tr>'+
+                                '<tr><td colspan="2">更新时间：'+item.last_time+'</td></tr>'+
+                                '<tr><td colspan="2" class="tit"><strong>查看跟踪详情</strong></td></tr>'+
+                            '</table>'+
+                        '</a>';
+
+            })
+            // return html;
+            if(p == 1){
+                if(html == ''){
+                    $('#content').html('<center>没有更多数据</center>');
+                    return ;
+                }
+                $('#content').html(html);
+            }else{
+                $('#content').append(html);
+                $('#content').append('<center>没有更多数据</center>');
+            }
+            $.each(list,function(i,item){
+                $('#intention'+item.id).raty({
+                    score: function() {
+                        return $(this).attr('data-score');
+                    },
+                    readOnly:true,
+                });
+            })
+
+            if(list.length >= row){
+                status = 1;
+                p += 1;
+            }
+        }
+        var h = $(window).height(); 
+        $(function(){
+            $(window).scroll(function(){
+                var top = $(this).scrollTop();
+                if(h-top <= 300 && status == 1){
+                    getList();
+                }
+            })
+        })
+    </script>
+</block>

@@ -1,0 +1,162 @@
+<extend name="Base/common" />
+<block name="body">
+    <link rel="stylesheet" href="__STATIC__/swiper/css/swiper.min.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Mobile/share/nativeShare.css">
+	<style type="text/css">
+		.border_bottom {
+			border:#EBEBEB solid;
+			border-width: 0 0 1px 0;
+		}
+        .button_l {
+            padding: 0px;
+            margin: 0px 5px;
+            float: center;
+        }
+        .tip div{
+            width: 100%;
+            text-align: center;
+            margin: 5px 0;
+            font-size: 1rem;
+            color: #8F8F8F;
+        }
+        .nativeShare {
+            height: 50px;
+        }
+        .shadow{
+            box-shadow: 0px 0px 3px 0px #ababab;
+            border-radius: 3px;
+        }
+	</style>
+    <div>
+        <if condition="$room['thumb'] eq NULL ">
+            <div class="swiper-slide"><img class="swiper_img" src="__MIMG__/banner_2.png"></div>
+        <else/>
+            <div class="swiper">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper" style="height: 25rem;">
+                        <volist name="room['thumb']" id="pic">
+                            <div class="swiper-slide">
+                                <img class="swiper_img"  src="__ROOT__{:get_cover($pic)}" onclick="showPic('{$pic}', '__ROOT__{:get_cover($pic)}')">
+                            </div>
+                        </volist>
+                    </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </if>
+    </div>
+    <div>
+    	<div class="border_bottom" style="height: 3rem;padding: 10px 2px 10px 15px;">
+            <label style="font-size: 2.5rem;" >房号:{$room.room_number}</label>
+             <label style="font-size: 1.5rem;">·{$room.b_name}-{$room.u_name}</label>
+    	</div>
+    	<div  class="border_bottom" style="height: 4.5rem;padding: 15px 0;display: -webkit-box;">
+
+            <div style="width: 30%;border: #EBEBEB solid;border-width: 0 1px 0 0;text-align: center;" >
+    			<div style="font-size: 1.5rem;line-height: 2rem;">售价</div>
+    			<div style="font-size: 1.8rem;line-height: 2.5rem;color: red;">{$room.total_price}万</div>
+    		</div>
+    		<div style="width: 40%;border: #EBEBEB solid;border-width: 0 1px 0 0 ;text-align: center;"">
+    			<div style="font-size: 1.5rem;line-height: 2rem;">户型</div>
+    			<div style="font-size: 1.7rem;line-height: 2.5rem;color: red;">{$room.apartment}房{$room.hall}厅{$room.kitchen}厨{$room.toilet}卫</div>
+    		</div>
+    		<div style="width: 29.5%;text-align: center;"">
+    			<div style="font-size: 1.5rem;line-height: 2rem;">建筑面积</div>
+    			<div style="font-size: 2rem;line-height: 2.5rem;color: red;">{$room.area}m²</div>
+    		</div>
+    	</div>
+    	<div  class="border_bottom" style="padding:0 15px;font-size: 1.5rem;line-height: 3rem;">
+    		{$room.address}
+    	</div>
+    	<div style="width: 100%;display: -webkit-box;">
+    		<div style="width: 44%;padding: 10px 3%;font-size: 1.5rem;">
+    			<div  style="padding: 5px 0;">
+    				<label style="color: #9A9A9A;">单价：</label>
+    				<label>{$room.unit_price}元/m²</label>
+    			</div>
+    			<div  style="padding: 5px 0;">
+    				<label style="color: #9A9A9A;">朝向：</label>
+    				<label>{$room.orientation}</label>
+    			</div>
+    		</div>
+    		<div style="width: 44%;padding: 10px 3%;font-size: 1.5rem;">
+    			<div style="padding: 5px 0;">
+    				<label style="color: #9A9A9A;">楼层：</label>
+    				<label>{$room.floor}楼</label>
+    			</div >
+                <div  style="padding: 5px 0;">
+                    <label style="color: #9A9A9A;">装修：</label>
+                    <label>精装修</label>
+                </div>
+    		</div>
+    	</div>
+        <div class="tip">
+            <volist name="tip" id="t">
+                <div> {$t}</div>
+            </volist>
+        </div>
+        <center >
+            <div class="button_l status_success" style="width:10rem;margin: 5px 0;height: 3rem;line-height: 3rem;" onclick="redirect('{:U(\'OwnerShip/index\',array(\'id\'=>$room[\'id\']))}')">置业计划试算</div>
+            <volist name="button" id="btn">
+                <button class="button_l {$btn.color}" style="width: {$width}%;" onclick="changeStatus('{$btn.method}')">{$btn.title}</button>
+            </volist>
+        </center>
+    </div>
+</block>
+<block name="script">
+    <script type="text/javascript" src="__STATIC__/swiper/js/swiper.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/pinchzoom/src/pinchzoom.js"></script>
+    <script src="__PUBLIC__/Mobile/share/nativeShare.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        hightLine('Room/index');
+        var id = '{$_id}';
+        /*首页轮播图*/
+        var swiper = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination',
+            paginationClickable: true
+        });
+        function changeStatus($method) {
+            var a = confirm('是否执行该操作?');
+            if(!a){
+                return;
+            }
+            if($method == '*'){
+                return ;
+            }
+            $.ajax({
+                url:ThinkPHP.APP + '/Raise/Room/changeStatus',
+                type:'POST',
+                data:{'id': id,'method':$method},
+                error:function(){
+                    alert('操作失败！');
+                    location.reload();
+                },
+                success:function(msg){
+                    if(msg.status == 1){
+                        location.reload();
+                    }else{
+                        alert(msg.info);
+                        location.reload();
+
+                    }
+                }
+            });
+        }
+        var config = JSON.parse('{$config}');
+        //var share_obj = new nativeShare('nativeShare',config);
+        function showPic(id,url){
+            $('#dialog_empty').show();
+            var html = '<div id="showpicZoom">'+
+                        '<img src="'+url+'" style="width:96%;margin: 0 auto;display: block;" onclick="hidedialog()">'+
+                        '<div>';
+            $('#empty_content').html(html);
+            $('#dialog_empty').append('<div id="share" style="z-index: 1003;width: 100%;color:#fff;"><div id="nativeShare"></div></div>');
+            new RTP.PinchZoom($('#showpicZoom'), 'maxZoom');
+            config.url = 'http://www.zfangw.net/index.php?s=Home/share/houses_thumb/id/' +id;
+            config.img = 'http://www.zfangw.net' +url;
+            share_obj = new nativeShare('nativeShare',config);
+        }
+
+    </script>
+</block>

@@ -1,0 +1,40 @@
+<extend name="Base/common" />
+<block name="body">
+    <style type="text/css">
+    .tip {
+        font-size: 1.5rem;
+        line-height: 2rem;
+        height: 2rem;
+        padding-left: 1rem;
+        margin: 10px 0;
+        color: #AAAAAA;
+    }
+
+    .btn_submit {
+        width: 12rem;
+    }
+    </style>
+    <form accept="" method="POST" enctype="multipart/from-data">
+        <center>
+            <div class="tip">
+                修改客户报备过期时间
+            </div>
+            <div>
+                <div>
+                    <input style="width: 5rem" type="number" name="over_time"  value="{$over_time}">天
+                </div>
+            </div>
+        </center>
+        <center style="display: -webkit-box;width: 100%:">
+            <input type="hidden" name="field" value="{$field}">
+            <button class="button btn_submit status_success" type="button" onclick="javascript:history.go(-1);">返回</button>
+            <button class="button btn_submit" type="submit">提交</button>
+        </center>
+    </form>
+</block>
+<block name="footer"></block>
+<block name="script">
+    <script type="text/javascript" charset="utf-8">
+
+    </script>
+</block>

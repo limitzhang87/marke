@@ -1,0 +1,194 @@
+<extend name="Base/common" />
+<block name="body">
+     <link href="__MCSS__/report.css" rel="stylesheet">
+    <link rel="stylesheet" href="__STATIC__/swiper/css/swiper.min.css">
+    <style>
+    html, body {
+      position: relative;
+      height: 100%;
+    }
+    body {
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color:#000;
+      margin: 0;
+      padding: 0;
+    }
+    .button{
+        width: auto !important;
+    }
+    .swiper-container {
+      width: 100%;
+      height: 100%;
+      overflow: visible; 
+    }
+
+    .swiper-container1 {
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        z-index: 10;
+    }
+    .swiper-slide {
+      text-align: center;
+      font-size: 1rem !important;
+      background: #fff;
+      width: auto !important;
+      margin-right: 5px !important;
+      /* Center slide text vertically */
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+    .swiper-slide:last-child{
+        width: 10px !important;
+    }
+  </style>
+	<style type="text/css">
+		th{
+            font-size: 10px;
+            background-color: rgb(200,200,200);
+            min-width:4rem;
+
+        }
+        td{
+            text-align: center;
+            width: auto;
+            word-break:keep-all;           /* 不换行 */
+            white-space:nowrap;          /* 不换行 */
+        }
+        th,td{
+            border: solid #e0e0e0;
+            border-width: 0 0 1px 1px;
+            padding: 5px 3px;
+            margin-left: -1px;
+            margin-top: -1px;
+        }
+
+        /*table tr:nth-child(odd){
+            background: #ccc;
+        }*/
+        #statistics {
+            margin: 10px;
+            font-size: 14px;
+            overflow-y: hidden;
+        }
+        #statistics table tbody tr{
+            margin: 5px 0;
+        }
+        #statistics table tbody tr:first-child>td:first-child{
+            border: solid #e0e0e0;
+            border-width: 1px 0 1px 1px;
+        }
+        #statistics table tbody tr:first-child>td:last-child{
+            border: solid #e0e0e0;
+            border-width: 1px 1px 1px 1px;
+        }
+        #statistics table tbody tr>td:first-child{
+            font-weight: bold;
+            text-align: left;
+        }
+        #statistics table tbody tr>td:last-child{
+            text-align: right;
+            border: solid #e0e0e0;
+            border-width: 0 1px 1px 1px;
+        }
+	</style>
+     <div style="height: 4rem;z-index: 50;white-space: nowrap;">
+        <div id="filterbox" style="margin-left: 5px;">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <volist name="_filter" id="vo">
+                    <div class="filter swiper-slide" id="{$vo.type}" style="display:inline-block;" data-type="{$vo.type}">
+                        <div class="dropdown-backdrop"></div>
+                        <div class="button"  data-value="{$vo['data'][0]['value']}">{$vo['data'][0]['title']}</div>
+                        <ul class="dropdown-menu {$vo.type}">
+                            <volist name="vo['data']" id="val">
+                            <li role="presentation">
+                                <a tabindex="-1" href="#" data-value='{$val.value}'>{$val.title}</a>
+                            </li>
+                            </volist>
+                        </ul>
+                    </div>
+                    </volist>
+                    <div class="swiper-slide" style="margin-top: 5px;">
+                        <input type="text" style="width: 8rem;"  name="date1" class="date"> - <input type="text" style="width: 8rem;" name="date2" class="date">
+                        <button class="button" style="width: 6.5rem;margin: 0 5px 0 5px;line-height: 1.8rem;" onclick="dateSearch();">日期查询</button>
+                    </div>
+                    <div class="swiper-slide" >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- 数据列表 -->
+    <!-- <div style="margin-left: 10px;display: -webkit-box;">
+        <select name="search_key">
+            <option value="name">客户姓名</option>
+            <option value="phone">手机号码</option>
+            <option value="is_intention">是否意向</option>
+            <option value="return_money">是否退意向金</option>
+            <option value="sales">置业顾问</option>
+            <option value="distribution">分销商</option>
+            <option value="manager">渠道经理</option>
+            <option value="supervisor"> 案场主管</option>
+            <option value="in_province">是否省内</option>
+             <option value="contract_no">是否签合同</option>
+            <option value="contract_no">合同编号</option>
+        </select>
+        <input type="text" name="kw" style="width: 8rem;">
+        <button class="button"  style="width: 6.5rem;margin: 5px 5px 0 5px;line-height: 1.8rem;"  id="searchbutton">重置</button>
+    </div> -->
+	<div id="statistics">
+    </div>
+    <center id="download"><button style="border: none;" class="status_raise" onclick="downloadStastic('{$_title}')">下载当前数据到execel</button></center>
+</block>
+<block name="script">
+    <link href="__STATIC__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="__MJS__/filter.js"></script>
+    <script type="text/javascript" src="__MJS__/customer.js"></script>
+    <script src=".__STATIC__/swiper/js/swiper.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $('.date').datetimepicker({
+                format: 'yyyy-mm-dd',
+                language: "zh-CN",
+                minView: 2,
+                autoclose: true
+            });
+            $('.time').datetimepicker({
+                format: 'yyyy-mm-dd hh:ii',
+                language: "zh-CN",
+                minView: 2,
+                autoclose: true
+            });
+        });
+        var swiper = new Swiper('.swiper-container', {
+          slidesPerView: 3,
+          spaceBetween: 30,
+          freeMode: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+        });
+        /*定义AJAX获取数据的函数名称*/
+        var funName = 'getStastics';
+        uid        = '{$uid}';
+        $(function(){
+            window[funName]();
+            //getList();
+        })
+    </script>
+</block>

@@ -1,0 +1,38 @@
+<block name="header">
+    <div class="header_fixed" style="background-color: {$bg_color}">
+        <div class="header_left">
+            <li class="back" ><li>
+        </div>
+        <div class="title">
+            {$_title}
+        </div>
+        <div class="header_right">
+            <li class="more" onclick="redirect('{$_right_url}');" style="{$_right_type}"><li>
+        </div>
+    </div>
+    <div style="height: 3.2rem;"></div>
+    <script type="text/javascript">
+    $('.header_left').on('click', function(){
+        window.history.go(-1);
+    });
+    function logout() {
+        $.ajax({
+            url: "{:U('login/logout')}",
+            type: "POST",
+            dataType: 'json',
+            success: function(data) {
+                if (data.status) {
+                    alert('退出成功！');
+                    setTimeout(function() {
+                        window.location.href = data.url;
+                    }, 1500);
+                } else {
+                    //self.find(".Validform_checktip").text(data.info);
+                }
+            },
+            error: function(er) {}
+        });
+    }
+    </script>
+</block>
+

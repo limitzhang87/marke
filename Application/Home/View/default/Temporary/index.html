@@ -1,0 +1,144 @@
+<extend name="Base/common" />
+<block name="body">
+	<style type="text/css">
+		table{
+            width: 80%;
+            margin-left: 5%;
+            font-size: 1.6rem;
+        }
+        tr{
+            margin: 5px 0;
+        }
+        tr>td:first-child{
+            min-width: 7rem;
+            font-weight:bold;
+            font-size: 1.3rem;
+            text-align: right;
+        }
+        td>img{
+           /* max-height: 20rem;*/
+           height: auto;
+        }
+        button[disabled="disabled"]{
+            background-color: #EBEBEB !important;
+            color: #000;
+        }
+        input[disabled="disabled"]{
+            background-color: #EBEBEB !important;
+            color: #000;
+        }
+	</style>
+    <table >
+    	<tr>
+            <td>楼盘名称：</td>
+            <td>{$info.houses_title}</td>
+        </tr>
+        <tr>
+            <td>客户姓名：</td>
+            <td>{$info.nick_name}</td>
+        </tr>
+        <tr>
+            <td>客户手机：</td>
+            <td>{$info.phone}</td>
+        </tr>
+    </table>
+    <if condition="$info['is_check'] eq 0 ">
+        <div style="width: 100%;margin: 10px 0;text-align: center;font-size: 1.3rem;">
+            您的注册的账户正在审核中...
+        </div>
+    <else/>
+        <div style="width: 100%;margin: 10px 0;text-align: center;font-size: 1.3rem;">
+            您的帐号已经通过审核
+        </div>
+        <div style="width: 100%;margin: 10px 0;text-align: center;font-size: 1.3rem;">
+            点击下面按钮获取系列号，
+        </div>
+         <div style="width: 100%;margin: 10px 0;text-align: center;font-size: 1.3rem;">
+            我们将会把系列号发送号您的手机号码上！
+        </div>
+        <center >
+            <button class="button status_success" type="button" onclick="getCode()" id="getCode" >获取系列号</button><br><br>
+            <input type="text" name="code" placeholder="系列号" id="code"><br>
+            <button class="button btn_submit status_success" disabled="disabled" id="submit" onclick="activation()">提交</button>
+        </center>
+    </if>
+    
+</block>
+<block name="footer">
+</block>
+<block name="script">
+    <script type="text/javascript">
+
+    var id = '{$info.id}';
+    function getCode() {
+        $.ajax({
+            url:'__CONTROLLER__/getCode',
+            type:'POST',
+            data:{'id':id},
+            error:function(){
+                alert('系列号获取失败！');
+            },
+            success:function(msg){
+                if(msg.status != 1){
+                    alert('系列号获取失败！');
+                    return ;
+                }
+                disableButton();
+            }
+        })
+    }
+    var time = 60;
+    function disableButton() {
+        var button = $('#getCode');
+        button.html(time + '秒后可重新生成');
+        button.attr('disabled','disabled');
+        button.removeAttr('onclick');
+        var timer = setInterval(function(){
+            time -= 1;
+            if(time <= 0){
+                button.html('生成系列号');
+                button.removeAttr('disabled');
+                button.attr('onclick','getCode()');
+                time = 60;
+                clearInterval(timer);
+                return ;
+            }
+            button.html(time + '秒后可重新生成');
+        },1000);
+    }
+
+    $("#code").bind("input propertychange",function(){
+        var value=$(this).val();
+        var button = $('#submit');
+        if(value == ''){
+            button.attr('disabled','disabled');
+        }else{
+            button.removeAttr('disabled');
+        }
+    });
+
+    function activation() {
+        var code = $('#code').val();
+        if(code == ''){
+            alert('系列号不能为空');
+            return;
+        }
+        $.ajax({
+            url:'__CONTROLLER__/activation',
+            type:'POST',
+            data:{'id':id,'code':code},
+            error:function(){
+                alert('激活失败！');
+            },
+            success:function(msg){
+                if(msg.status != 1){
+                    alert(msg.info + ',请重新登录！');
+                    return ;
+                }
+               alert(msg.info);
+               location.reload();
+            }
+        })
+    }
+    </script>
+</block>

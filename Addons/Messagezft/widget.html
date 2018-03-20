@@ -1,0 +1,114 @@
+<!--在线留言-->
+
+	<form id="MessagezftForm" class="form-horizontal" method="post" action="{:addons_url('Messagezft://Messagezft/update')}">
+			<eq name="config.title" value="1">
+				 
+				 <div class="my-zft"> <span class="my-icon-name label-left"></span> <label><input class="username form-control"  style="width:210px;" id="username" name="username" type="text" placeholder="请输入姓名" /> </label> </div>
+              
+             
+				   
+				      
+				   
+			</eq>
+			<eq name="config.summary" value="1">
+				
+				    <label for="summary" class="col-sm-2 control-label">留言内容</label>
+				  
+							<textarea name="summary" id="summary" class="summary form-control" placeholder="留言内容"></textarea>
+				   
+			</eq>
+			<eq name="config.username" value="1">
+			 
+				      <div class="my-zft"><span class="my-icon-phone  label-left"></span> <label><input class="phone form-control" style="width:210px;" id="phone" name="phone" type="text" placeholder="请输入联系电话" /> </label></div>
+				   
+				      
+				   
+				 
+			</eq>
+             <div class="my-zft">
+			<eq name="config.phone" value="1">
+			 	
+				   <span class="my-icon-house label-left"></span> <label>  <input class="title form-control"  id="title" name="title" type="text" placeholder="填写意向楼盘" /></label>
+				  
+				     
+				   
+			</eq>
+			<eq name="config.addr" value="1">
+				
+				    <label for="addr" class="col-sm-2 control-label">联系地址</label>
+				   
+				      <input class="addr form-control" id="addr" name="addr" type="text" placeholder="请输入联系地址" />
+				   
+			</eq>
+			<eq name="config.email" value="1">
+				
+				    <label for="email" class="col-sm-2 control-label">电子邮件</label>
+				   
+				      <input class="email form-control" id="email" name="email" type="text" placeholder="请输入电子邮件" />
+				  
+			</eq>
+			<eq name="config.qq" value="1">
+				
+				    <label for="qq" class="col-sm-2 control-label">QQ</label>
+				   
+				      <input class="qq form-control" id="qq" name="qq" type="text" placeholder="请输入QQ" />
+				   
+			</eq>
+			<eq name="config.type" value="1">
+				
+				    <label for="inputEmail3" class="col-sm-2 control-label">留言分类</label>
+				   
+				      <select class="form-control" name="type">
+							<option value="0">报名 </option>
+							<option value="1">咨询 </option>
+						</select>
+				   
+			</eq>
+			        
+					<button type="button" id="submitButton" class="ui-btn-order-right-now">
+						提交
+					</button>
+				</div>
+	</form>
+<script type="text/javascript" src="__ADDONROOT__/js/form.validate.js"></script>
+<script>
+	/**
+	 * MessagezftSubmit 在线留言
+	 *+---------------------------------
+	 * @author  Nzing Jan 17, 2012
+	 * @access public
+	 *+---------------------------------
+	 * @return void
+	 */
+  function MessagezftSubmit() {
+		var validate= {
+			title : {
+				required : true
+			},
+			summary : {
+				required : true
+			},
+			phone : {
+				phone : true
+			},
+			email : {
+				email : true
+			},
+			qq : {
+				unchinese : true
+			}
+		};
+		BSLQ.validator("MessagezftForm", validate, "NO");
+		if ("YES" != BSLQ.accomplish) {
+			var margintop = $('.vError').eq(0).offset().top - 30;
+			jQuery("html, body").animate({
+				scrollTop : margintop
+			}, 100);
+			return;
+		}
+		$('#MessagezftForm').submit();
+	};
+	$('#submitButton').click(function() {
+		MessagezftSubmit();
+	}); 
+</script>

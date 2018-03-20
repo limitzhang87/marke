@@ -1,0 +1,77 @@
+﻿<extend name="Base/common" />
+<block name="body">
+    <link rel="stylesheet" href="__STATIC__/farbtastic/farbtastic.css" type="text/css" />
+    <div>
+        <img class="swiper_img" src="__MIMG__/banner_1.png" style="width: 100%;">
+    </div>
+    <include file="nav"/>
+    <form class="form_group" method="POST" action="">
+        <div class="form_control">
+            <label>会员组名:</label>
+            <div class="form_control_div">
+                <input type="text" name="name" value="{$_data.name}">
+            </div>
+        </div>
+        <div class="form_control">
+            <label style="padding-left: 2rem;">备注:</label>
+            <div class="form_control_div">
+                <textarea name="remark" style="margin-bottom: 0px;height: 80px;">{$_data.remark}</textarea>
+            </div>
+        </div>
+        <div class="form_control">
+            <label>主题颜色:</label>
+            <div class="form_control_div">
+                <div class="form-item">
+                    <input type="text" id="color" name="bg_color" value="{$_data.bg_color}" style="width: 90%;" />
+                </div>
+                <div id="picker"></div>
+            </div>
+        </div>
+        <div style="width:100%;display: -webkit-box;">
+            <input type="hidden" name="id" value="{$_data.id}">
+            <input type="submit" style="width: 40%;margin: 0px 5%;display: block;"  name="" class="button btn_submit" value="提交">
+            <div style="width: 40%;margin: 0px 5%;" class="button btn_submit status_over" onclick="delGroup();">删除 </div>
+        </div>
+    </form>
+</block>
+<block name="script">
+    <script type="text/javascript" src="__STATIC__/farbtastic/farbtastic.js"></script>
+    <script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        $('#demo').hide();
+        $('#picker').farbtastic('#color');
+    });
+    $('#edit').addClass('type_on');
+
+    function delGroup(){
+        var res = confirm('是否删除该会员组，删除之后将不可恢复？');
+        if(res === false){
+            return ;
+        }
+        var id = '{$_data.id}';
+        $.ajax({
+            url:'__CONTROLLER__/delGroup',
+            type:'POST',
+            data:{'id':id},
+            beforsend:function(){
+                showdialog('dialog_load');
+            },
+            error:function(){
+                console.log(1);
+            },
+            complete:function(){
+                hidedailog();
+            },
+            success:function(msg){
+                if(msg.status == 1){
+                    alert('删除成功！');
+                    window.location.href = ThinkPHP.APP + 'Home/Group/index';
+                }else{
+                    alert(msg.info);
+                    window.location.href = document.referrer;
+                }
+            }
+        });
+    }
+    </script>
+</block>

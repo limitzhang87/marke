@@ -1,0 +1,95 @@
+/*盒子布局*/
+.con{
+	text-align: left;
+	width:702px;
+}
+.con_left{
+	float:left;
+	width:391px; 
+}
+.left_top{
+	line-height: 30px;
+	height:37px;
+}
+.top_left{
+	float:left;
+	width:50%;
+}
+.top_right{
+	text-align: right;
+	float:right;
+	width:50%;
+}
+.left_bottom{
+	line-height: 27px;
+	height: 27px;
+}
+.con_left li{
+width:78.2px;
+}
+.con_right{
+	padding-left:10px;
+	line-height:60px; 
+	float:right;
+	width:301px;
+	height:64px;
+}
+.con_right_s{
+	padding-left:10px;
+	float:right;
+	width:301px;
+}
+#a,#b,#c,#d,#e,#f,#g,#h,#i{
+	font-size: 14px;
+}
+.margin_ul{
+	margin-top:5px;
+	float:left;
+}
+/*左侧标题*/
+.topic{
+	text-align: right;
+	width: 200px;
+}
+.bigtopic{
+	clear:both;
+	line-height:60px; 
+	text-align: right;
+	width: 200px;
+	height: 65.5px;
+}
+.supertopic{
+	height:208px ;
+	width: 200px;
+	text-align: right;
+}
+/*label*/
+.logtit{
+	width:78.2px;
+	height: 21px;
+}
+/*input*/
+.inputtext{
+	font-size:14px;
+	height:23px;
+	border: 1px solid #9EC630; 
+	background: #FFF;
+	color: #333; 
+	width:495px;
+}
+.inputtext{
+	font-size:14px;
+	height:23px;
+	border: 1px solid #9EC630; 
+	background: #FFF;
+	color: #333; 
+	width:495px;
+}
+
+.inputtextarea{
+	font-size:14px;
+	border: 1px solid #9EC630; 
+	background: #FFF;
+	color: #333; 
+	resize: none;
+}

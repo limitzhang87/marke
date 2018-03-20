@@ -1,0 +1,144 @@
+<extend name="Base/common" />
+<block name="body">
+    <style type="text/css">
+        strong{
+            font-size: 1.8rem;
+            text-align: center;
+            display: block;
+            margin: 10px;
+        }
+        table{
+            font-size: 1.3rem;
+        }
+        tr{
+            width: 100%;
+            height: 2rem;
+        }
+        .tdl{
+            width:30%;
+            text-align: right;
+            font-weight: bolder;
+            font-family: Tahoma, Geneva, sans-serif;
+        }
+        h2{
+            font-size: 1.6rem;
+            height: 3rem;
+            line-height: 3rem;
+            border: solid red;
+            border-width: 0 0 2px 0;
+            padding-left: 10px;
+        }
+        input, textarea{
+            width: 98%;
+        }
+        input[type="checkbox"],input[type="radio"]{
+            width: auto;
+        }
+        textarea {
+            height: 3rem;
+        }
+        .h_item{
+            border: dashed #ABABAB;
+            border-width: 0 0 1px 0;
+            padding-bottom: 5px;
+            margin: 10px 0;
+        }
+        .h_title{
+            color: #8F8F8F;
+            font-weight: bolder;
+            font-size: 1.2em;
+            font-family: Tahoma, Geneva, sans-serif;
+        }
+        .button{
+            width: 12rem;
+            margin: 0 1rem;
+
+        }
+    </style>
+    <strong>
+        {$data.title}
+    </strong>
+    <div class="mod-hd"><h2>基本信息</h2></div>
+    <form method="POST">
+    <div style="width: 96%;margin: 10px auto;">
+        <form id="form" action="{:U('edit')}" method="post">
+        <!-- 基础文档模型 -->
+            <div id="tab{$key}" class="tab-pane <eq name="key" value="1">in</eq> tab{$key}">
+                <volist name="fields" id="field">
+                    <if condition="$field['is_show'] == 1 || $field['is_show'] == 3">
+                    <div class="h_item">
+                        <label class="h_title">{$field['title']}<span class="check-tips"><notempty name="field['remark']">（{$field['remark']}）</notempty></span></label>
+                        <div class="controls">
+                            <switch name="field.type">
+                                <case value="num">
+                                    <input type="text" name="{$field.name}" value="{$data[$field['name']]}">
+                                </case>
+                                <case value="string">
+                                    <input type="text" name="{$field.name}" value="{$data[$field['name']]}">
+                                </case>
+                                <case value="textarea">
+                                    <label>
+                                        <textarea name="{$field.name}">{$data[$field['name']]}</textarea>
+                                    </label>
+                                </case>
+                                <case value="date">
+                                <if condition="$field['name'] eq comptime or $field['name'] eq starttime or $field['name'] eq launchtime or $field['name'] eq openingtime ">
+                                    <php>$data[$field['name']]=($data[$field['name']]=='1970-01-01' or $data[$field['name']]=='0000-00-00')?'':$data[$field['name']]</php>
+                                     <input type="text" name="{$field.name}" class="text date" value="{$data[$field['name']]}" placeholder="请选择日期" />
+                                 <else/>
+                                    <input type="text" name="{$field.name}" class="text date" value="{$data[$field['name']]|date='Y-m-d',###}" placeholder="请选择日期" />
+                                </if>
+                                 </case>
+                                <case value="datetime">
+                                    <input type="text" name="{$field.name}"  value="{$data[$field['name']]|time_format}" placeholder="请选择时间" />
+                                </case>
+                                <case value="select">
+                                    <select name="{$field.name}">
+                                        <volist name=":parse_field_attr($field['extra'])" id="vo">
+                                            <option value="{$key}" <eq name="data[$field['name']]" value="$key">selected</eq>>{$vo}</option>
+                                        </volist>
+                                    </select>
+                                </case>
+                                <case value="radio">
+                                    <volist name=":parse_field_attr($field['extra'])" id="vo">
+                                        <label class="radio">
+                                        <input type="radio" value="{$key}" name="{$field.name}" <eq name="data[$field['name']]" value="$key">checked="checked"</eq>>{$vo}
+                                        </label>
+                                    </volist>
+                                </case>
+                                <case value="checkbox">
+                                    <volist name=":parse_field_attr($field['extra'])" id="vo">
+                                        <label class="checkbox">
+                                        <input type="checkbox" value="{$key}" name="{$field.name}[]" <if condition="check_document_position($data[$field['name']],$key)">checked="checked"</if>>{$vo}
+                                        </label>
+                                    </volist>
+                                </case>
+                                <case value="editor">
+                                    <label class="textarea">
+                                    <textarea name="{$field.name}">{$data[$field['name']]}</textarea>
+                                    {:hook('adminArticleEdit', array('name'=>$field['name'],'value'=>$data[$field['name']]))}
+                                    </label>
+                                </case>
+                            </switch>
+                        </div>
+                    </div>
+                    </if>
+                </volist>
+            </div>
+            <center style="display: -webkit-box;width: 100%:">
+                <input type="hidden" name="id" value="{$id}">
+                <button class="button btn_submit status_success" type="button" onclick="javascript:history.go(-1);">返回</button>
+                <button class="button btn_submit" type="submit">提交</button>
+            </center>
+        </form>
+        <!-- <div>
+            <div class="mod-hd"><h2>楼盘介绍</h2></div>
+            <ul style='padding:0 10px;font-size: 1.3rem;'>
+                <li style='color:#000;font-family:"微软雅黑"' class='fon-si'><p style='text-indent:2em'>{$data.content|op_t}</p></li>
+            </ul>
+        </div> -->
+    </div>
+     </form>
+</block>
+<block name="script">
+</block>

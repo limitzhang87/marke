@@ -1,0 +1,64 @@
+<extend name="Base/common" />
+<block name="body">
+    <style type="text/css">
+        .page {
+            height: 100%;
+            width: 50%;
+            font-size: 1.5rem;
+            line-height: 30px;
+            text-align: center;
+        }
+
+        .page_on {
+            width: 49.5%;
+            color: #f00;
+            border: #f00 solid;
+            border-width: 0 0 2px 0;
+        }
+
+    </style>
+    <form method="POST" action="" style="min-height: 20rem;width: 90%;margin: 0 auto;">
+        <div>
+            <p>(请按照以下格式填写认购时间:2017-01-01 12:00:00)</p>
+            <p style="font-size: 1.6rem;display: inline;">开盘时间: </p>
+            <input name="data[start_time]" class="time" value="{$info.start_time|date='Y-m-d h:i:s',###}">
+
+        </div>
+        <div >
+            <p>登录协议：</p>
+            <textarea name="data[agreement]" style="width: 100%;">{$info.agreement}</textarea>
+        </div>
+        <div >
+            <p>备注：</p>
+            <textarea name="data[remark]" style="width: 100%;">{$info.remark}</textarea>
+        </div>
+        <center>
+            <input type="hidden" name="data[id]" value="{$info.id}">
+            <button class="button btn_submit" type="submit">提交</button>
+        </center>
+    </form>
+</block>
+<block name="script">
+    <link href="__STATIC__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+    <php>if(C('COLOR_STYLE')=='blue_color') echo '
+        <link href="__STATIC__/datetimepicker/css/datetimepicker_blue.css" rel="stylesheet" type="text/css">';</php>
+    <link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+    <script type="text/javascript">
+    $(function() {
+        $('.date').datetimepicker({
+            format: 'yyyy-mm-dd',
+            language: "zh-CN",
+            minView: 2,
+            autoclose: true
+        });
+        $('.time').datetimepicker({
+            format: 'yyyy-mm-dd hh:ii:ss',
+            language: "zh-CN",
+            minView: 3,
+            autoclose: true
+        });
+    });
+    </script> 
+</block>

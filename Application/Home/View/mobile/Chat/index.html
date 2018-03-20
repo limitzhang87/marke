@@ -1,0 +1,57 @@
+<extend name="Base/common" />
+<block name="body">
+    <link rel="stylesheet" type="text/css" href="__MCSS__/chat.css">
+<!--     <link rel="stylesheet" type="text/css" href="__STATIC__/pullRefresh/style/main.css"> -->
+    <style type="text/css">
+        .loading-warp {
+            height: calc(40px + 1rem);
+            margin-top: calc(-40px + -1rem);
+        }
+    </style>
+    <div id="chatHtml" class="chatHtml">
+        <div class="loading-warp">
+            <center >
+                <img style="width: 30px;" src="__MIMG__/icon/load_3.gif" />
+                <div style="font-size: 1rem;">下拉开始刷新</div>
+            </center>
+        </div>
+        <!-- <div class="chat_user">
+            <div class="chat_head">
+                <img src="__MIMG__/icon/head_img_w.png">
+            </div>
+            <div class="chat_info">
+                <div class="chat_user_info">张继贤|13800000000</div>
+                <p class="chat_content">1</p>
+                <div class="chat_user_info">2017/8/14</div>
+            </div>
+        </div> -->
+    </div>
+</block>
+<block name="footer">
+    <footer class="footer_fixed">
+        <div>
+            <div class="emoji_button"></div>
+        </div>
+        <div class="chat_input">
+            <input type="text" id="content">
+        </div>
+        <div class="send">
+            <button id="send">发送</button>
+        </div>
+    </footer>
+</block>
+<block name="script">
+    <!-- 下拉刷新组件 -->
+    <!-- <script type="text/javascript" src="__STATIC__/pullRefresh/script/lib/touche.js"></script>
+    <script type="text/javascript" src="__STATIC__/pullRefresh/script/p-pull-refresh.js"></script> -->
+    <script type="text/javascript" src="__MJS__/chat.js"></script>
+    <script type="text/javascript">
+    </script>
+    <script type="text/javascript">
+    $(window).resize(function() {
+        $("#main-container").css("height", $(window).height() - 82);
+    }).resize();
+    user = JSON.parse('{$user}');
+    bg_color = '{$bg_color}';
+    </script>
+</block>

@@ -1,0 +1,32 @@
+<extend name="Base/common" />
+<block name="body">
+    <div>
+        <img class="swiper_img" src="__MIMG__/banner_1.png" style="width: 100%;">
+    </div>
+    <div>
+    <include file="nav"/>
+    <form action="" method="POST">
+        <div style="width: 100%;padding-top: 10px;font-size: 20px;text-align: center;">
+            添加底部公共栏
+        </div>
+        <div class="form_group" >
+        <volist name="bottomList" id="bottom">
+            <div class="form_control_div" style="font-size: 1.2rem;height: 2rem;line-height: 2.5rem;">
+                <input type="number" name="s_{$bottom['m_id']}" style="width: 2.5rem;height: 1.5rem;text-align: center;" value="{$bottom.sort}">
+                <input type="checkbox" name="group_menu_b[]" value="{$bottom['m_id']}" <if condition="in_array($bottom['m_id'],$gmm_ids)">checked="checked"</if>>{$bottom.title}
+            </div>
+        </volist>
+        </div>
+        <center>
+            <input type="hidden" name="id" value="{$_id}">
+            <button type="submit" class="button btn_submit" >提交</button>
+        </center>
+    </form>
+</block>
+<block name="script">
+    <script type="text/javascript">
+        hightLine('Group/bottomList');
+        var left = $('.group_on').offset().left - $(window).width() / 2 + $('.group_on').width() / 2;
+        $('.group_scroll').scrollLeft(left);
+    </script>
+</block>

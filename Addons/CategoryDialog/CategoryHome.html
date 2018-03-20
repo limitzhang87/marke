@@ -1,0 +1,66 @@
+
+<a id="map_box_baidumap_a" class="btn btn-primary btn-sm" data-event="Category">{$param.button_title}</a>
+
+
+<link rel="stylesheet" href="__STATIC__/plugins/artDialog/css/ui-dialog.css" />
+<script src="__STATIC__/plugins/artDialog/dist/dialog-plus.js"></script>
+<script src="__STATIC__/plugins/artDialog/lib/sea.js"></script>
+
+<script>
+
+	$('a[data-event=Category]').on('click', function () {
+		dialog({
+			id: 'test-dialog',
+			title: '分类选择',
+			width: '500px',
+			url: '{:addons_url("CategoryDialog://CategoryDialog/CategorySelect",$param)}&type=home&Category_id_new='+$('#Category_id').val(),
+			//quickClose: true,
+			onshow: function () {
+				console.log('onshow');
+			},
+			oniframeload: function () {
+				console.log('oniframeload');
+			},
+			onclose: function () {
+				if(this.returnValue){
+					var Category_arr=this.returnValue.split("|");
+				    	var id_array = new Array();
+					 	$('input[class="ids"]').each(function(){
+						     if ($(this).prop("checked") == true) {
+						    	id_array.push($(this).val());
+						     }
+						});
+		                $.ajax({
+		                  	url: "{$param.url}",
+		                  	data:{'ids'          : id_array.join(','),
+		                  		'category_id'    : Category_arr[0],
+		                  		'message'		 : Category_arr[2]},
+		                  	type: "POST",
+		                  	dataType:'json',
+		                  	success:function(e) {
+		               				if(e.status==1){
+		               					alert(e.message);
+		               					location.reload();
+		               					dialog.close(); // 关闭（隐藏）对话框
+		               					dialog.remove();
+		               				}else{
+		               					alert(e.message);
+		               				}
+		                      },
+		                  	error:function(er){
+		                  	}
+		                  	});
+				}
+				console.log('onclose');
+			},
+			onremove: function () {
+				console.log('onremove');
+			}
+		})
+		.showModal();
+		return false;
+	});
+
+
+</script>
+

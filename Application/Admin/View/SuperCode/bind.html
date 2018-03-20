@@ -1,0 +1,42 @@
+<extend name="Public/base" />
+
+<block name="body">
+    <div class="main-title cf">
+        <h2>新增邀请码</h2>
+    </div>
+    <!-- 标签页导航 -->
+<div class="tab-wrap">
+    <div class="tab-content">
+    <!-- 表单 -->
+    <form id="form" method="post" class="form-horizontal">
+        <!-- 基础文档模型 -->
+        <volist name="_list" id="vo">
+        <div id="tab" class="tab-pane in">
+            <label class="item-label">店家右边的按钮选择楼盘绑定邀请码</label>
+            <div class="controls" style="width: 400px;display: -webkit-box;">
+                <input type="hidden" name="id" value="{$vo.id}">
+                <input type="text"  class="text" style="width: 100px;" name="id" value="{$vo.code}" disabled="disabled">
+                {:hook('Houses_select')}
+                <input type="hidden" name="houses_title" value="">
+            </div>
+        </div>
+        </volist>
+        <div class="form-item cf">
+            <button class="btn submit-btn ajax-post hidden" onclick="getHousesTitle();" id="submit" type="submit"  target-form="form-horizontal">确 定</button>
+            <a class="btn btn-return" href="javascript:;" >返 回</a>
+        </div>
+    </form>
+    </div>
+</div>
+<script type="text/javascript">
+    function getHousesTitle(){
+        var houses_title = $('#houses_span').html();
+        if(houses_title == undefined || houses_title == ''){
+            setTimeout(getHousesTitle(),1000);
+        }else{
+            //console.log(houses_title);
+            $('input[name="houses_title"]').val(houses_title);
+        }
+    }
+</script>
+</block>

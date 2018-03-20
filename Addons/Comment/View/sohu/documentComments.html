@@ -1,0 +1,556 @@
+<notempty name="addon_comment_error">
+<div class="addon-comment-error">!!!{$addon_comment_error}!!!</div>
+</notempty>
+<link href="__ROOT__/Addons/comment/Public/comments.css' rel="stylesheet">
+<link href="__ROOT__/Addons/comment/Public/changyan2.css" rel="stylesheet">
+<link href="__ROOT__/Addons/comment/Public/default.css" rel="stylesheet">
+
+<?php if ($addon_comment_config['comment_enable'] == 0) { ?>
+<div class="disable">评论已经被关闭</div>
+<?php } else { ?>
+
+<div id="SOHUCS" style="width: 100%; height: auto;">
+	<div id="SOHU_MAIN">
+		<div class="sohu-comment-wrapper" id="SOHU-comment-main">
+			<div id="article_info_sohu">
+				<div
+					class="reset-g clear-g section-title-w  section-title-logoutStyle">
+					<div class="title-join-w">
+						<div class="join-wrap-w join-wrap-b">
+							<strong class="wrap-name-w wrap-name-b">评论</strong> <span
+								class="wrap-join-w wrap-join-b">(共<em
+								class="join-strong-gw join-strong-bg">{$addon_comment_count}</em>条评论)
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div id="comment_sohu">
+				<div id="zf_comment_lists" class="reset-g section-cbox-w"
+					node-type="cbox-wrapper">
+					<div class="clear-g cbox-block-w">
+						<div class="block-head-w">
+							<div class="head-img-w">
+								<a target="_self" href="javascript:void(0)"><img width="42"
+									height="42" alt="" onerror=""
+									src="__ROOT__/Addons/Comment/Public/uface.jpg"></a>
+							</div>
+						</div>
+						<div class="block-post-w block-post-default-e">
+							<div class="post-wrap-w post-wrap-b">
+								<div class="wrap-area-w">
+									<div style="position: relative; zoom: 1; z-index: 9;"
+										class="area-textarea-w">
+										<textarea class="textarea-fw textarea-bf" name="main">{$addon_comment_data['nickname']}你好，说点什么吧...</textarea>
+									</div>
+								</div>
+								
+								<div class="clear-g wrap-action-w wrap-action-b">
+									<div class="action-function-w action-function-b relative-z-w">
+										<ul class="clear-g">
+											<li class="function-face-w"><a title="表情"
+												class="effect-w" href="javascript:void(0)"><i
+													class="face-b"></i></a></li>
+											<!--<li class="function-at-w"><a href="javascript:void(0)" class="effect-w"><i class="at-b"></i></a></li>-->
+										</ul>
+
+
+										
+
+										 <div class="reset-g windows-define-dg face-wrapper-dw"
+											style="top: 40px; left: -2px; display: none;">
+											<div class="wrapper-cont-dw wrapper-cont-bd">
+												<ul class="clear-g" id='clear-g'>
+													<li><a href="javascript:void(0)" data_path="base"   data_ubb="/流汗"><img title="流汗" alt="流汗"	src="__ROOT__/Addons/comment/Public/face/new_face_01.gif" data_nuu="01"></a></li>
+													<li><a href="javascript:void(0)" data_path="base" data_ubb="/钱"><img title="钱" alt="钱"
+															src="__ROOT__/Addons/comment/Public/face/new_face_02.gif" data_nuu="02"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/发怒"><img title="发怒" alt="发怒"
+															src="__ROOT__/Addons/comment/Public/face/new_face_03.gif" data_nuu="03"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/浮云"><img title="浮云" alt="浮云"
+															src="__ROOT__/Addons/comment/Public/face/new_face_04.gif" data_nuu="04"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/给力"><img title="给力" alt="给力"
+															src="__ROOT__/Addons/comment/Public/face/new_face_05.gif" data_nuu="05"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/大哭"><img title="大哭" alt="大哭"
+															src="__ROOT__/Addons/comment/Public/face/new_face_06.gif" data_nuu="06"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/憨笑"><img title="憨笑" alt="憨笑"
+															src="__ROOT__/Addons/comment/Public/face/new_face_07.gif" data_nuu="07"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/色"><img title="色" alt="色"
+															src="__ROOT__/Addons/comment/Public/face/new_face_08.gif" data_nuu="08"></a></li>
+												</ul>
+												<ul class="clear-g" id='clear-g'>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/奋斗"><img title="奋斗" alt="奋斗"
+															src="__ROOT__/Addons/comment/Public/face/new_face_09.gif" data_nuu="09"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/鼓掌"><img title="鼓掌" alt="鼓掌"
+															src="__ROOT__/Addons/comment/Public/face/new_face_10.gif" data_nuu="10"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/鄙视"><img title="鄙视" alt="鄙视"
+															src="__ROOT__/Addons/comment/Public/face/new_face_11.gif" data_nuu="11"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/可爱"><img title="可爱" alt="可爱"
+															src="__ROOT__/Addons/comment/Public/face/new_face_12.gif" data_nuu="12"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/闭嘴"><img title="闭嘴" alt="闭嘴"
+															src="__ROOT__/Addons/comment/Public/face/new_face_13.gif" data_nuu="13"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/疑问"><img title="疑问" alt="疑问"
+															src="__ROOT__/Addons/comment/Public/face/new_face_14.gif" data_nuu="14"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/抓狂"><img title="抓狂" alt="抓狂"
+															src="__ROOT__/Addons/comment/Public/face/new_face_15.gif" data_nuu="15"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/惊讶"><img title="惊讶" alt="惊讶"
+															src="__ROOT__/Addons/comment/Public/face/new_face_16.gif" data_nuu="16"></a></li>
+												</ul>
+												<ul class="clear-g" id='clear-g'>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/可怜"><img title="可怜" alt="可怜"
+															src="__ROOT__/Addons/comment/Public/face/new_face_17.gif" data_nuu="17"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/弱"><img title="弱" alt="弱"
+															src="__ROOT__/Addons/comment/Public/face/new_face_18.gif" data_nuu="18"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/强"><img title="强" alt="强"
+															src="__ROOT__/Addons/comment/Public/face/new_face_19.gif" data_nuu="19"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/握手"><img title="握手" alt="握手"
+															src="__ROOT__/Addons/comment/Public/face/new_face_20.gif" data_nuu="20"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/拳头"><img title="拳头" alt="拳头"
+															src="__ROOT__/Addons/comment/Public/face/new_face_21.gif" data_nuu="21"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/酒"><img title="酒" alt="酒"
+															src="__ROOT__/Addons/comment/Public/face/new_face_22.gif" data_nuu="22"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/玫瑰"><img title="玫瑰" alt="玫瑰"
+															src="__ROOT__/Addons/comment/Public/face/new_face_23.gif" data_nuu="23"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/打酱油"><img title="打酱油" alt="打酱油"
+															src="__ROOT__/Addons/comment/Public/face/new_face_24.gif" data_nuu="24"></a></li>
+												</ul>
+											</div>
+										</div> 
+
+
+
+
+
+
+
+									</div>
+									<div class="clear-g action-issue-w">
+										<div class="issue-btn-w">
+											<a href="javascript:void(0)">
+												<button class="btn-fw btn-bf btn-fw-main">发布</button>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="post-login-w"></div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<if condition="$addon_comment_count==0">
+			<div id="list_sohu">
+				<div class="reset-g section-list-w">
+					<div class="list-comment-empty-w">
+						<div class="empty-prompt-w">
+							<span class="prompt-null-w prompt-null-b">还没有评论，快来抢沙发吧！</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<else />
+			<div id="list_sort_sohu"></div>
+			<div id="list_sohu" topicid="14583916">
+				<div class="reset-g section-list-w">
+					<div class="list-block-gw list-newest-w list-newest-b">
+						<div class="block-title-gw">
+							<ul class="clear-g">
+								<li><strong class="title-name-gw title-name-bg">最新评论</strong></li>
+							</ul>
+						</div>
+			
+			<volist name="addon_comment_data['list']" id="vo">
+			<div data-uid="{$vo.id}" data-pid="{$vo['pid']}"
+				class="clear-g block-cont-gw block-cont-bg comment-id-{$vo['id']}">
+				<div class="cont-head-gw">
+					<div class="head-img-gw">
+						<a target="_blank" href="{个人中心}"><img width="42" height="42"
+							alt="" onerror="" src="__ROOT__/Addons/Comment/Public/uface.jpg"></a>
+					</div>
+				</div>
+				<div class="cont-msg-gw">
+					<div class="msg-wrap-gw">
+						<div class="wrap-user-gw">
+							<span class="user-time-gw user-time-bg evt-time">{:time_format($vo['create_time'])}</span>
+							<span class="user-name-gw"> <a uid="{$vo.username}"
+								target="_blank" href="{个人中心}">{$vo.username}</a>
+							</span> <!-- TODO 用户IP或者id --><span class="user-address-gw">[{$vo.username}]</span>
+						</div>
+						<div class="wrap-issue-gw">
+							<p class="issue-wrap-gw">
+								<span class="wrap-word-bg">{$vo['content']|replace_content}
+								</span>
+							</p>
+						</div>
+						<div class="clear-g wrap-action-gw">
+							<div class="action-click-gw">
+								<i class="gap-gw"></i> <span
+									class="click-reply-gw click-reply-eg"><a
+									class="evt-reply" href="#quote">回复</a></span>
+							</div>
+							<div class="action-from-gw action-from-bg"></div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			</volist>
+			</div>
+			</div>
+			</div>
+			<div class="wrap-reply-gw" style="display: none;">
+				<div node-type="cbox-wrapper" class="reset-g section-cbox-w">
+					<div class="clear-g cbox-block-w">
+						<div class="block-head-w">
+							<div class="head-img-w"></div>
+						</div>
+						<div class="block-post-w block-post-default-e">
+							<div class="post-wrap-w post-wrap-b">
+								<div class="wrap-area-w">
+									<div class="area-textarea-w"
+										style="position: relative; zoom: 1; z-index: 9;">
+										<textarea name="add"  class="textarea-fw textarea-bf">来说两句吧...</textarea>
+									</div>
+								</div>
+								<div class="clear-g wrap-action-w wrap-action-b">
+									<div class="action-function-w action-function-b relative-z-w">
+										<ul class="clear-g">
+											<li class="function-face-w"><a href="javascript:void(0)"
+												class="effect-w" title="表情"><i class="face-b"></i></a></li>
+											<!--<li class="function-at-w"><a href="javascript:void(0)" class="effect-w"><i class="at-b"></i></a></li>-->
+										 </ul>
+
+										<div class="reset-g windows-define-dg face-wrapper-dw" 
+											style="top: 40px; left: -2px; display: none;">
+											<div class="wrapper-cont-dw wrapper-cont-bd">
+												<ul class="clear-g" id='clear-g'>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/流汗"><img title="流汗" alt="流汗"
+															src="__ROOT__/Addons/comment/Public/face/new_face_01.gif" data_nuu="01"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/钱"><img title="钱" alt="钱"
+															src="__ROOT__/Addons/comment/Public/face/new_face_02.gif" data_nuu="02"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/发怒"><img title="发怒" alt="发怒"
+															src="__ROOT__/Addons/comment/Public/face/new_face_03.gif" data_nuu="03"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/浮云"><img title="浮云" alt="浮云"
+															src="__ROOT__/Addons/comment/Public/face/new_face_04.gif" data_nuu="04"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/给力"><img title="给力" alt="给力"
+															src="__ROOT__/Addons/comment/Public/face/new_face_05.gif" data_nuu="05"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/大哭"><img title="大哭" alt="大哭"
+															src="__ROOT__/Addons/comment/Public/face/new_face_06.gif" data_nuu="06"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/憨笑"><img title="憨笑" alt="憨笑"
+															src="__ROOT__/Addons/comment/Public/face/new_face_07.gif" data_nuu="07"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/色"><img title="色" alt="色"
+															src="__ROOT__/Addons/comment/Public/face/new_face_08.gif" data_nuu="08"></a></li>
+												</ul>
+												<ul class="clear-g" id='clear-g'>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/奋斗"><img title="奋斗" alt="奋斗"
+															src="__ROOT__/Addons/comment/Public/face/new_face_09.gif" data_nuu="09"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/鼓掌"><img title="鼓掌" alt="鼓掌"
+															src="__ROOT__/Addons/comment/Public/face/new_face_10.gif" data_nuu="10"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/鄙视"><img title="鄙视" alt="鄙视"
+															src="__ROOT__/Addons/comment/Public/face/new_face_11.gif" data_nuu="11"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/可爱"><img title="可爱" alt="可爱"
+															src="__ROOT__/Addons/comment/Public/face/new_face_12.gif" data_nuu="12"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/闭嘴"><img title="闭嘴" alt="闭嘴"
+															src="__ROOT__/Addons/comment/Public/face/new_face_13.gif" data_nuu="13"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/疑问"><img title="疑问" alt="疑问"
+															src="__ROOT__/Addons/comment/Public/face/new_face_14.gif" data_nuu="14"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/抓狂"><img title="抓狂" alt="抓狂"
+															src="__ROOT__/Addons/comment/Public/face/new_face_15.gif" data_nuu="15"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/惊讶"><img title="惊讶" alt="惊讶"
+															src="__ROOT__/Addons/comment/Public/face/new_face_16.gif" data_nuu="16"></a></li>
+												</ul>
+												<ul class="clear-g" id='clear-g'>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/可怜"><img title="可怜" alt="可怜"
+															src="__ROOT__/Addons/comment/Public/face/new_face_17.gif" data_nuu="17"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/弱"><img title="弱" alt="弱"
+															src="__ROOT__/Addons/comment/Public/face/new_face_18.gif" data_nuu="18"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/强"><img title="强" alt="强"
+															src="__ROOT__/Addons/comment/Public/face/new_face_19.gif" data_nuu="19"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/握手"><img title="握手" alt="握手"
+															src="__ROOT__/Addons/comment/Public/face/new_face_20.gif" data_nuu="20"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/拳头"><img title="拳头" alt="拳头"
+															src="__ROOT__/Addons/comment/Public/face/new_face_21.gif" data_nuu="21"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/酒"><img title="酒" alt="酒"
+															src="__ROOT__/Addons/comment/Public/face/new_face_22.gif" data_nuu="22"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/玫瑰"><img title="玫瑰" alt="玫瑰"
+															src="__ROOT__/Addons/comment/Public/face/new_face_23.gif" data_nuu="23"></a></li>
+													<li><a href="javascript:void(0)" data_path="base"
+														data_ubb="/打酱油"><img title="打酱油" alt="打酱油"
+															src="__ROOT__/Addons/comment/Public/face/new_face_24.gif" data_nuu="24"></a></li>
+												</ul>
+											</div>
+										</div>
+
+
+
+
+
+									</div>
+									<div class="clear-g action-issue-w">
+										<div class="issue-btn-w">
+											<a href="javascript:void(0)"><button
+													class="btn-fw btn-bf btn-fw-main">发布</button></a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</if>
+<div id="page_sohu">
+	<div class="reset-g section-page-w">
+		<span class="page-wrap-w page-wrap-b addon-comment-pagination">
+			{$addon_comment_page} </span>
+	</div>
+</div>
+<div id="more_list_sohu"></div>
+<!--  <div class="reset-g section-service-w">
+	<div class="service-wrap-w service-wrap-b">
+		<a target="_blank" href="###">中房评论</a>
+	</div>
+</div>-->
+</div>
+</div>
+</div>
+<script type="text/javascript">
+	var $sohu=$('#SOHUCS');
+	var $sohu_wrapper=$('.block-cont-bg');
+	var $sohu_form=$('.wrap-reply-gw');
+	var lips = "{$addon_comment_data['nickname']}你好，说点什么吧...";
+	var zf_pid = "{$addon_comment_data['form']['pid']}";
+	var zf_did = "{$addon_comment_data['form']['did']}";
+	var con_num = "{$addon_comment_count}";
+	$(document).ready(function() {
+		$('textarea.textarea-fw').val(lips);
+		$(".area-textarea-w").removeClass("area-textarea-e");
+
+	});
+
+	//提交评论
+	$(".issue-btn-w")
+			.click(
+					function() {
+						if ($(this).parents(".post-wrap-w")
+								.find('.textarea-fw').val() == lips) {
+							$(this).parents(".post-wrap-w").find(
+									'textarea.textarea-fw').val("");
+						}
+						var that=this;
+						var url = "{:addons_url('Comment://Comment/submit')}";
+						if($(this).parents('.block-cont-bg').attr("data-uid")){
+							zf_pid=$(this).parents('.block-cont-bg').attr("data-uid");
+							}
+						
+						var content=$(this).parents(".post-wrap-w").find('.textarea-fw').val();
+						var username="{$addon_comment_data['nickname']}";
+						var datetime="{:time_format(NOW_TIME)}";
+						//content=toimg(content);
+						$.post(url, {
+							did : zf_did,
+							pid : zf_pid,
+							content :content
+						}, function(data, status) {
+							//js实现无刷新
+							
+							if(data["status"]){
+								add_content(zf_pid,username,content,datetime,data['id']);
+								$(that).parents('.post-wrap-w').append("<div id='con_success' style='background-color:#bbffc8;width:100%;height:20px;text-align:center;line-height:16px;padding:2px 0 2px;' >恭喜您，评论成功！</div>");
+								setTimeout("con_hide_succ()",2000);
+								return true;
+							}
+							else{
+								$(that).parents('.post-wrap-w').append("<div id='con_error' style='background-color:#ffdde3;width:100%;height:20px;text-align:center;line-height:16px;padding:2px 0 2px;' >抱歉，"+data["info"]+"</div>");
+								setTimeout("con_hide_err()",2000);
+								return true;
+							}
+							
+						
+							
+						
+						
+							
+							
+							
+							
+							/* window.location.href = window.location.toString()
+									.split("#")[0]
+									+ "#zf_comment_lists";
+							window.location.reload(); */
+						});
+
+						$(this).parents(".post-wrap-w")
+								.find(".area-textarea-w").removeClass(
+										"area-textarea-e");
+						$(this).parents(".post-wrap-w").find(
+								'textarea.textarea-fw').val(lips);
+
+					});
+
+	//隐藏tip
+	function con_hide_err(){
+		$sohu.find('#con_error').remove();
+	}
+	function con_hide_succ(e){
+		$sohu.find('#con_success').remove();
+	}
+	
+	
+	//焦点变化
+
+	$("textarea[name='main']").focus(myfocus);
+	$("textarea[name='main']").blur(myblur);
+	$("textarea[name='add']").focus(myfocus);
+	$("textarea[name='add']").blur(myblur);
+	//////////
+	function myblur() {
+
+		if ($(this).val() == "") {
+			$(this).val(lips);
+			$(this).parents(".area-textarea-w").removeClass("area-textarea-e");
+
+		}
+	}
+	function myfocus() {
+
+		if ($(this).val() == lips) {
+			$(this).val("");
+			$(this).parents(".area-textarea-w").addClass("area-textarea-e");
+		}
+	}
+	//表情弹出
+	$sohu.find(".action-function-w").click(function() {
+		//console.log($(".face-wrapper-dw").css('display'));
+
+		if ($(this).children(".face-wrapper-dw").css('display') == "none")
+			$(this).children(".face-wrapper-dw").show();
+		else
+			$(this).children(".face-wrapper-dw").hide();
+
+	});
+	//回复
+	$("body").on('click','.evt-reply',function(){
+		//console.log($(this).parents('.block-cont-bg').attr("data-uid"));
+        $sohu_form.appendTo($(this).parents('.msg-wrap-gw'));
+        $sohu_form.show();
+        //setPID($(this).attr('data-pid'));
+        return false;
+    });
+//回复格式
+	$sohu_wrapper.each(function(){
+        var pid = $(this).attr('data-pid');
+        if (pid != 0 ) {
+            if ($('.comment-id-'+pid).length > 0) {
+				$(this).removeClass('block-cont-gw');
+                $(this).addClass('commchild').appendTo('.comment-id-'+pid);
+				$(this).find(".action-click-gw").hide();   //隐藏回复2级留言
+                
+				
+            }
+            else {
+                $(this).find('.comment-content').eq(0).prepend('<div class="no-quote">引用评论已被删除或禁用</div>')
+            }
+        }
+    });
+    
+    //添加表情
+    $sohu.find(".face-wrapper-dw").find("li a").click(function(a){
+    	
+    	if ($(this).parents(".post-wrap-w").find('textarea.textarea-fw').val() == lips) {
+    		$(this).parents(".post-wrap-w").find('textarea.textarea-fw').val("");
+		}
+    	$(this).parents(".post-wrap-w").find('.area-textarea-w').addClass("area-textarea-e");
+    	var face=$(this).attr('data_ubb');
+    	var facenum=$(this).find('img').attr('data_nuu');
+    	
+    	$(this).parents(".post-wrap-w").find('textarea.textarea-fw').val($(this).parents(".post-wrap-w").find('textarea.textarea-fw').val()+'['+face+'|'+facenum+']');
+    	//;
+    })
+    //转换表情为图片
+    function toimg(e){
+    	url2="__ROOT__/Addons/comment/Public/face";
+    	var m=e.replace(/(\[\/([\u4e00-\u9fa5]+)\|(\d+)\])/g,"<img src='"+url2+"/new_face_$3.gif' alt='$2' title='$2' ubb='/$2'>");
+    	return m;
+    }
+    
+    //添加回复
+     function add_content(pid,user,con,date,uid){
+    	var content=toimg(con);
+    	if(con_num==0){
+    		$("#list_sohu").hide();
+    		$('#page_sohu').before("<div id='list_sohu'> <div class='reset-g section-list-w'> <div class='list-block-gw list-newest-w list-newest-b'> <div class='block-title-gw'> <ul class='clear-g'> <li><strong class='title-name-gw title-name-bg'>最新评论</strong></li> </ul> </div>  <div class='clear-g block-cont-gw block-cont-bg comment-id-"+uid+"'  data-uid='"+uid+"'> <div class='cont-head-gw'> <div class='head-img-gw'> <a href='{个人中心}' target='_blank'><img width='42' height='42' src='/Addons/Comment/Public/uface.jpg' onerror='' alt=''></a> </div> </div> <div class='cont-msg-gw'> <div class='msg-wrap-gw'> <div class='wrap-user-gw'> <span class='user-time-gw user-time-bg evt-time'>"+date+"</span> <span class='user-name-gw'> <a href='{个人中心}' target='_blank' >"+user+"</a> </span> <!-- <span class='user-address-gw'>["+user+"]</span> --> </div> <div class='wrap-issue-gw'> <p class='issue-wrap-gw'> <span class='wrap-word-bg'>"+content+"</span> </p> </div> <div class='clear-g wrap-action-gw'> <div class='action-click-gw'> <i class='gap-gw'></i> <span class='click-reply-gw click-reply-eg'><a href='#quote' class='evt-reply'>回复</a></span> </div> <div class='action-from-gw action-from-bg'></div> </div>  </div> </div> </div></div> </div> </div>");
+    		con_num++;
+    		$('.join-strong-gw').text(con_num);
+    	}else{
+    		
+		    	if(pid==0){
+		    		$('.block-cont-bg:first').before("<div class='clear-g block-cont-gw block-cont-bg comment-id-"+uid+"'  data-uid='"+uid+"'> <div class='cont-head-gw'> <div class='head-img-gw'> <a href='{个人中心}' target='_blank'><img width='42' height='42' src='/Addons/Comment/Public/uface.jpg' onerror='' alt=''></a> </div> </div> <div class='cont-msg-gw'> <div class='msg-wrap-gw'> <div class='wrap-user-gw'> <span class='user-time-gw user-time-bg evt-time'>"+date+"</span> <span class='user-name-gw'> <a href='{个人中心}' target='_blank' >"+user+"</a> </span> <span class='user-address-gw'>["+user+"]</span> </div> <div class='wrap-issue-gw'> <p class='issue-wrap-gw'> <span class='wrap-word-bg'>"+content+"</span> </p> </div> <div class='clear-g wrap-action-gw'> <div class='action-click-gw'> <i class='gap-gw'></i> <span class='click-reply-gw click-reply-eg'><a href='#quote' class='evt-reply'>回复</a></span> </div> <div class='action-from-gw action-from-bg'></div> </div>  </div> </div> </div>");	
+		    		con_num++;
+		    		$('.join-strong-gw').text(con_num);
+		    	}
+		    	else{
+		    		$sohu_form.hide();
+		    		$('.comment-id-'+pid).find('.cont-msg-gw:first').after("<div class='clear-g block-cont-bg commchild '> <div class='cont-head-gw'> <div class='head-img-gw'> <a href='{个人中心}' target='_blank'><img width='42' height='42' src='/Addons/Comment/Public/uface.jpg' onerror='' alt=''></a> </div> </div> <div class='cont-msg-gw'> <div class='msg-wrap-gw'> <div class='wrap-user-gw'> <span class='user-time-gw user-time-bg evt-time'>"+date+"</span> <span class='user-name-gw'> <a href='{个人中心}' target='_blank' >"+user+"</a> </span> <span class='user-address-gw'>["+user+"]</span> </div> <div class='wrap-issue-gw'> <p class='issue-wrap-gw'> <span class='wrap-word-bg'>"+content+"</span> </p> </div> <div class='clear-g wrap-action-gw'> <div class='action-from-gw action-from-bg'></div> </div>  </div> </div> </div>");
+		    		con_num++;
+		    		$('.join-strong-gw').text(con_num);
+		    	}
+    	}
+    	
+    }
+    
+    
+//clear reply
+  //  $("body").click(function(a) {
+//    	$sohu_form.hide();
+   // })
+</script>
+<?php }?>

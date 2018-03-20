@@ -1,0 +1,95 @@
+<extend name="Base/common" />
+<block name="body">
+<style type="text/css">
+    .unit_set_value label{
+        padding-left: 10px;
+        font-size: 1.5rem;
+        line-height: 3rem;
+    }
+    .tip div{
+        width: 100%;
+        text-align: center;
+        margin: 5px 0;
+        font-size: 1.5rem;
+        color: #8F8F8F;
+    }
+</style>
+    <form method="POST">
+        <div class="unit_set_item">
+            <div class="unit_set_title">栋号</div>
+            <div class="unit_set_value">
+                 <label>{$room.b_name}栋</label>
+            </div>
+        </div>
+        <div class="unit_set_item">
+            <div class="unit_set_title">单元号</div>
+            <div class="unit_set_value">
+                <label>{$room.u_name}单元</label>
+            </div>
+        </div>
+        <div class="unit_set_item">
+            <div class="unit_set_title">房号</div>
+            <div class="unit_set_value">
+               <label>{$room.room_number}</label>
+            </div>
+        </div>
+        <div class="unit_set_item">
+            <div class="unit_set_title">户型</div>
+            <div class="unit_set_value">
+                <label>{$room.apartment}房{$room.hall}厅{$room.kitchen}厨{$room.toilet}卫</label>
+            </div>
+        </div>
+        <div class="unit_set_item">
+            <div class="unit_set_title">建筑面积</div>
+            <div class="unit_set_value">
+                <label>{$room.area}m²</label>
+            </div>
+        </div>
+        <div class="unit_set_item">
+            <div class="unit_set_title">建筑单价</div>
+            <div class="unit_set_value">
+                <input class="input_m" type="" name="unit_price" class="input" value="{$room.unit_price}" <neq name="edit" value="1">disabled="disabled"</neq> >元/m²
+            </div>
+        </div>
+        <div class="unit_set_item">
+            <div class="unit_set_title">总价</div>
+            <div class="unit_set_value">
+                <label id="total_price">{$room.total_price}万元</label>
+            </div>
+        </div>
+        <if condition="$edit eq 1" >
+        <center >
+            <input type="hidden" name="id" value="{$room.id}">
+            <button class="button btn_submit">提交</button>
+        </center>
+        <else/>
+        <div class="tip">
+            <div>该房间不是属于未售状态，不能编辑</div>
+        </div>
+        </if>
+    </form>
+</block>
+<block name="script">
+    <script type="text/javascript">
+        var unit_price = '{$room.unit_price}';
+        var area = '{$room.area}'
+        $('input[name="unit_price"]').on('input onpropertychange',function(){
+            if($(this).val() == ''){
+                $('#total_price').html( '0万元');
+                return ;
+            }
+            var price = parseFloat($(this).val());
+            price = price.toFixed(2);
+            if(isNaN(price)){
+                alert('输入错误！');
+                $(this).val(unit_price);
+                var total_price = area *unit_price;
+                $('#total_price').html( total_price.toFixed(2) + '万元');
+                return;
+            }
+
+            var total_price = area *price/10000;
+            $('#total_price').html( total_price.toFixed(2) + '万元');
+        })
+    </script>
+</block>

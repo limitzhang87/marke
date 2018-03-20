@@ -1,0 +1,101 @@
+<extend name="Public/base" />
+<block name="body">
+    <!-- 标题栏 -->
+    <div class="main-title">
+        <h2>{$meta_title}</h2>
+    </div>
+    <div class="cf">
+        <div class="fl">
+            <a class="btn" href="{:U('add')}">新 增</a>
+            <!-- <button class="btn" onclick="toPost();">绑定楼盘</a> -->
+        </div>
+        <!-- 高级搜索 -->
+        <div class="search-form fr cf">
+            <div class="sleft">
+                <input type="text" name="nickname" class="search-input" value="{:I('title')}" placeholder="请输入用户昵称或者ID">
+                <a class="sch-btn" href="javascript:;" id="search" url="{:U('index')}"><i class="btn-search"></i></a>
+            </div>
+        </div>
+    </div>
+    <!-- 数据列表 -->
+    <div class="data-table table-striped">
+        <table class="">
+            <thead>
+                <tr>
+                    <th class="row-selected row-selected">
+                        <input class="check-all" type="checkbox" />
+                    </th>
+                    <th class="">ID</th>
+                    <th class="">二级域名</th>
+                    <th class="">系列号</th>
+                    <th class="">是否激活</th>
+                    <th class="">注册楼盘</th>
+                    <th class="">客户姓名</th>
+                    <th class="">客户手机</th>
+                    <th class="">通过时间</th>
+                </tr>
+            </thead>
+            <tbody>
+            <notempty name="_list">
+            <volist name="_list" id="vo">
+                <tr>
+                    <td>
+                        <input class="ids" type="checkbox" name="ids[]" value="{$vo.id}" />
+                    </td>
+                    <td>{$vo.id} </td>
+                    <td class="">{$vo.sld}</td>
+                    <td class="">{$vo.code}</td>
+                    <td class="">
+                        <eq name="vo.is_check" value="1">
+                        是
+                        <else/>
+                        否
+                        </eq>
+                    </td>
+                    <td class="">{$vo.houses_title}</td>
+                    <td class="">{$vo.nick_name}</td>
+                    <td class="">{$vo.phone}</td>
+                    <td class="">{$vo.check_time}</td>
+                </tr>
+            </volist>
+            <else/>
+                <td colspan="9" class="text-center"> aOh! 暂时还没有内容! </td>
+            </notempty>
+            </tbody>
+        </table>
+    </div>
+    <div class="page">
+        {$_page}
+    </div>
+</block>
+<block name="script">
+    <script type="text/javascript">
+
+    var ids = new Array();
+    function toPost() {
+        // target-form="ids" url="{:U('bind')}";
+        $("input:checkbox:checked").each(function(i,item){
+            ids.push($(item).val());
+        });
+
+        console.log(ids);
+        post('{:U(\'bind\')}',ids);
+    }
+    function post(URL, PARAMS) {
+        var temp = document.createElement("form");
+        temp.action = URL;
+        temp.method = "post";
+        temp.style.display = "none";
+        for (var x in PARAMS) {
+            var opt = document.createElement("textarea");
+            opt.name = 'ids[]';
+            opt.value = PARAMS[x];
+            // alert(opt.name)
+            temp.appendChild(opt);
+        }
+        document.body.appendChild(temp);
+        temp.submit();
+        return temp;
+    }
+    </script>
+</block>

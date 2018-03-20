@@ -1,0 +1,56 @@
+			<div class="group_scroll" onclick="console.log($('.group_scroll').scrollLeft());">
+			<volist name="groupList" id="vo">
+			    <if condition="$vo['id'] eq $_id">
+			        <div class="group_on">{$vo.name}</div>
+			    <else/>
+			        <div class="group" onclick="redirect('{:U('Group/'.ACTION_NAME,array('id'=>$vo['id']))}')">{$vo.name}</div>
+			    </if>
+			</volist>
+			</div>
+			<style type="text/css">
+				.type{
+					display: -webkit-box;
+					border-bottom: solid #000 2px;
+					height: 30px;
+				}
+				.type div{
+					width: 50px;
+				}
+				.type div div{
+					cursor: pointer;
+					height: 30px;
+					text-align: center;
+					line-height: 30px;
+				}
+				.type_on div{
+					color:red !important;
+					/*border: solid #fff; 
+					border-width:  0 0 2px 0;*/
+					border-left: solid #000;
+					border-left-width: 1px;
+					border-right: solid #000;
+					border-right-width: 1px;
+					border-top: solid #000;
+					border-top-width: 1px;
+					border-bottom: solid #fff;
+					border-bottom-width: 2px; 
+					z-index: 10;
+					margin-bottom: -1px;
+					height: 29px !important;
+				}
+			</style>
+
+			<div class="type">
+				<div  id="auth" onclick="redirect('{:U('Group/menuList',array('id'=>$_id))}')">
+		       		<div class="">菜单</div>
+			    </div>
+			    <div  id="bottom" onclick="redirect('{:U('Group/bottomList',array('id'=>$_id))}')">
+		       		<div class="">底部</div>
+			    </div>
+			    <div id="user"  onclick="redirect('{:U('Group/user',array('id'=>$_id))}')">
+			       	<div class="">会员</div>
+			    </div>
+			    <div id="edit"  onclick="redirect('{:U('Group/edit',array('id'=>$_id))}')">
+			       	<div class="">编辑</div>
+			    </div>
+			</div>

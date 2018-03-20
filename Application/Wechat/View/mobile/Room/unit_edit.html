@@ -1,0 +1,119 @@
+<extend name="Base/common" />
+<block name="body">
+    <form action="" method="POST">
+        <div class="unit_set">
+            <div class="unit_set_item">
+                <div class="unit_set_title">单元名称（序号）:</div>
+                <div class="unit_set_value">
+                    <input class="input_m"  class="input" id="u_name" name="u_name" value="{$_unit.u_name}">
+                </div>
+            </div>
+            <div class="unit_set_item">
+                <div class="unit_set_title">每层房间套数:</div>
+                <div class="unit_set_value">
+                    <input class="input_s" type="number" name="room_num" value="{$_unit.room_num}" disabled="disabled">
+                </div>
+            </div>
+            <div class="unit_set_item">
+                <div class="unit_set_title">楼层区间:</div>
+                <div class="unit_set_value">
+                    <input class="input_s" type="number" name="floor_start" value="{$_unit.floor_start}" disabled="disabled"><span style="margin: 0 10px;">-</span>
+                    <input class="input_s" type="number" name="floor_over" value="{$_unit.floor_over}" disabled="disabled">
+                </div>
+            </div>
+        </div>
+        <div class="button_l btn_submit status_success" onclick="editUname();" >修改单元名称</div>
+        <div class="sameroom_set">
+            <div class="room_scroll">
+                <volist name="_sameroom" id="vo">
+                    <div class="group" id="room_{$key+1}">{$vo['r_name']}<php>dump($vo);</php></div>
+                </volist>
+            </div>
+            <div class="room_page">
+                <volist name="_sameroom" id="vos" k="key">
+                    <div class="room_set" id="page_{$key+1}">
+                        <volist name="_fields" id="vo" key="k">
+                        <if condition="$vo['name'] eq 'thumb' ">
+                            <div class="unit_set_item">
+                                <div class="unit_set_title">{$vo.title}</div>
+                                <div class="unit_set_value">
+                                    <if condition="$vos[$vo[name]] eq '' ">
+                                    无
+                                    <else/>
+                                        如下
+                                    </if>
+                                </div>
+                            </div>
+                            <if condition="$vos[$vo[name]] neq '' ">
+                                <php>$vos[$vo['name']] =  explode(',',$vos[$vo['name']]);</php>
+                                <volist name="vos[$vo['name']]" id="thumb">
+                                <div  style="width:90%;margin:5px auto;">
+                                    <img src="__ROOT__{:get_cover($thumb)}" style="width:100%;">
+                                </div>
+                                </volist>
+                            </if>
+                        <else/>
+                            <div class="unit_set_item">
+                                <div class="unit_set_title">{$vo.title}</div>
+                                <div class="unit_set_value">
+                                    <input class="input_m" type="" class="input" name="{$vo.name}[]" value="{$vos[$vo[name]]}" disabled="disabled">
+                                </div>
+                            </div>
+                        </if>
+                        </volist>
+                    </div>
+                </volist>
+            </div>
+        </div>
+        <center id="button" >
+            <input type="hidden" name="b_id" value="{$_building.b_id}">
+            <input type="hidden" name="u_order" value="{$_building.u_order}">
+            <input type="hidden" name="b_name" value="{$_building.b_name}">
+            <input type="hidden" name="u_id" value="{$_unit.id}">
+            <button class="button_l btn_submit" type="submit">清除重写</button>
+        </center>
+    </form>
+</block>
+<block name="script">
+    <script type="text/javascript" charset="utf-8">
+    $('#room_1').addClass('group_on');
+    $('#page_1').addClass('show');
+    $('.sameroom_set').removeClass('hide');
+    $('#button').removeClass('hide');
+
+    /**
+     * 点击套房，显示对应页面
+     */
+    $('.group').click(function() {
+        $('.show').removeClass('show');
+        $('.group_on').removeClass('group_on');
+        var roomID = $(this).attr('id');
+        var array = roomID.split('_');
+        $('#room_' + array[1]).addClass('group_on');
+        $('#page_' + array[1]).addClass('show');
+    });
+
+    function editUname() {
+        var u_name = $('#u_name').val();
+        var u_id = '{$_unit.id}';
+        $.ajax({
+            url:'__CONTROLLER__/editUname',
+            data:{'u_id':u_id,'u_name':u_name},
+            type:'POST',
+            error:function(){
+                alert('修改失败！');
+            },
+            success:function(msg){
+                if(msg.status == 1){
+                    alert('修改成功！');
+                }else{
+                    alert('修改失败！');
+                }
+            },
+            complete:function(){
+                location.reload();
+            }
+        })
+    }
+    </script>
+</block>

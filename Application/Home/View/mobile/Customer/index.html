@@ -1,0 +1,134 @@
+<extend name="Base/common" />
+<block name="body">
+    <style type="text/css">
+        .block{
+            width: 6rem;
+            margin: 10px;
+            height: 6rem;
+            float: left;
+            border-radius: 4px;
+            box-shadow: 1px 2px 3px 0 #ACACAC;
+            background-color: rgba(255,250,205,0.8);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+       /* .block>.icon{
+            width: 5rem;
+            height: 5rem;
+            margin: 0.5rem auto;
+            background: url('__MIMG__/icon/icon_houses.png') no-repeat;
+            background-size: 5rem;
+        }*/
+        .blick_title{
+            height: 2rem;
+            margin: 1rem 4px 0 4px;
+        }
+    </style>
+    <!-- 在父标签加上overfl:hidden可以解决子标签使用float，父标签无法自适应的问题 -->
+    <center style=" overflow: hidden">
+        <if condition="is_auth(AUTH_CUSTOMER_ADD) || is_auth(AUTH_CUSTOMER_MANAGE)">
+        <div class="block" onclick="redirect('{:U('add')}')">
+            <div class="icon"></div>
+            <div class="blick_title">客户信息添加</div>
+        </div>
+        </if>
+        <div class="block"  onclick="redirect('{:U('all')}')">
+            <div class="icon"></div>
+            <div class="blick_title">总客户统计表</div>
+        </div>
+        <div class="block"  onclick="redirect('{:U('intention')}')">
+            <div class="icon"></div>
+            <div class="blick_title">意向客户统计表</div>
+        </div>
+        <div class="block"  onclick="redirect('{:U('intention_contrack')}')">
+            <div class="icon"></div>
+            <div class="blick_title">已意向登记未转定客户统计表</div>
+        </div>
+        <div class="block"  onclick="redirect('{:U('contract')}')">
+            <div class="icon"></div>
+            <div class="blick_title">合同统计表</div>
+        </div>
+        <div class="block"  onclick="redirect('{:U('contract_over')}')">
+            <div class="icon"></div>
+            <div class="blick_title">已完成合同统计表</div>
+        </div>
+        <div class="block"  onclick="redirect('{:U('contract_unover')}')">
+            <div class="icon"></div>
+            <div class="blick_title">未完成合同统计表</div>
+        </div>
+        <div class="block"  onclick="redirect('{:U('get_contract')}')">
+            <div class="icon"></div>
+            <div class="blick_title">已完成收款合同统计表</div>
+        </div>
+        <div class="block"  onclick="redirect('{:U('unget_contract')}')">
+            <div class="icon"></div>
+            <div class="blick_title">未完成收款合同统计表</div>
+        </div>
+        <div class="block"  onclick="redirect('{:U('bank_mortgage_contract')}')">
+            <div class="icon"></div>
+            <div class="blick_title">银行按揭客户合同统计表</div>
+        </div>
+        <div class="block"  onclick="redirect('{:U('ot_payment_contract')}')">
+            <div class="icon"></div>
+            <div class="blick_title">一次性付款客户合同计表</div>
+        </div>
+        <div class="block"  onclick="redirect('{:U('installment_contract')}')">
+            <div class="icon"></div>
+            <div class="blick_title">分期付款客户合同统计表</div>
+        </div>
+        <div class="block"  onclick="redirect('{:U('deposit_contract')}')">
+            <div class="icon"></div>
+            <div class="blick_title">已交定金未签合同统计表</div>
+        </div>
+        <div class="block"  onclick="redirect('{:U('in_province')}')">
+            <div class="icon"></div>
+            <div class="blick_title">省内客户统计表</div>
+        </div>
+        <div class="block"  onclick="redirect('{:U('out_province')}')">
+            <div class="icon"></div>
+            <div class="blick_title">省外客户统计表</div>
+        </div>
+        <div class="block"  onclick="redirect('{:U('sales')}')">
+            <div class="icon"></div>
+            <div class="blick_title">置业顾问统计表</div>
+        </div>
+        <div class="block"  onclick="redirect('{:U('distribution')}')">
+            <div class="icon"></div>
+            <div class="blick_title">分销商统计表</div>
+        </div>
+        <div class="block"  onclick="redirect('{:U('manager')}')">
+            <div class="icon"></div>
+            <div class="blick_title">渠道经理统计表</div>
+        </div>
+        <div class="block"  onclick="redirect('{:U('supervisor')}')">
+            <div class="icon"></div>
+            <div class="blick_title">案场主管统计表</div>
+        </div>
+        <div class="block"  onclick="redirect('{:U('deposit_return')}')">
+            <div class="icon"></div>
+            <div class="blick_title">退定金客户统计表</div>
+        </div>
+        <div class="block"  onclick="redirect('{:U('check_out')}')">
+            <div class="icon"></div>
+            <div class="blick_title">退房客户统计表</div>
+        </div>
+
+        <if condition="is_auth(AUTH_CUSTOMER_MANAGE)">
+        <div class="block"  onclick="redirect('{:U('statistics')}')">
+            <div class="icon"></div>
+            <div class="blick_title">合同管理汇总表</div>
+        </div>
+        </if>
+        <!-- 同解决子标签使用float而父标签无法自适应的问题 -->
+       <!--  <div style="clear: both;"></div> -->
+    </center>
+    <if condition="is_auth(AUTH_CUSTOMER_ADD) || is_auth(AUTH_CUSTOMER_MANAGE)">
+        <div class="fixed_add" style="background-color: {$bg_color}; padding: 6px;" onclick="redirect('{:U('add')}')">
+            <img src="__MIMG__/icon/add_big.png">
+        </div>
+    </if>
+</block>
+<block name="script">
+    <script type="text/javascript">
+    </script>
+</block>

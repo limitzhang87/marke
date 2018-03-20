@@ -1,0 +1,180 @@
+<extend name="Base/common" />
+<block name="body">
+	<style type="text/css">
+        h3 {
+            text-align: center;
+        }
+        .data-table{
+            margin: 0 1% 10px 1%;
+            width: 98%;
+            overflow-x: auto;
+        }
+        /*.data-table>.table-striped>table>thead>tr{
+            position: fixed;
+            top: 8;
+        }*/
+        .trfixed {
+            position: fixed;
+            top: 10;
+        }
+        .table-head{
+            position: fixed;
+            top: 9;
+            height: 2rem;
+        }
+        .table-striped{
+            /*min-width: 2180px;*/
+            margin: 5px auto;
+        }
+        th{
+            font-size: 10px;
+            background-color: rgb(200,200,200);
+            min-width:4rem;
+
+        }
+        td{
+            text-align: center;
+            width: auto;
+            word-break:keep-all;           /* 不换行 */
+            white-space:nowrap;          /* 不换行 */
+        }
+        th,td{
+            border: solid #e0e0e0;
+            border-width: 0 0 1px 1px;
+            padding: 5px 3px;
+            margin-left: -1px;
+            margin-top: -1px;
+        }
+        table tr{
+            border: solid #FFF;
+            border-width: 0 0 1px 0;
+        }
+        /*table tr:nth-child(odd){
+            background: #ccc;
+        }*/
+        #statistics {
+            margin: 0 1rem;
+        }
+        #statistics table tbody tr{
+            margin: 5px 0;
+        }
+        #statistics table tbody tr>td:first-child{
+        	text-align: right;
+        }
+        #statistics table tbody tr>td:last-child{
+        	text-align: left;
+        }
+        .page{
+            width: 98%;
+            margin: 10px 1%;
+            text-align: center;
+        }
+        .page>div>a,.page>div> span{
+            width: 1rem;
+            padding: 5px 10px;
+            border: solid #EBEBEB 1px;
+        }
+        .page>div>.current{
+            border: solid;
+            border-color: #EBEBEB #EBEBEB red;
+            border-width: 1px 1px 2px 1px;
+            padding-bottom: 4px;
+            color: red;
+        }
+        .page>div>a{
+            text-decoration:none
+        }
+        .page>div>a:link {
+            color: #000000;
+            text-decoration: none;
+        }
+        .page>div>a:visited ,.page>div>a:hover{
+            color: #000000;
+            text-decoration: none;
+        }
+        .page>div>a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <!-- 数据列表 -->
+    <div style="float: right;margin-right: 10px;">
+        <span>
+            <select name="search_key">
+                <option value="name">客户姓名</option>
+                <option value="phone">手机号码</option>
+                <option value="sales_name">置业顾问</option>
+                <option value="distribution">分销商</option>
+                <option value="in_province">是否省内</option>
+                <option value="contract_no">合同编号</option>
+            </select>
+        </span>
+        <span>
+            <input type="text" name="kw" style="width: 8rem;">
+            <button class="button"  id="searchbutton">重置</button>
+        </span>
+    </div>
+    <div class="data-table" id="tabledata">
+    </div>
+    <div class="pageShow">
+    </div>
+    <div id="statistics1">
+    </div>
+     <center id="download"><button style="border: none;" class="status_raise" onclick="downloadExcel('{$_title}')">下载当前数据到execel</button></center>
+</block>
+<block name="script">
+    <script type="text/javascript" src="__MJS__/customer.js"></script>
+    <script type="text/javascript">
+        fields     = '{$fields}';
+        unfields   = '{$unfields}';
+        search_key = '{$search_key}';
+        kw         = '{$kw}';
+        sfields    = '{$sfields}';
+        order      = '{$order}';
+        page       = 1;
+        where      = '{$where}';
+        uid        = '{$uid}';
+    	getList();
+        $('input[name="kw"]').on('input propertychange',function(){
+            kw = $.trim($(this).val());
+            if(kw == ''){
+                $('#searchbutton').html('重置');
+            }else{
+                $('#searchbutton').html('搜索');
+            }
+        })
+        $('#searchbutton').click(function(){
+            search_key = $('select[name="search_key"]').val();
+            kw = $('input[name="kw"]').val();
+            kw = $.trim(kw);
+            if(kw == ''){
+                if(confirm('是否重置搜索条件')){
+                    fields     = '{$fields}';
+                    unfields   = '{$unfields}';
+                    search_key = '{$search_key}';
+                    kw         = '{$kw}';
+                    sfields    = '{$sfields}';
+                    order      = '{$order}';
+                    page       = 1;
+                    where      = '{$where}';
+                    getList();
+                }
+                return;
+            }
+            if(search_key == 'phone' && kw.length >= 11){
+                alert('抱歉，手机长度不能超过11个字符');
+                return ;
+            }
+            if(search_key == 'in_province'){
+                if(kw == '是'){
+                    kw = 1;
+                }else if(kw == '否'){
+                    kw = 0;
+                }else{
+                    alert('抱歉，请输入“是”或“否”');
+                    return;
+                }
+            }
+            getList();
+        })
+    </script>
+</block>

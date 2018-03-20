@@ -1,0 +1,95 @@
+<extend name="Base/common" />
+<block name="body">
+    <style type="text/css">
+        .data-table{
+            margin: 10px 1%;
+            width: 98%;
+            overflow-x: auto;
+        }
+        .table-striped{
+            /*min-width: 2180px;*/
+            margin: 5px 0;
+        }
+        th{
+            font-size: 10px;
+            word-break:keep-all;           /* 不换行 */
+            white-space:nowrap;          /* 不换行 */
+
+        }
+        td{
+            text-align: center;
+            width: auto;
+        }
+        th,td{
+            border: solid #E0E0E0;
+            border-width: 1px 1px 1px 1px;
+            padding: 5px 3px;
+            margin-left: -1px;
+            margin-top: -1px;
+
+        }
+        .page{
+            width: 98%;
+            margin: 10px 1%;
+            text-align: center;
+        }
+        .page>div>a,.page>div> span{
+            width: 1rem;
+            padding: 5px 10px;
+            border: solid #EBEBEB 1px;
+        }
+        .page>div>.current{
+            border: solid;
+            border-color: #EBEBEB #EBEBEB red;
+            border-width: 1px 1px 2px 1px;
+            padding-bottom: 4px;
+            color: red;
+        }
+        .page>div>a{
+            text-decoration:none
+        }
+        .page>div>a:link {
+            color: #000000;
+            text-decoration: none;
+        }
+        .page>div>a:visited ,.page>div>a:hover{
+            color: #000000;
+            text-decoration: none;
+        }
+        .page>div>a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <!-- 数据列表 -->
+    <div class="data-table">
+        <div class="table-striped">
+            <table border="0" cellspacing="0" cellpadding="0">
+                <!-- 表头 -->
+                <thead>
+                    <tr>
+                        <volist name="list_grids" id="field">
+                            <th>{$field.title}</th>
+                        </volist>
+                    </tr>
+                </thead>
+
+                <!-- 列表 -->
+                <tbody>
+                    <volist name="list_data" id="data">
+                        <tr>
+                            <volist name="list_grids" id="grid">
+                                <td>{:get_list_field($data,$grid,$model)}</td>
+                            </volist>
+                        </tr>
+                    </volist>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="page">
+        {$_page|default=''}
+    </div>
+</block>
+
+<block name="script">
+</block>

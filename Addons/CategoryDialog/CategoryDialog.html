@@ -1,0 +1,43 @@
+
+<span id="Category_span">{$Category_title}</span> 
+<input type="hidden" name="category_id" id="Category_id" value="{$param.Category_id|default=''}"/>
+<a  class="btn btn_map selectImg_map" data-event="Category">选择分类</a>
+
+
+<link rel="stylesheet" href="__STATIC__/plugins/artDialog/css/ui-dialog.css" />
+<script src="__STATIC__/plugins/artDialog/dist/dialog-plus.js"></script>
+<script src="__STATIC__/plugins/artDialog/lib/sea.js"></script>
+
+<script>
+
+	$('a[data-event=Category]').on('click', function () {
+		dialog({
+			id: 'test-dialog',
+			title: '分类选择',
+			width: '500px',
+			url: '{:addons_url("CategoryDialog://CategoryDialog/CategorySelect",$param)}&Category_id_new='+$('#Category_id').val(),
+			//quickClose: true,
+			onshow: function () {
+				console.log('onshow');
+			},
+			oniframeload: function () {
+				console.log('oniframeload');
+			},
+			onclose: function () {
+				var Category_arr=this.returnValue.split("|");
+				if(this.returnValue){
+					 $('#Category_id').val(Category_arr[0]);
+					 $('#Category_span').html(Category_arr[1]);
+				}
+				console.log('onclose');
+			},
+			onremove: function () {
+				console.log('onremove');
+			}
+		})
+		.showModal();
+		return false;
+	});
+
+</script>
+

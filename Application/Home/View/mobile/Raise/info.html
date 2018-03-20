@@ -1,0 +1,176 @@
+<extend name="Base/common" />
+<block name="body">
+    <style type="text/css">
+        table{
+            width: 80%;
+            margin-left: 5%;
+            font-size: 1.6rem;
+        }
+        tr{
+            margin: 5px 0;
+        }
+        tr>td:first-child{
+            min-width: 7rem;
+            font-weight:bold;
+            font-size: 1.3rem;
+        }
+        td>img{
+           /* max-height: 20rem;*/
+           height: auto;
+        }
+        .info{
+            border: solid #EBEBEB 1px;
+            margin:5px 10px;
+            border-radius: 4px;
+            min-height: 10rem;
+            width: calc(100%-10px);
+            padding: 10px 5px;
+        }
+        .info>div{
+            height: 2rem;
+            line-height: 2rem;
+            float: left;
+        }
+        .l_info{
+            width: 100%;
+            display: -webkit-box;
+        }
+        .s_info{
+            width: 49%;
+            display: -webkit-box;
+        }
+        .info_title{
+            min-width: 6rem;
+            font-weight: bold;
+        }
+    </style>
+    <table >
+        <tr>
+            <td>客户姓名：</td>
+            <td>{$info.cus_name}</td>
+        </tr>
+        <tr>
+            <td>客户手机：</td>
+            <td>{$info.cus_phone}</td>
+        </tr>
+        <tr>
+            <td>凭证图片：</td>
+            <td><img src="__ROOT__{:get_cover($info['voucher_thumb'])}" onclick="show_pic('{$info[\'voucher_thumb\']}','__ROOT__{:get_cover($info[\'voucher_thumb\'])}')"></td>
+        </tr>
+        <tr>
+            <td>凭证编码：</td>
+            <td>{$info.voucher_number}</td>
+        </tr>
+        <tr>
+            <td>顾问姓名：</td>
+            <td>{$info.user_name}</td>
+        </tr>
+        <tr>
+            <td>顾问电话：</td>
+            <td>{$info.user_phone}</td>
+        </tr>
+        <tr>
+            <td>认购时间：</td>
+            <td>{$info.created_time|date='Y-m-d H:i:s',###}</td>
+        </tr>
+    </table>
+    <center>
+    <if condition="$info['status'] eq 0 ">
+        <div class="button btn_submit status_success" onclick="check('{$info.id}')">审核通过</div>
+    <else/>
+        <div class="button btn_submit status_over">已通过</div>
+    </if>
+    </center>
+    <if condition="$info['room'] neq null">
+    <div>
+        <h3 style="text-align: center;">已购房号</h3>
+        <div class="info" onclick="toRoom('{$info.room.id}')">
+            <div class="l_info">
+                <div class="info_title">地址：</div>
+                <div>{:getHouses('title')}{$info.room.b_name}-{$info.room.u_name}-{$info.room.room_number}号</div>
+            </div>
+            <div class="s_info">
+                <div class="info_title">房号：</div>
+                <div>{$info.room.u_name} - {$info.room.room_number}</div>
+            </div>
+            <div class="s_info">
+                <div class="info_title">面积：</div>
+                <div>{$info.room.area} m²</div>
+            </div>
+            <div class="s_info">
+                <div class="info_title">朝向：</div>
+                <div>{$info.room.orientation}</div>
+            </div>
+            <div class="l_info">
+                <div class="info_title">户型：</div>
+                <div>{$info.room.apartment}室{$info.room.hall}厅{$info.room.kitchen}厨{$info.room.toilet}卫</div>
+            </div>
+        </div>
+    </div>
+    <else/>
+        <div class="tip"><div>该客户尚未购房！</div></div>
+    </if>
+    <div style="margin-top: 10px;">
+        <center><strong>二维码</strong></center>
+        <div style="width: 90%;margin: 0 auto;">
+            <!-- <img src="http://qr.liantu.com/api.php?&w=200&text=http://baidu.com"> -->
+            <img src="http://qr.liantu.com/api.php?&w=200&text=http://{$_SERVER['HTTP_HOST']}{$url}" onclick="show_pic('1','http://qr.liantu.com/api.php?&w=200&text=http://{$_SERVER[\'HTTP_HOST\']}{$url}')">
+        </div>
+        <center class="tip">(将二维码保存下载分享)</center>
+    </div>
+</block>
+<block name="script">
+    <script type="text/javascript" src="__STATIC__/pinchzoom/src/pinchzoom.js"></script>
+    <script type="text/javascript">
+    /**
+     * 放大图片
+     * @type {String}
+     */
+    var host =  "http://{$_SERVER['HTTP_HOST']}";
+    //var config = JSON.parse('{$config}');
+    function show_pic(id,url) {
+        $('#dialog_empty').show();
+        var html = '<div id="showpicZoom" ><img src="'+url+'" style="width:90%;height:100%; margin: 0 auto;display: block;" onclick="hidedialog()"><div>';
+        $('#empty_content').html(html);
+        new RTP.PinchZoom($('#showpicZoom'), 'maxZoom');
+        $('#dialog_empty').show();
+            var html = '<div id="showpicZoom">'+
+                        '<img src="'+url+'" style="width:96%;margin: 0 auto;display: block;" onclick="hidedialog()">'+
+                        '<div>';
+            $('#empty_content').html(html);
+            //$('#dialog_empty').append('<div id="share" style="z-index: 1003;width: 100%;color:#fff;"><div id="nativeShare"></div></div>');
+            new RTP.PinchZoom($('#showpicZoom'), 'maxZoom');
+            // config.url =  host + ThinkPHP.APP + '/Home/share/houses_img/id/' +id;
+            // config.img = host + ThinkPHP.ROOT+ '/' +url;
+            // share_obj = new nativeShare('nativeShare',config);
+    }
+
+    function check(id) {
+        if(!confirm('是否通过审核？')){
+            return ;
+        }
+        $.ajax({
+            url:'__CONTROLLER__/check',
+            type:'POST',
+            data:{'id':id},
+            beforeSend:function(){
+                $('#dialog_load').hide();
+            },
+            error:function(){
+                alert('修改失败！');
+                history.go(0);
+            },
+            success:function(msg){
+                $('#dialog_load').hide();
+                if(msg.status == 1){
+                    alert('审核成功！');
+                    history.go(0);
+                }else{
+                    alert('审核失败！');
+                    history.go(0);
+                }
+            }
+        })
+    }
+    </script>
+</block>

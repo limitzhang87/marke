@@ -1,0 +1,11 @@
+.mysort li {
+    background-color: #fff;
+    border: 1px solid #eee;
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 5px;
+    overflow: hidden;
+    padding: 0 6px;
+	width:300px;
+
+}

@@ -1,0 +1,144 @@
+<extend name="Base/common" />
+<block name="body">
+    <style type="text/css">
+        .form_control>label{
+            line-height: 3rem;
+        }
+    </style>
+    <form class="form_group" method="POST" action="">
+        <div class="form_control">
+            <label>客户姓名:</label>
+            <div class="form_control_div">
+                <input type="text" name="raise[cus_name]">
+            </div>
+        </div>
+        <div class="form_control">
+            <label>客户手机:</label>
+            <div class="form_control_div">
+                <input type="text" name="raise[cus_phone]">
+            </div>
+        </div>
+
+        <div class="form_control">
+            <label>凭证图片:</label>
+            <div class="form_control_div">
+                <div class="button" onclick="picSelect()">上传图片</div>
+                <input type="hidden" name="raise[voucher_thumb][]" id="uploadPic">
+            </div>
+        </div>
+        <div id="showPic" class="hide show_img">
+        </div>
+        <div class="form_control">
+            <label>凭证编码:</label>
+            <div class="form_control_div">
+                <input type="text" name="raise[voucher_number][]">
+            </div>
+        </div>
+        <div class="form_control">
+            <label>顾问手机:</label>
+            <div class="form_control_div">
+                <input type="text" name="raise[user_phone]" value="{$user.phone}">
+            </div>
+        </div>
+        <div class="form_control">
+            <label>顾问姓名:</label>
+            <div class="form_control_div">
+                <input type="text"  name="raise[user_name]" value="{$user.nick_name}">
+            </div>
+        </div>
+        <center>
+            <input type="submit" style="width: 40%;margin: 0px 5%;display: block;"  name="" class="button btn_submit" value="提交">
+        </center>
+    </form>
+    <form id="formPic" enctype="multipart/form-data" style="width:auto;">
+        <input type="file" name="picToUpload[]" id="picUpload" onChange="pic2Upload();" multiple style="display:none;" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" capture="camera">
+    </form>
+</block>
+<block name="script">
+    <script type="text/javascript">
+    /**
+     * 触发图片选择框架
+     */
+    function picSelect() {
+        $('#picUpload').click();
+    }
+
+    /**
+     * 当图片选择框选择文件时自动上传。
+     */
+    var upload = $('#upload');
+    function pic2Upload() {
+        var formData = new FormData($('#formPic')[0]); //获取表单
+        //formData.append('brand_name',$('option[value="'+$('select').val()+'"]').html());
+        //FormData的参数只能是 HTMLFormElement,而JQ拿到的是一个对象，但是下标0的属性就是 HTMLFormElement
+        $.ajax({
+            url: ThinkPHP.APP + '/Home/UploadPic/uploadPicture',
+            type: 'POST',
+            data: formData, // Form数据
+            cache: false,
+            contentType: false, // 告诉jQuery不要去设置Content-Type请求头，然后在表单里面设置Content-Type为enctype="multipart/form-data"
+            processData: false, // 告诉jQuery不要去处理发送的数据
+            beforeSend: function() {
+                upload.remove();
+                var html = '<div class="div_img" id="loading">' +
+                    '<img class="up_pic"  src="' + ThinkPHP.ROOT + '/Public/Mobile/images/icon/load.gif">' +
+                    '</div>';
+                $('#showPic').append(html);
+            },
+            success: function(msg) {
+                $('#showPic').removeClass('hide');
+                $('#loading').remove();
+                if (msg.status == 1) {
+                    $(msg.info).each(function(i, msg) {
+                        var html = '<div class="div_img"  data-id="' + msg.id + '">' +
+                            '<div class="close_red right" onclick="delImg(' + msg.id + ')">X</div>' +
+                            '<img class="up_pic" src=".' + msg.path + '">' +
+                            '</div>';
+                        $('#showPic').append(html);
+                    });
+                    var idA = new Array();
+                    $('#showPic>div').each(function(i, item) {
+                        idA[i] = $(item).data('id');
+                    });
+                    var ids = idA.join(',');
+                    $('#uploadPic').val(ids);
+
+                } else {
+                    alert(msg.info);
+                }
+            },
+            error: function() {
+                alert('上传失败');
+            },
+            complete: function() {
+                $('#showPic').append(upload);
+            }
+        });
+    }
+    /**
+     * 删除图片
+     * @param  {[type]} pic_path [description]
+     * @return {[type]}          [description]
+     */
+    function delImg(pid) {
+        $.ajax({
+            type: 'POST',
+            data: 'id=' + pid,
+            url: ThinkPHP.APP + '/Home/UploadPic/del_Img',
+            success: function(msg) {
+                $('div[data-id="' + pid + '"]').remove(); //清除图片
+
+                var idA = new Array();
+                $('#showPic>div').each(function(i, item) {
+                    idA[i] = $(item).data('id');
+                });
+                var ids = idA.join(',');
+                $('#uploadPic').val(ids);
+                if (ids == '') {
+                    $('#showPic').addClass('hide');
+                }
+            }
+        });
+    }
+    </script>
+</block>

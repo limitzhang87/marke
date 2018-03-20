@@ -1,0 +1,60 @@
+#sample-table-2_wrapper tbody tr td{
+	vertical-align:middle;
+}
+#sample-table-2_first,#sample-table-2_last,#sample-table-2_paginate .ellipsis{
+	display:none;
+}
+
+
+
+
+
+.paging_bootstrap div{
+	border-radius: 4px;
+    display: inline-block;
+    padding-left: 0;
+	margin: 0 12px;
+}
+.paging_bootstrap.paging_full_numbers{
+	float:right;
+}
+
+.paging_bootstrap .prev{
+	
+}
+.paging_bootstrap .num{
+	
+}
+.paging_bootstrap .current{
+	background-color: #6faed9;
+    border-color: #6faed9;
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	cursor: default;
+    z-index: 2;
+}
+.paging_bootstrap .next{
+	
+}
+.paging_bootstrap .end{
+	
+}
+.paging_bootstrap a:hover{
+	 background-color: #eaeff2;
+     border-color: #d9d9d9;
+	text-decoration: none;
+	
+}
+.paging_bootstrap a{
+	background-color: #fafafa;
+    border:1px solid #e0e8eb;
+    color: #2283c5;
+    margin: 0 -1px 0 0;
+	padding: 6px 12px;
+	position: relative;
+    text-decoration: none;
+	float: left;
+    line-height: 1.42857;
+	border-radius: 0 !important;
+
+}

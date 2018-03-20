@@ -1,0 +1,424 @@
+<extend name="Base/common" />
+<block name="body">
+	<style type="text/css">
+        .info{
+            width: 100%;
+            border:solid #EAEAEA 1px;
+            box-shadow: 3px;
+            font-size: 1.2rem;
+        }
+        .info section:first-child{
+            margin: 10px;
+        }
+        .info ul{
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+        }
+        .info ul li{
+            display: -webkit-box;
+            padding: 0.1em 0.2em;
+            min-height: 1.2em;
+            line-height: 1.2em;
+        }
+        .tit{
+            border-top: 1px dashed #d9d9d9;
+            font-size: 0.9em;
+            line-height: 1.8em;
+            color: #f19411;
+            text-align: center;
+        }
+        .tit>strong{
+            font-weight: normal;
+            display: block;
+            margin: 0 auto;
+            line-height: 1.6em !important;
+        }
+        section{
+            margin: 10px 0;
+        }
+        button {
+            border:none;
+            font-size: 1.2rem;
+            height: 2em;
+            width: 8rem;
+            margin-left: 1rem;
+            margin-top: 5px;
+        }
+        strong {
+            box-flex: 1;
+            -webkit-box-flex: 1;
+            font-size: 0.9375em;
+            color: #ea6413;
+        }
+        .line{
+            height: 1px;
+            border-top: solid #EBEBEB 1px; 
+        }
+        .track_list{
+            width: 96%;
+            margin: 10px 2%;
+            display: -webkit-box;
+        }
+        .track_list>div:first-child{
+            width: 7rem;
+            background: url(__MIMG__/icon/tuwen8.png) no-repeat 5.25em 5px;
+        }
+        .track_list>div:last-child{
+            display: -webkit-box;
+            width: calc(100% - 7rem);
+        }
+        .sanjiao{
+            width: 17px;
+            height: 18px;
+            background: url(__MIMG__/icon/bg_sanjiao.png) no-repeat 6px;
+            margin-top: 8px;
+        }
+        .track_list>div:last-child>div:last-child{
+           background-color: #ddd;
+           min-height: 4rem;
+           width: calc(100% - 17px);
+        }
+        .content{
+            color: #e38307;
+            font-size: 0.8em;
+        }
+        #intention img{
+            width: auto;
+        }
+        .dispatch{
+            width: 80%;
+            margin: 0 auto;
+        }
+        .dispatch>select{
+            width: 100%;
+            margin-top: 5px;
+        }
+        .dispatch>label{
+            width: 100%;
+        }
+        .dispatch>button{
+            width: 90%;
+            margin: 5px auto;
+            display: block;
+        }
+    </style>
+    <div style="width: 96%;margin: 10px 2%;">
+        <div class="info">
+            <section>
+                <ul>
+                    <li>客户姓名：{$_info.name}</li>
+                    <li>客户电话：{$_info.phone}</li>
+                    <li>下单时间：{$_info.first_time|date="Y-m-d H:i:s",###}</li>
+                    <li>是否本省：{$_info.in_province|getYn}</li>
+                    <li>分销客户：{$_info.nick_name}</li>
+                </ul>
+                <ul style="text-align: center;color: #e38307" id="show" onclick="showmore()">显示更多信息</ul>
+                <ul id="more_info" class="hide">
+                    <li>要求位置：{$_info.position}</li>
+                    <li>面    积：{$_info.area}</li>
+                    <li>房    号：{$_info.room}</li>
+                    <li>心理价位：{$_info.like_price}</li>
+                    <li>职    业：{$_info.job}</li>
+                    <li>要    求：{$_info.require}</li>
+                    <li>备    注：{$_info.remark}</li>
+                </ul>
+                <ul style="text-align: center;color: #e38307" class="hide" id="hide" onclick="hidemore()">收起</ul>
+            </section>
+            <li class="line"></li>
+            <section>
+                <ul>
+                    <li>预约时间：{$_info.order_time|date="Y-m-d H:i:s",###}</li>
+                    <li>带看人员：{$_info.rec_name}</li>
+                    <li>调度人员：{$_info.dis_name}</li>
+                    <li>车辆信息：{$_info.care}</li>
+                    <li>接车地点：{$_info.meet_address}</li>
+                </ul>
+            </section>
+            <li class="line"></li>
+            <section>
+                <!-- 根据不同权限设置不同功能 -->
+                <if condition="is_auth(AUTH_BBORDER_MANAGE)">
+                    <div class="dispatch">
+                        <label>分配调度信息</label><br>
+                        <select id="group">
+                        </select>
+                        <select id="g_user">
+                        </select>
+                        <input type="hidden" name="rec_uid">
+                        <button class="status_raise" onclick="chagneRec()">调度派遣</button>
+                    </div>
+                <else/>
+                </if>
+            </section>
+            <li class="line"></li>
+            <if condition="$_info['rec_uid'] eq is_login()">
+            <section>
+                <if condition="$_info['over'] neq 1 && $_info['check_out'] neq 1">
+                <button class="status_success" onclick="add_log('电话回访')">电话回访</button>
+                <button class="status_success" onclick="add_log('客户来电')">客户来电</button>
+                <button class="status_success" onclick="add_log('客户来访')">客户来访</button>
+                <input type="text" style="width: 96%;display: block;margin: 10px 2%;" name="remark" id="remark">
+                </if>
+            </section>
+            </if>
+            <li class="line"></li>
+            <section id="tarck_log">
+                <volist name="_info['log']" id="log">
+                <div class="track_list">
+                    <div>{$log.time|date="Y-m-d H:i:s", ###}</div>
+                    <div>
+                        <div class="sanjiao"></div>
+                        <div>
+                            <strong>【{$log.type}】</strong>
+                            <div class="content">{$log.remark}</div>
+                        </div>
+                    </div>
+                </div>
+                </volist>
+                <div class="track_list">
+                    <div>{$_info.first_time|date="Y-m-d H:i:s", ###}</div>
+                    <div>
+                        <div class="sanjiao"></div>
+                        <div>
+                            <strong>【初次登记】</strong>
+                            <div class="content">{$_info.remark}</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <center style="margin-top: 10px;" >
+            <volist name="button" id="btn">
+                <button class="{$btn.color}" onclick="changeStatus('{$btn.method}')">{$btn.title}</button>
+            </volist>
+        </center>
+    </div>
+    <if condition="is_auth(AUTH_BBORDER_MANAGE)">
+        <div class="fixed_add" style="background-color: {$bg_color}; padding: 6px;"  onclick="redirect('{:U('edit',array('id'=>$_info['id']))}')">
+            <img src="__MIMG__/icon/edit.png">
+        </div>
+    </if>
+    <if condition="is_auth(AUTH_TRACK_MANAGE)">
+        <if condition="$_info.status eq 1">
+            <center style="margin-top: 10px;" >
+                <button class="status_error" style="width: auto;" onclick="status('{$_info.id}','recycle')">删除该条记录</button>
+            </center>
+        <else/>
+            <center style="margin-top: 10px;" >
+                <button class="status_success" style="width: auto;" onclick="status('{$_info.id}','unrecycle')">还原数据</button>
+                <button class="status_error" style="width: auto;" onclick="status('{$_info.id}','del')">彻底清空</button>
+            </center>
+        </if>
+    </if>
+</block>
+<block name="script">
+    <script type="text/javascript">
+
+        var id = '{$_info.id}';
+        var uid = '{$uid}';
+        /*添加跟踪记录*/
+        function add_log(type) {
+            if(!confirm('是否提交？')){
+                return ;
+            }
+            var remark = $('#remark').val();
+            $.ajax({
+                url:'__CONTROLLER__/add_log',
+                type:'post',
+                data:{'id': id,'remark':remark,'type':type},
+                beforeSend:function(){
+
+                },
+                error:function(){
+                    alert('提交失败');
+                },
+                success:function(msg){
+                    if(msg.status == 1){
+                        trackHtml(msg.info);
+                    }else{
+                        alert('提交失败');
+                    }
+                }
+            })
+        }
+
+        /* 跟踪信息渲染 */
+        function trackHtml(info) {
+            if(!info){
+                return ;
+            }
+            html = '<div class="track_list">'+
+                        '<div>'+info.time+'</div>'+
+                        '<div>'+
+                            '<div class="sanjiao"></div>'+
+                            '<div>'+
+                                '<strong>【'+info.type+'】</strong>'+
+                                '<div class="content">'+info.remark+'</div>'+
+                            '</div>'+
+                        '</div>'+
+                    '</div>';
+            $('#tarck_log').prepend(html);
+        }
+
+        function showmore() {
+            $('#more_info').removeClass('hide');
+            $('#show').addClass('hide');
+            $('#hide').removeClass('hide');
+        }
+        function hidemore() {
+            $('#more_info').addClass('hide');
+            $('#hide').addClass('hide');
+            $('#show').removeClass('hide');
+        }
+
+
+        /*修改状态*/
+        function changeStatus(method) {
+            if(method == '*' || method == ''){
+                return;
+            }
+            if(!confirm('是否提交？')){
+                return ;
+            }
+            $.ajax({
+                url:ThinkPHP.APP + '/Home/Track/changeStatus',
+                type:'POST',
+                data:{'id':id,'method':method},
+                beforeSend:function(){
+
+                },
+                error:function(){
+                    alert('提交失败！');
+                },
+                success:function(msg){
+                    if(msg.status == 1){
+
+                    }else{
+                        alert('提交成功');
+                    }
+                    history.go(0);
+                }
+            })
+        }
+
+
+        function status(id,option) {
+            var title = '';
+            switch(option){
+                case 'del':
+                    title = '是否彻底删除？';
+                    break;
+                case 'recycle':
+                    title = '是否删除？';
+                    break;
+                case 'unrecycle':
+                    title = '是否还原？';
+                    break;
+            }
+            if(!confirm(title)){
+                return;
+            }
+            $.ajax({
+                url:ThinkPHP.APP + '/Home/Track/status',
+                type:'POST',
+                data:{'id':id,'option':option},
+                beforeSend:function(){
+                    $('#dialog_load').addClass('show');
+                },
+                complete:function(){
+                    $('#dialog_load').removeClass('show');
+                },
+                error:function(){
+                    alert('删除失败！');
+                },
+                success:function(msg){
+                    if(msg.status == 1){
+                        if(option == 'del'){
+                            history.go(-1);
+                        }else{
+                            history.go(0);
+                        }
+                    }else{
+                        alert('提交成功');
+                    }
+                }
+            })
+        }
+
+    </script>
+    <script type="text/javascript">
+        var groupList = '{$groupList}';
+        var gid = '{$gid}';
+        var rec_uid = '{$rec_uid}';
+        $(function(){
+            if(groupList == 0 ||groupList =='' || groupList == '[]'){
+                $('#group').html('<option value="*">没有找到拥有“接待”权限的会员组</option>');
+                return ;
+            }else{
+                groupList = JSON.parse(groupList);
+                var optionG = '<option value="*">请选择接待的会员组</option>';
+                $.each(groupList,function(i,item){
+                    optionG +='<option value="'+i+'">'+item.g_name+'</option>';
+                })
+                $('#group').html(optionG);
+
+                $('#group').change(function(){
+                    groupChange();
+                })
+                $('#g_user').change(function(){
+                    userChnage();
+                });
+                if(gid != '*'){
+                    $('#group').val(gid);
+                    groupChange();
+                    $('#g_user').val(rec_uid);
+                }
+
+            }
+        })
+
+        function groupChange() {
+            var g_id =  $('#group').val();
+            var optionU = '<option value="*">请选择接待人员</option>';
+            $.each(groupList[g_id]['user'],function(i,item){
+                optionU +='<option value="'+item.id+'">'+item.nick_name+'</option>';
+            })
+            $('#g_user').html(optionU);
+        }
+
+        function userChnage() {
+            rec_uid =  $('#g_user').val();
+            $('input[name="rec_uid"]').val(rec_uid);
+        }
+
+        function chagneRec() {
+            if(!confirm('是否确认调度')){
+                return ;
+            }else{
+                var rec_uid = $('#g_user').val();
+                if(rec_uid == 0 || rec_uid == '' || rec_uid == null){
+                    alert('您还没有选择接待人员');
+                    return ;
+                }
+                $.ajax({
+                    url:'__CONTROLLER__/changeRec',
+                    data:{'id':id,'rec_uid':rec_uid},
+                    beforeSend:function(){
+                        $('#dialog_load').addClass('show');
+                    },
+                    complete:function(){
+                        $('#dialog_load').removeClass('show');
+                        history.go(0);
+                    },
+                    success:function(msg){
+                        alert(msg.info);
+                    },
+                    error:function(){
+                        alert('调度失败');
+                    }
+                })
+            }
+        }
+    </script>
+</block>

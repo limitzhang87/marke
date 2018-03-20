@@ -1,0 +1,115 @@
+      <div class="search-document-content-form search-form">
+        <div class="sleft">
+          <input type="text" name="did" class="search-input" placeholder="输入文档ID" value="{$addon_searchs['did']|default=''}" /><a class="btn" href="#" url="{:U('adminList', 'name=Comment', false)}">搜索</a>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <?php if (isset($addon_searchs['document_title'])) { ?>
+      <div class="searched-document-title"><a href="{$addon_searchs['document_edit_url']}" target="_blank">《{$addon_searchs['document_title']}》</a> 的评论</div>
+      <?php } ?>
+      <table>
+        <thead>
+          <tr>
+            <th width="50">
+              <input class="check-all" type="checkbox">序号
+                      </th>
+            <volist name="list_grid" id="vo">
+              <th>{$vo.title}</th>
+            </volist>
+          </tr>
+        </thead>
+        <tbody>
+          <volist name="_list" id="lv" key="vo">
+          <tr class="comment-item" item-id="{$lv.id}">
+            <td><input class="ids" type="checkbox" value="{$lv.id}" name="ids[]">{$lv.id}</td>
+            <volist name="list_grid" id="lk">
+              <td <?php if ($lk['field'][0] == 'did') {echo 'class="comment-document-id"';}elseif($lk['field'][0] == 'status') {echo 'class="comment-document-status"';} ?>>{:get_addonlist_field($lv, $lk, $name)}</td>
+            </volist>
+          </tr>
+          </volist>
+        </tbody>
+      </table>
+      <style type="text/css">
+      .searched-document-title {line-height:30px;}
+      .search-document-content-form {margin-bottom:10px;float:right;}
+      .search-document-content-form .clear {clear:both;height:0;}
+      .search-document-content-form .btn {margin-right:0;}
+      </style>
+      <script type="text/javascript">
+      (function($){
+        var $searchForm = $('.search-document-content-form');
+        $searchForm.find('a.btn').click(function(){
+          var document_title = $searchForm.find('input[name="did"]').val();
+          if (document_title.length != 0) {
+            window.location.href = $(this).attr('url')+'&did='+document_title;
+          }
+          return false;
+        })
+
+        // 请求评论对应的文档名称，没有相关钩子
+        var $commentsDocumentIds = $('.comment-document-id');
+        var documentIds = [];
+        for (var i = 0, l = $commentsDocumentIds.length; i < l; i++) {
+          var $commentDocumentId = $commentsDocumentIds.eq(i);
+          var documentId = $commentDocumentId.text();
+          $commentDocumentId.addClass('comment-document-id-'+documentId);
+          documentIds[documentId] = documentId;
+        }
+        if (documentIds.length > 0) {
+          var url = "{:addons_url('Comment://Comment/getDocumentsTitle')}";
+          var data = {};
+          data.ids = '';
+          for (var id in documentIds) {
+            data.ids += documentIds[id] + ',';
+          }
+          $.post(url, data, function(r){
+            // 填充标题
+            if (r.status != 1) 
+              return alert(r.info);
+            for (var id in r.data) {
+              $('.comment-document-id-'+id).text(r.data[id]);
+            }
+          });
+        }
+
+        // 显示评论状态 开始
+        var $commentsDocumentStatus = $('.comment-document-status');
+        var commentStatusUrl = "{:addons_url('Comment://Comment/status')}";
+        if (/\?/.exec(commentStatusUrl) == null)
+          commentStatusUrl += '?';
+        var status = [];
+        status[1] = '正常', status[0] = '待审核', status[-1] = '回收';
+        $commentsDocumentStatus.each(function(){
+          var commentId = $(this).parents('.comment-item').attr('item-id');
+          var commentStatus = $(this).text();
+          $(this).text(status[commentStatus]);
+          $(this).html('<a href="'+commentStatusUrl+'&id='+commentId+'&status='+(commentStatus==0?1:0)+'">'+$(this).text()+'</a>');
+        });
+        $commentsDocumentStatus = $('.comment-document-status a');
+        // 显示评论状态 结束
+
+        // 列表中改变评论状态 开始
+        $commentsDocumentStatus.on('click', function(){
+          var url = $(this).attr('href');
+          var $this = $(this);
+          $.get(url, function(r){
+            if (r.status === 0) {
+              alert(r.info);
+              return;
+            }
+            var statusText = $this.text() === '正常' ? '待审核' : '正常';
+            if (statusText === '正常') {
+              url = url.replace(/status=\d/, 'status=0');
+            }
+            else {
+              url = url.replace(/status=\d/, 'status=1');
+            }
+            $this.text(statusText);
+            $this.attr('href', url);
+            return;
+          }, 'json');
+          return false;
+        });
+        // 列表中改变评论状态 结束
+      })(jQuery)
+      </script>

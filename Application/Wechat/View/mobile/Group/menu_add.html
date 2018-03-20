@@ -1,0 +1,37 @@
+<extend name="Base/common" />
+<block name="body">
+    <div>
+        <img class="swiper_img" src="__MIMG__/banner_1.png" style="width: 100%;">
+    </div>
+    <div>
+    <include file="nav"/>
+    <form action="" method="POST">
+        <div style="width: 100%;padding-top: 10px;font-size: 20px;text-align: center;">
+            添加菜单
+        </div>
+        <div class="form_group" >
+        <center style="color: #999999" >
+            每个菜单前面输入数字进行菜单显示排序(不填的默认在最面前)！
+        </center>
+        <volist name="menuList" id="menu">
+            <div class="form_control_div" style="font-size: 1.2rem;height: 2rem;line-height: 2.5rem;">
+                <input type="number" name="s_{$menu.id}" style="width: 2.5rem;height: 1.5rem;text-align: center;" value="{$menu.sort}">
+                <input type="checkbox" name="group_menu[]" value="{$menu.id}" <if condition="in_array($menu['id'],$gmids)">checked="checked"</if>>{$menu.title}
+            </div>
+        </volist>
+        </div>
+        <center>
+            <button type="submit" class="button btn_submit" >提交</button>
+        </center>
+    </form>
+</block>
+<block name="footer">
+    <include file="Public/footer_menu"/>
+</block>
+<block name="script">
+    <script type="text/javascript">
+        hightLine('Group/menuList');
+        var left = $('.group_on').offset().left - $(window).width() / 2 + $('.group_on').width() / 2;
+        $('.group_scroll').scrollLeft(left);
+    </script>
+</block>

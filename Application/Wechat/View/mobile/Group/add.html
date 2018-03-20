@@ -1,0 +1,44 @@
+<extend name="Base/common" />
+<block name="body">
+    <link rel="stylesheet" href="__STATIC__/farbtastic/farbtastic.css" type="text/css" />
+    <div class="hide">
+        <img class="swiper_img" src="__MIMG__/banner_1.png" style="width: 100%;">
+    </div>
+    <form class="form_group" method="POST" action="">
+        <div class="form_control">
+            <label>会员组名:</label>
+            <div class="form_control_div">
+                <input type="text" name="name">
+            </div>
+        </div>
+        <div class="form_control">
+            <label style="padding-left: 2rem;">备注:</label>
+            <div class="form_control_div">
+                <textarea name="remark" style="margin-bottom: 0px;height: 80px;"></textarea>
+            </div>
+        </div>
+        <div class="form_control">
+            <label>主题颜色:</label>
+            <div class="form_control_div">
+                <div class="form-item">
+                    <input type="text" id="color" name="bg_color" value="#f4791f" style="width: 90%;" />
+                </div>
+                <div id="picker"></div>
+            </div>
+        </div>
+        <center>
+            <input type="submit" name="" class="btn_submit" value="提交">
+        </center>
+    </form>
+
+</block>
+<block name="script">
+    <script type="text/javascript" src="__STATIC__/farbtastic/farbtastic.js"></script>
+    <script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        $('#demo').hide();
+        $('#picker').farbtastic('#color');
+    });
+    hightLine('Group/index');
+    </script>
+</block>

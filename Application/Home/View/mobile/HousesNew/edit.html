@@ -1,0 +1,101 @@
+<extend name="Base/common" />
+<block name="body">
+    <!-- <link rel="stylesheet" type="text/css" href="__STATIC__/eleditor-1.5/layout/base.css"> -->
+    <style type="text/css">
+    .Eleditor-textStyle>ul {
+        padding-left: 10px;
+    }
+
+    .form_model {
+        margin: 10px 0;
+    }
+
+    .form_model label {
+        font-size: 1.5rem;
+        font-weight: bold;
+        padding-top: 5px;
+        line-height: 2.2rem;
+    }
+
+    .form_model input {
+        width: 100%;
+    }
+
+    #contentEditor {
+        margin: 10px auto;
+        margin-bottom: 20px;
+        border: solid #EBEBEB;
+        border-width: 1px;
+    }
+    </style>
+    <div action="" method="POST" style="width: 86%; margin: 0 auto;">
+        <div class="form_model">
+            <label>请输入标题:</label>
+            <div>
+                <input type="text" name="title" placeholder="请输入公告标题" value="{$info.title}">
+            </div>
+        </div>
+        <div class="form_model hide">
+            <label>请输入内容:</label>
+            <div>
+                <textarea name="content" id="container"></textarea>
+            </div>
+        </div>
+        <div id="contentEditor" style="">
+            {$info.content}
+        </div>
+        <center>
+            <div class="button btn_submit" onclick="submit()">提交</div>
+        </center>
+    </div>
+</block>
+<block name="script">
+    <!-- 插件核心 -->
+    <script src="__STATIC__/eleditor-1.5/eleditor.min.js">
+    </script>
+    <!-- 如果需要图片上传 -->
+    <script src="__STATIC__/eleditor-1.5/webuploader.min.js">
+    </script>
+    <script>
+    var Edr = new Eleditor({
+        el: '#contentEditor',
+        upload: {
+            server: "{:U('UploadPic/eleditUpload')}",
+        },
+    });
+
+
+    function submit() {
+        var title = $('input[name="title"]').val();
+        var content = htmlspecialchars($('#contentEditor').html()) ;
+        var id = '{$info.id}';
+        $.ajax({
+            url:'__ACTION__',
+            type:'POST',
+            data:{'id':id, 'title':title,'content':content},
+            beforeSend:function(){
+                $('#dialog_load').show();
+            },
+            error:function(){
+                alert('提交失败，请重新提交！');
+            },
+            success:function(msg){
+                alert('提交成功');
+                window.location.href="__CONTROLLER__/index";
+            },
+            complete:function(){
+                $('#dialog_load').hide();
+            }
+        })
+    }
+
+    function htmlspecialchars(str) {
+        str = str.replace(/&/g, '&amp;');
+        str = str.replace(/</g, '&lt;');
+        str = str.replace(/>/g, '&gt;');
+        str = str.replace(/"/g, '&quot;');
+        str = str.replace(/'/g, '&#039;');
+        return str;
+    }
+    </script>
+</block>

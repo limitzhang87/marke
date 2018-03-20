@@ -1,0 +1,42 @@
+<!-- Add fancyBox main JS and CSS files -->
+
+<link rel="stylesheet" type="text/css" href="{$addon_path}Public/style/one.css" media="all">
+<ul class="mysort">
+<span id="houses_span">
+<volist name="title" id="vo">
+<li>{$key}.{$vo}</li>
+</volist>
+</span>
+</ul>
+<input type="hidden" name="houses_id" id="houses_id" value="{$param['houses_id']}"/>
+<a class="fancybox fancybox.iframe btn" id="bo" href="{:addons_url('HouseChoose://HouseChoose/HouseChoose')}">选择楼盘</a>
+
+
+
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+			/*
+			 *  Simple image gallery. Uses default settings
+			 */
+			 var url="{:addons_url('HouseChoose://HouseChoose/HouseChoose/')}"+"&houses_id="+$("#houses_id").val();
+			$("#bo").attr("href",url);
+			$('a#bo').fancybox({
+					
+					afterClose : function() {
+					return;
+					}
+				
+			});
+			
+			$(document).on('click','#houses_span li',function(e){
+				var h_id=$(this).text().split(".");
+				//console.log(h_id[0]);
+				window.location.href="{:U('Article/edit',array('model'=>'3'))}&id="+h_id[0];
+			})
+		});
+		
+		
+		
+</script>

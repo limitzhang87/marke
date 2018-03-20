@@ -1,0 +1,931 @@
+[ 2017-10-23T08:57:23+08:00 ] ::1 /marke/
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.005001s ]
+SQL: SHOW COLUMNS FROM `zf_config` [ RunTime:0.010000s ]
+SQL: SELECT `type`,`name`,`value` FROM `zf_config` WHERE ( `status` = 1 )  [ RunTime:0.002500s ]
+NOTIC: [8] Undefined index: _ism D:\phpStudy\WWW\marke\Application\Common\Common\function.php 第 988 行.
+SQL: SHOW COLUMNS FROM `zf_user` [ RunTime:0.007500s ]
+
+[ 2017-10-23T08:57:23+08:00 ] ::1 /marke/index.php?s=/Home/Login/login.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: _ism D:\phpStudy\WWW\marke\Application\Common\Common\function.php 第 988 行.
+ERR: 模板不存在:./Application/Home/View/default/Login/login.html
+
+[ 2017-10-23T08:57:24+08:00 ] ::1 /marke/index.php?s=/Home/Login/login.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001001s ]
+NOTIC: [8] Undefined index: _ism D:\phpStudy\WWW\marke\Application\Common\Common\function.php 第 988 行.
+ERR: 模板不存在:./Application/Home/View/default/Login/login.html
+
+[ 2017-10-23T08:57:25+08:00 ] ::1 /marke/index.php?s=/Home/Login/login.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.032501s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.032501s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.002500s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002500s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.002501s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002501s ]
+
+[ 2017-10-23T08:57:26+08:00 ] ::1 /marke/index.php?s=/Home/Login/login.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.005000s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005000s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-10-23T08:57:33+08:00 ] ::1 /marke/index.php?s=/Home/Login/getHouse
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM project.zf_userall [ RunTime:0.005000s ]
+SQL: SELECT m.title,m.db_name FROM project.zf_userall as u INNER JOIN project.zf_main as m on u.m_id = m.id  WHERE ( u.phone=13800000000 )  [ RunTime:0.007501s ]
+
+[ 2017-10-23T08:57:39+08:00 ] ::1 /marke/index.php?s=/Home/Login/login
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `zf_user` [ RunTime:0.008500s ]
+SQL: SELECT id as uid,`phone`,`nick_name`,`head_img`,`is_super`,`sex`,`is_activation`,`is_activation`,`status` FROM `zf_user` WHERE ( `phone` = '13800000000' ) AND ( `password` = '347940aacdbd9d502325150ae5d07d96' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `zf_config` [ RunTime:0.008500s ]
+SQL: SELECT `type`,`name`,`value` FROM `zf_config` WHERE ( `status` = 1 )  [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_menu_list` [ RunTime:0.006001s ]
+SQL: SELECT * FROM `zf_menu_list` WHERE ( `id` IN ('3','2','4','5','6','7','8','9','10','11','12','14','15','16','17','18') ) AND ( `status` = 1 ) ORDER BY  FIELD(id, 3, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18)  [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_bottom_nav` [ RunTime:0.009000s ]
+SQL: SELECT bn.id,bn.title,bn.icon,ml.path FROM zf_bottom_nav as bn left JOIN zf_menu_list as ml on bn.m_id = ml.id  WHERE ( bn.id IN ('1','2') ) AND ( ml.status = 1 ) ORDER BY  FIELD(bn.id, 1, 2) LIMIT 4   [ RunTime:0.002500s ]
+SQL: SHOW COLUMNS FROM `zf_picture` [ RunTime:0.007500s ]
+SQL: SELECT * FROM `zf_picture` WHERE ( `status` = 1 ) AND ( `id` = 1 ) LIMIT 1   [ RunTime:0.002500s ]
+SQL: SELECT * FROM `zf_picture` WHERE ( `status` = 1 ) AND ( `id` = 2 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `zf_picture` WHERE ( `status` = 1 ) AND ( `id` = 3 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `zf_picture` WHERE ( `status` = 1 ) AND ( `id` = 12 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `zf_picture` WHERE ( `status` = 1 ) AND ( `id` = 5 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `zf_picture` WHERE ( `status` = 1 ) AND ( `id` = 7 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `zf_picture` WHERE ( `status` = 1 ) AND ( `id` = 8 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `zf_picture` WHERE ( `status` = 1 ) AND ( `id` = 9 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `zf_picture` WHERE ( `status` = 1 ) AND ( `id` = 10 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `zf_picture` WHERE ( `status` = 1 ) AND ( `id` = 11 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `zf_picture` WHERE ( `status` = 1 ) AND ( `id` = 7 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `zf_picture` WHERE ( `status` = 1 ) AND ( `id` = 2 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `zf_picture` WHERE ( `status` = 1 ) AND ( `id` = 4 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `zf_picture` WHERE ( `status` = 1 ) AND ( `id` = 12 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `zf_picture` WHERE ( `status` = 1 ) AND ( `id` = 13 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `zf_picture` WHERE ( `status` = 1 ) AND ( `id` = 14 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `zf_picture` WHERE ( `status` = 1 ) AND ( `id` = 15 ) LIMIT 1   [ RunTime:0.000000s ]
+
+[ 2017-10-23T08:57:39+08:00 ] ::1 /marke/index.php?s=/Home/Index/index
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `zf_config` [ RunTime:0.003000s ]
+SQL: SELECT `type`,`name`,`value` FROM `zf_config` WHERE ( `status` = 1 )  [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `zf_houses` [ RunTime:0.006000s ]
+SQL: SELECT `title` FROM `zf_houses` WHERE ( `id` = 1 ) LIMIT 1   [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.032501s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.032501s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-10-23T08:57:39+08:00 ] ::1 /marke/index.php?s=/Home/Room/getBuilding
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `zf_config` [ RunTime:0.005000s ]
+SQL: SELECT `type`,`name`,`value` FROM `zf_config` WHERE ( `status` = 1 )  [ RunTime:0.003000s ]
+SQL: SHOW COLUMNS FROM `zf_building` [ RunTime:0.009001s ]
+SQL: SELECT * FROM `zf_building` WHERE ( `status` = 1 ) ORDER BY id asc  [ RunTime:0.000000s ]
+
+[ 2017-10-23T08:57:39+08:00 ] ::1 /marke/index.php?s=/Home/Room/getUnit
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_config` [ RunTime:0.005000s ]
+SQL: SELECT `type`,`name`,`value` FROM `zf_config` WHERE ( `status` = 1 )  [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `zf_unit` [ RunTime:0.011001s ]
+SQL: SELECT * FROM `zf_unit` WHERE ( `b_id` = 3 ) AND ( `status` = 1 ) ORDER BY u_order  [ RunTime:0.001000s ]
+
+[ 2017-10-23T08:57:39+08:00 ] ::1 /marke/index.php?s=/Home/Room/getRoom
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_config` [ RunTime:0.003000s ]
+SQL: SELECT `type`,`name`,`value` FROM `zf_config` WHERE ( `status` = 1 )  [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `zf_room` [ RunTime:0.007000s ]
+SQL: SELECT r.id,r.u_id,r.floor,r.is_check,r.status,r.room_number,user.nick_name FROM zf_room r INNER JOIN zf_unit as u on r.u_id=u.id left JOIN zf_user as user on r.lastop_uid=user.id  WHERE ( r.u_id = '2' ) AND ( u.status = '1' ) ORDER BY floor,room_number,is_check  [ RunTime:0.002000s ]
+
+[ 2017-10-23T08:57:41+08:00 ] ::1 /marke/index.php?s=/Home/Raise/index.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_config` [ RunTime:0.006000s ]
+SQL: SELECT `type`,`name`,`value` FROM `zf_config` WHERE ( `status` = 1 )  [ RunTime:0.001001s ]
+SQL: SHOW COLUMNS FROM `zf_raise_info` [ RunTime:0.009000s ]
+SQL: SELECT * FROM `zf_raise_info` LIMIT 1   [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.013501s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.013501s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.002500s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002500s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-10-23T08:57:42+08:00 ] ::1 /marke/index.php?s=/Home/Raise/lists.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001001s ]
+SQL: SHOW COLUMNS FROM `zf_config` [ RunTime:0.004000s ]
+SQL: SELECT `type`,`name`,`value` FROM `zf_config` WHERE ( `status` = 1 )  [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.012001s ]
+NOTIC: [8] Undefined variable: where D:\phpStudy\WWW\marke\Application\Home\Controller\RaiseController.class.php 第 77 行.
+SQL: SELECT `id`,`cus_phone`,`cus_name`,`status`,`created_time` FROM `zf_raise` ORDER BY status asc,created_time desc LIMIT 0,10   [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: where D:\phpStudy\WWW\marke\Application\Home\Controller\RaiseController.class.php 第 78 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `zf_raise` LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: total D:\phpStudy\WWW\marke\Application\Home\Controller\RaiseController.class.php 第 79 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: kw D:\phpStudy\WWW\marke\Runtime\Cache\Home\e4533814d26f85ee38f46ec38570de3e.php 第 111 行.
+NOTIC: [8] Undefined variable: kw D:\phpStudy\WWW\marke\Runtime\Cache\Home\e4533814d26f85ee38f46ec38570de3e.php 第 142 行.
+NOTIC: [8] Undefined variable: kw D:\phpStudy\WWW\marke\Runtime\Cache\Home\e4533814d26f85ee38f46ec38570de3e.php 第 248 行.
+INFO: Run Behavior\ParseTemplate [ RunTime:0.015001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.015001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-10-23T08:57:43+08:00 ] ::1 /marke/index.php?s=/Home/Raise/info/id/2.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `zf_config` [ RunTime:0.004000s ]
+SQL: SELECT `type`,`name`,`value` FROM `zf_config` WHERE ( `status` = 1 )  [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.004000s ]
+SQL: SELECT * FROM `zf_raise` WHERE ( `id` = 2 ) LIMIT 1   [ RunTime:0.000000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `zf_picture` [ RunTime:0.002500s ]
+SQL: SELECT * FROM `zf_picture` WHERE ( `status` = 1 ) AND ( `id` = 19 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `zf_picture` WHERE ( `status` = 1 ) AND ( `id` = 19 ) LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: config D:\phpStudy\WWW\marke\Runtime\Cache\Home\f436f9427d421f9b4402a1ee5dc2decd.php 第 231 行.
+INFO: Run Behavior\ParseTemplate [ RunTime:0.016501s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.016501s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.002500s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002500s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-10-23T08:57:57+08:00 ] ::1 /marke/index.php?s=/Raise/Index/index/houses/wandacheng/id/2.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_config` [ RunTime:0.003001s ]
+SQL: SELECT `type`,`name`,`value` FROM `zf_config` WHERE ( `status` = 1 )  [ RunTime:0.000000s ]
+
+[ 2017-10-23T08:57:57+08:00 ] ::1 /marke/index.php?s=/Raise/Login/index/id/2/houses/wandacheng.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.029002s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.029002s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-10-23T08:58:08+08:00 ] ::1 /marke/index.php?s=/Raise/Login/login
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.004000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `zf_raise`
+SQL: SELECT * FROM `zf_raise`  [ RunTime:0.001000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `zf_raise` 
+
+[ 2017-10-23T08:59:07+08:00 ] ::1 /marke/index.php?s=/Raise/Login/login
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.003000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `zf_raise`
+SQL: SELECT * FROM `zf_raise` LIMIT 1   [ RunTime:0.000000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `zf_raise` LIMIT 1  
+
+[ 2017-10-23T08:59:15+08:00 ] ::1 /marke/index.php?s=/Raise/Login/login
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-10-23T08:59:40+08:00 ] ::1 /marke/index.php?s=/Raise/Login/login
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.003001s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `zf_raise`
+SQL: SELECT * FROM `zf_raise` WHERE ( `id` = '2' ) LIMIT 1   [ RunTime:0.000000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `zf_raise` WHERE ( `id` = '2' ) LIMIT 1  
+
+[ 2017-10-23T08:59:54+08:00 ] ::1 /marke/index.php?s=/Raise/Login/login
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.003000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `zf_raise`
+SQL: SELECT * FROM `zf_raise` WHERE ( `id` = '2' ) LIMIT 1   [ RunTime:0.000000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `zf_raise` WHERE ( `id` = '2' ) LIMIT 1  
+
+[ 2017-10-23T09:00:02+08:00 ] ::1 /marke/index.php?s=/Raise/Login/login
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.003000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `zf_raise`
+SQL: SELECT * FROM `zf_raise` WHERE ( `id` = '2' ) LIMIT 1   [ RunTime:0.000000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `zf_raise` WHERE ( `id` = '2' ) LIMIT 1  
+
+[ 2017-10-23T09:00:31+08:00 ] ::1 /marke/index.php?s=/Raise/Login/login
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.005000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `zf_raise`
+SQL: SELECT * FROM `zf_raise`  [ RunTime:0.001000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `zf_raise` 
+
+[ 2017-10-23T09:01:00+08:00 ] ::1 /marke/index.php?s=/Raise/Login/login
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.003000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `zf_raise`
+SQL: SELECT * FROM `zf_raise`  [ RunTime:0.001000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `zf_raise` 
+
+[ 2017-10-23T09:01:40+08:00 ] ::1 /marke/index.php?s=/Home/text
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.003000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `zf_raise`
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-10-23T09:01:51+08:00 ] ::1 /marke/index.php?s=/Home/text
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.004000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `zf_raise`
+SQL: SELECT * FROM `zf_raise` LIMIT 1   [ RunTime:0.000000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `zf_raise` LIMIT 1  
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-10-23T09:01:57+08:00 ] ::1 /marke/index.php?s=/Home/text
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.003000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `zf_raise`
+SQL: SELECT * FROM `zf_raise`  [ RunTime:0.000000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `zf_raise` 
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-10-23T09:01:57+08:00 ] ::1 /marke/index.php?s=/Home/text
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.011000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.003000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `zf_raise`
+SQL: SELECT * FROM `zf_raise`  [ RunTime:0.000000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `zf_raise` 
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-10-23T09:01:57+08:00 ] ::1 /marke/index.php?s=/Home/text
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.001000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `zf_raise`
+SQL: SELECT * FROM `zf_raise`  [ RunTime:0.000000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `zf_raise` 
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.002500s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002500s ]
+
+[ 2017-10-23T09:03:17+08:00 ] ::1 /marke/index.php?s=/Raise/Login/login
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.006000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `zf_raise`
+SQL: SELECT * FROM `zf_raise`  [ RunTime:0.000000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `zf_raise` 
+
+[ 2017-10-23T09:04:22+08:00 ] ::1 /marke/index.php?s=/Raise/Login/index/id/2/houses/wandacheng.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.014001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.014001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-10-23T09:04:45+08:00 ] ::1 /marke/index.php?s=/Raise/Login/login
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.003001s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `zf_raise`
+SQL: SELECT * FROM `zf_raise`  [ RunTime:0.001000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `zf_raise` 
+
+[ 2017-10-23T09:06:21+08:00 ] ::1 /marke/index.php?s=/Raise/Login/login
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.003000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `zf_raise`
+SQL: SELECT * FROM `zf_raise`  [ RunTime:0.000000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `zf_raise` 
+
+[ 2017-10-23T09:06:31+08:00 ] ::1 /marke/index.php?s=/Raise/Login/login
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.003000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `zf_raise`
+SQL: SELECT * FROM `zf_raise`  [ RunTime:0.000000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `zf_raise` 
+
+[ 2017-10-23T09:07:09+08:00 ] ::1 /marke/index.php?s=/Home/text
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.002000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `zf_raise`
+SQL: SELECT * FROM `zf_raise`  [ RunTime:0.000000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `zf_raise` 
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-10-23T09:07:10+08:00 ] ::1 /marke/index.php?s=/Home/text
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.003000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `zf_raise`
+SQL: SELECT * FROM `zf_raise`  [ RunTime:0.000000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `zf_raise` 
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-10-23T09:07:10+08:00 ] ::1 /marke/index.php?s=/Home/text
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.003000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `zf_raise`
+SQL: SELECT * FROM `zf_raise`  [ RunTime:0.001000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `zf_raise` 
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-10-23T09:07:39+08:00 ] ::1 /marke/index.php?s=/Home/text
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.003001s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `zf_raise`
+SQL: SELECT * FROM `zf_raise`  [ RunTime:0.000000s ]
+ERR: 1146:Table 'project.zf_raise' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `zf_raise` 
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-10-23T09:08:44+08:00 ] ::1 /marke/index.php?s=/Raise/Login/login
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-10-23T09:09:29+08:00 ] ::1 /marke/index.php?s=/Raise/Index/index/houses/wandacheng/id/2.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-10-23T09:09:59+08:00 ] ::1 /marke/index.php?s=/Raise/Index/index/houses/wandacheng/id/2.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-10-23T09:09:59+08:00 ] ::1 /marke/index.php?s=/Raise/Index/index/houses/wandacheng/id/2.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-10-23T09:10:14+08:00 ] ::1 /marke/index.php?s=/Raise/Index/index/houses/wandacheng/id/2.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-10-23T09:10:15+08:00 ] ::1 /marke/index.php?s=/Raise/Index/index/houses/wandacheng/id/2.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-10-23T09:10:15+08:00 ] ::1 /marke/index.php?s=/Raise/Index/index/houses/wandacheng/id/2.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001001s ]
+
+[ 2017-10-23T09:10:40+08:00 ] ::1 /marke/index.php?s=/Raise/Index/index/houses/wandacheng/id/2.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-10-23T09:10:58+08:00 ] ::1 /marke/index.php?s=/Raise/Index/index/houses/wandacheng/id/2.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-10-23T09:10:58+08:00 ] ::1 /marke/index.php?s=/Raise/Login/index/id/2/houses/wandacheng.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-10-23T09:12:36+08:00 ] ::1 /marke/index.php?s=/Raise/Login/index/id/2/houses/wandacheng.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.019002s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.019002s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-10-23T09:12:47+08:00 ] ::1 /marke/index.php?s=/Raise/Login/login
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.004000s ]
+SQL: SELECT * FROM `zf_raise` WHERE ( `id` = 2 ) AND ( `cus_phone` = '12300000000' ) LIMIT 1   [ RunTime:0.000000s ]
+
+[ 2017-10-23T09:12:47+08:00 ] ::1 /marke/index.php?s=/Raise/Index/index
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise_info` [ RunTime:0.003000s ]
+SQL: SELECT * FROM `zf_raise_info` LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Use of undefined constant START_TIME - assumed 'START_TIME' D:\phpStudy\WWW\marke\Application\Raise\Controller\HomeController.class.php 第 48 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: bg_color D:\phpStudy\WWW\marke\Runtime\Cache\Raise\5ec43b46dd124fb9b913fa72e87c471e.php 第 37 行.
+NOTIC: [8] Undefined variable: _right_url D:\phpStudy\WWW\marke\Runtime\Cache\Raise\5ec43b46dd124fb9b913fa72e87c471e.php 第 45 行.
+NOTIC: [8] Undefined variable: _right_type D:\phpStudy\WWW\marke\Runtime\Cache\Raise\5ec43b46dd124fb9b913fa72e87c471e.php 第 45 行.
+INFO: Run Behavior\ParseTemplate [ RunTime:0.015001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.015001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-10-23T09:12:47+08:00 ] ::1 /marke/index.php?s=/Raise/Room/getBuilding
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise_info` [ RunTime:0.004000s ]
+SQL: SELECT * FROM `zf_raise_info` LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [8] Use of undefined constant START_TIME - assumed 'START_TIME' D:\phpStudy\WWW\marke\Application\Raise\Controller\HomeController.class.php 第 48 行.
+SQL: SHOW COLUMNS FROM `zf_building` [ RunTime:0.005001s ]
+SQL: SELECT * FROM `zf_building` WHERE ( `status` = 1 ) ORDER BY id asc  [ RunTime:0.000000s ]
+
+[ 2017-10-23T09:12:47+08:00 ] ::1 /marke/index.php?s=/Raise/Room/getUnit
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `zf_raise_info` [ RunTime:0.004001s ]
+SQL: SELECT * FROM `zf_raise_info` LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Use of undefined constant START_TIME - assumed 'START_TIME' D:\phpStudy\WWW\marke\Application\Raise\Controller\HomeController.class.php 第 48 行.
+SQL: SHOW COLUMNS FROM `zf_unit` [ RunTime:0.004000s ]
+SQL: SELECT * FROM `zf_unit` WHERE ( `b_id` = 3 ) AND ( `status` = 1 ) ORDER BY u_order  [ RunTime:0.001000s ]
+
+[ 2017-10-23T09:12:47+08:00 ] ::1 /marke/index.php?s=/Raise/Room/getRoom
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise_info` [ RunTime:0.004000s ]
+SQL: SELECT * FROM `zf_raise_info` LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Use of undefined constant START_TIME - assumed 'START_TIME' D:\phpStudy\WWW\marke\Application\Raise\Controller\HomeController.class.php 第 48 行.
+SQL: SHOW COLUMNS FROM `zf_room` [ RunTime:0.004000s ]
+SQL: SELECT r.id,r.u_id,r.floor,r.is_check,r.status,r.room_number,user.nick_name FROM zf_room r INNER JOIN zf_unit as u on r.u_id=u.id left JOIN zf_user as user on r.lastop_uid=user.id  WHERE ( r.u_id = '2' ) AND ( u.status = '1' ) AND ( r.status = 0 ) ORDER BY floor,room_number,is_check  [ RunTime:0.001001s ]
+
+[ 2017-10-23T09:12:49+08:00 ] ::1 /marke/index.php?s=/Raise/Houses/index.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `zf_raise_info` [ RunTime:0.003000s ]
+SQL: SELECT * FROM `zf_raise_info` LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Use of undefined constant START_TIME - assumed 'START_TIME' D:\phpStudy\WWW\marke\Application\Raise\Controller\HomeController.class.php 第 48 行.
+SQL: SHOW COLUMNS FROM `zf_houses` [ RunTime:0.003001s ]
+SQL: SELECT * FROM `zf_houses` WHERE ( `id` = 1 ) LIMIT 1   [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: bg_color D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 35 行.
+NOTIC: [8] Undefined variable: _right_url D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 43 行.
+NOTIC: [8] Undefined variable: _right_type D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 43 行.
+NOTIC: [8] Undefined index: housefeature D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 146 行.
+NOTIC: [8] Undefined index: renovation D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 150 行.
+NOTIC: [8] Undefined index: hcategory D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 154 行.
+NOTIC: [8] Undefined index: housetype D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 186 行.
+NOTIC: [8] Undefined index: salesphone D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 202 行.
+NOTIC: [8] Use of undefined constant AUTH_HOUSE_MANAGE - assumed 'AUTH_HOUSE_MANAGE' D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 212 行.
+SQL: SHOW COLUMNS FROM `zf_group_menu` [ RunTime:0.007001s ]
+SQL: SELECT `m_auth` FROM `zf_group_menu` WHERE ( g_id= and m_auth != ''  )  [ RunTime:0.000000s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and m_auth != ''  )' at line 1
+ [ SQL语句 ] : SELECT `m_auth` FROM `zf_group_menu` WHERE ( g_id= and m_auth != ''  ) 
+NOTIC: [2] Invalid argument supplied for foreach() D:\phpStudy\WWW\marke\Application\Raise\Common\function.php 第 764 行.
+INFO: Run Behavior\ParseTemplate [ RunTime:0.019001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.019001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-10-23T10:06:23+08:00 ] ::1 /marke/index.php?s=/Home/text
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.005000s ]
+SQL: SELECT * FROM `zf_raise`  [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.002000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002000s ]
+
+[ 2017-10-23T10:06:24+08:00 ] ::1 /marke/index.php?s=/Home/text
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.003000s ]
+SQL: SELECT * FROM `zf_raise`  [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-10-23T10:06:24+08:00 ] ::1 /marke/index.php?s=/Home/text
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.003000s ]
+SQL: SELECT * FROM `zf_raise`  [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-10-23T10:06:36+08:00 ] ::1 /marke/index.php?s=/Home/text
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.003001s ]
+SQL: SELECT * FROM `zf_raise`  [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-10-23T11:16:09+08:00 ] ::1 /marke/index.php?s=/Raise/Houses/index.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.002001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003001s ]
+SQL: SHOW COLUMNS FROM `zf_raise_info` [ RunTime:0.004000s ]
+SQL: SELECT * FROM `zf_raise_info` LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Use of undefined constant START_TIME - assumed 'START_TIME' D:\phpStudy\WWW\marke\Application\Raise\Controller\HomeController.class.php 第 48 行.
+SQL: SHOW COLUMNS FROM `zf_houses` [ RunTime:0.005000s ]
+SQL: SELECT * FROM `zf_houses` WHERE ( `id` = 1 ) LIMIT 1   [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: bg_color D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 35 行.
+NOTIC: [8] Undefined variable: _right_url D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 43 行.
+NOTIC: [8] Undefined variable: _right_type D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 43 行.
+NOTIC: [8] Undefined index: housefeature D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 146 行.
+NOTIC: [8] Undefined index: renovation D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 150 行.
+NOTIC: [8] Undefined index: hcategory D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 154 行.
+NOTIC: [8] Undefined index: housetype D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 186 行.
+NOTIC: [8] Undefined index: salesphone D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 202 行.
+NOTIC: [8] Use of undefined constant AUTH_HOUSE_MANAGE - assumed 'AUTH_HOUSE_MANAGE' D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 212 行.
+SQL: SHOW COLUMNS FROM `zf_group_menu` [ RunTime:0.005000s ]
+SQL: SELECT `m_auth` FROM `zf_group_menu` WHERE ( g_id= and m_auth != ''  )  [ RunTime:0.000000s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and m_auth != ''  )' at line 1
+ [ SQL语句 ] : SELECT `m_auth` FROM `zf_group_menu` WHERE ( g_id= and m_auth != ''  ) 
+NOTIC: [2] Invalid argument supplied for foreach() D:\phpStudy\WWW\marke\Application\Raise\Common\function.php 第 764 行.
+INFO: Run Behavior\ParseTemplate [ RunTime:0.042002s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.042002s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.002000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-10-23T11:16:09+08:00 ] ::1 /marke/index.php?s=/Raise/Houses/index.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `zf_raise_info` [ RunTime:0.003000s ]
+SQL: SELECT * FROM `zf_raise_info` LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Use of undefined constant START_TIME - assumed 'START_TIME' D:\phpStudy\WWW\marke\Application\Raise\Controller\HomeController.class.php 第 48 行.
+SQL: SHOW COLUMNS FROM `zf_houses` [ RunTime:0.003001s ]
+SQL: SELECT * FROM `zf_houses` WHERE ( `id` = 1 ) LIMIT 1   [ RunTime:0.000000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: bg_color D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 35 行.
+NOTIC: [8] Undefined variable: _right_url D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 43 行.
+NOTIC: [8] Undefined variable: _right_type D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 43 行.
+NOTIC: [8] Undefined index: housefeature D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 146 行.
+NOTIC: [8] Undefined index: renovation D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 150 行.
+NOTIC: [8] Undefined index: hcategory D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 154 行.
+NOTIC: [8] Undefined index: housetype D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 186 行.
+NOTIC: [8] Undefined index: salesphone D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 202 行.
+NOTIC: [8] Use of undefined constant AUTH_HOUSE_MANAGE - assumed 'AUTH_HOUSE_MANAGE' D:\phpStudy\WWW\marke\Runtime\Cache\Raise\0e49ce34bef4074fc413b8a40508141f.php 第 212 行.
+SQL: SHOW COLUMNS FROM `zf_group_menu` [ RunTime:0.003001s ]
+SQL: SELECT `m_auth` FROM `zf_group_menu` WHERE ( g_id= and m_auth != ''  )  [ RunTime:0.000000s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and m_auth != ''  )' at line 1
+ [ SQL语句 ] : SELECT `m_auth` FROM `zf_group_menu` WHERE ( g_id= and m_auth != ''  ) 
+NOTIC: [2] Invalid argument supplied for foreach() D:\phpStudy\WWW\marke\Application\Raise\Common\function.php 第 764 行.
+INFO: Run Behavior\ParseTemplate [ RunTime:0.018001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.018001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-10-23T11:16:11+08:00 ] ::1 /marke/index.php?s=/Raise/User/collect.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `zf_raise_info` [ RunTime:0.002000s ]
+SQL: SELECT * FROM `zf_raise_info` LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Use of undefined constant START_TIME - assumed 'START_TIME' D:\phpStudy\WWW\marke\Application\Raise\Controller\HomeController.class.php 第 48 行.
+SQL: SHOW COLUMNS FROM `zf_raise_collect_room` [ RunTime:0.007001s ]
+SQL: SHOW COLUMNS FROM `zf_raise_collect_room` [ RunTime:0.004000s ]
+SQL: SELECT r.id,r.room_number,r.floor,r.unit_price,r.usable_price,r.remark,r.status,u.u_name,sr.area,sr.apartment,sr.hall,sr.kitchen,sr.toilet,sr.orientation,b.b_name FROM zf_raise_collect_room as rcr INNER JOIN zf_room as r on rcr.r_id = r.id INNER JOIN zf_sameroom as sr on r.s_id = sr.id INNER JOIN zf_unit as u on r.u_id = u.id INNER JOIN zf_building as b on u.b_id = b.id  WHERE ( rcr.raise_id = '2' ) LIMIT 10   [ RunTime:0.014001s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: bg_color D:\phpStudy\WWW\marke\Runtime\Cache\Raise\4541919bf762859ff5a4d949321a5179.php 第 35 行.
+NOTIC: [8] Undefined variable: _right_url D:\phpStudy\WWW\marke\Runtime\Cache\Raise\4541919bf762859ff5a4d949321a5179.php 第 43 行.
+NOTIC: [8] Undefined variable: _right_type D:\phpStudy\WWW\marke\Runtime\Cache\Raise\4541919bf762859ff5a4d949321a5179.php 第 43 行.
+SQL: SHOW COLUMNS FROM `zf_houses` [ RunTime:0.004001s ]
+SQL: SELECT `title` FROM `zf_houses` WHERE ( `id` = 1 ) LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: houses_id D:\phpStudy\WWW\marke\Application\Raise\Common\function.php 第 638 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `zf_raise_collect_room` WHERE ( `r_id` = 11 ) LIMIT 1   [ RunTime:0.002000s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.017001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.017001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-10-23T11:16:11+08:00 ] ::1 /marke/index.php?s=/Raise/User/collect.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise_info` [ RunTime:0.004000s ]
+SQL: SELECT * FROM `zf_raise_info` LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [8] Use of undefined constant START_TIME - assumed 'START_TIME' D:\phpStudy\WWW\marke\Application\Raise\Controller\HomeController.class.php 第 48 行.
+SQL: SHOW COLUMNS FROM `zf_raise_collect_room` [ RunTime:0.003001s ]
+SQL: SHOW COLUMNS FROM `zf_raise_collect_room` [ RunTime:0.004000s ]
+SQL: SELECT r.id,r.room_number,r.floor,r.unit_price,r.usable_price,r.remark,r.status,u.u_name,sr.area,sr.apartment,sr.hall,sr.kitchen,sr.toilet,sr.orientation,b.b_name FROM zf_raise_collect_room as rcr INNER JOIN zf_room as r on rcr.r_id = r.id INNER JOIN zf_sameroom as sr on r.s_id = sr.id INNER JOIN zf_unit as u on r.u_id = u.id INNER JOIN zf_building as b on u.b_id = b.id  WHERE ( rcr.raise_id = '2' ) LIMIT 10   [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: bg_color D:\phpStudy\WWW\marke\Runtime\Cache\Raise\4541919bf762859ff5a4d949321a5179.php 第 35 行.
+NOTIC: [8] Undefined variable: _right_url D:\phpStudy\WWW\marke\Runtime\Cache\Raise\4541919bf762859ff5a4d949321a5179.php 第 43 行.
+NOTIC: [8] Undefined variable: _right_type D:\phpStudy\WWW\marke\Runtime\Cache\Raise\4541919bf762859ff5a4d949321a5179.php 第 43 行.
+NOTIC: [8] Undefined index: houses_id D:\phpStudy\WWW\marke\Application\Raise\Common\function.php 第 638 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `zf_raise_collect_room` WHERE ( `r_id` = 11 ) LIMIT 1   [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.011001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.011001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-10-23T11:16:13+08:00 ] ::1 /marke/index.php?s=/Raise/User/collect.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise_info` [ RunTime:0.003000s ]
+SQL: SELECT * FROM `zf_raise_info` LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Use of undefined constant START_TIME - assumed 'START_TIME' D:\phpStudy\WWW\marke\Application\Raise\Controller\HomeController.class.php 第 48 行.
+SQL: SHOW COLUMNS FROM `zf_raise_collect_room` [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `zf_raise_collect_room` [ RunTime:0.002001s ]
+SQL: SELECT r.id,r.room_number,r.floor,r.unit_price,r.usable_price,r.remark,r.status,u.u_name,sr.area,sr.apartment,sr.hall,sr.kitchen,sr.toilet,sr.orientation,b.b_name FROM zf_raise_collect_room as rcr INNER JOIN zf_room as r on rcr.r_id = r.id INNER JOIN zf_sameroom as sr on r.s_id = sr.id INNER JOIN zf_unit as u on r.u_id = u.id INNER JOIN zf_building as b on u.b_id = b.id  WHERE ( rcr.raise_id = '2' ) LIMIT 10   [ RunTime:0.000000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: bg_color D:\phpStudy\WWW\marke\Runtime\Cache\Raise\4541919bf762859ff5a4d949321a5179.php 第 35 行.
+NOTIC: [8] Undefined variable: _right_url D:\phpStudy\WWW\marke\Runtime\Cache\Raise\4541919bf762859ff5a4d949321a5179.php 第 43 行.
+NOTIC: [8] Undefined variable: _right_type D:\phpStudy\WWW\marke\Runtime\Cache\Raise\4541919bf762859ff5a4d949321a5179.php 第 43 行.
+NOTIC: [8] Undefined index: houses_id D:\phpStudy\WWW\marke\Application\Raise\Common\function.php 第 638 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `zf_raise_collect_room` WHERE ( `r_id` = 11 ) LIMIT 1   [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.011000s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.012000s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-10-23T11:16:13+08:00 ] ::1 /marke/index.php?s=/Raise/Index/index.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `zf_raise_info` [ RunTime:0.004000s ]
+SQL: SELECT * FROM `zf_raise_info` LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [8] Use of undefined constant START_TIME - assumed 'START_TIME' D:\phpStudy\WWW\marke\Application\Raise\Controller\HomeController.class.php 第 48 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined variable: bg_color D:\phpStudy\WWW\marke\Runtime\Cache\Raise\5ec43b46dd124fb9b913fa72e87c471e.php 第 37 行.
+NOTIC: [8] Undefined variable: _right_url D:\phpStudy\WWW\marke\Runtime\Cache\Raise\5ec43b46dd124fb9b913fa72e87c471e.php 第 45 行.
+NOTIC: [8] Undefined variable: _right_type D:\phpStudy\WWW\marke\Runtime\Cache\Raise\5ec43b46dd124fb9b913fa72e87c471e.php 第 45 行.
+INFO: Run Behavior\ParseTemplate [ RunTime:0.011001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.011001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-10-23T11:16:13+08:00 ] ::1 /marke/index.php?s=/Raise/Room/getBuilding
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise_info` [ RunTime:0.004000s ]
+SQL: SELECT * FROM `zf_raise_info` LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Use of undefined constant START_TIME - assumed 'START_TIME' D:\phpStudy\WWW\marke\Application\Raise\Controller\HomeController.class.php 第 48 行.
+SQL: SHOW COLUMNS FROM `zf_building` [ RunTime:0.004000s ]
+SQL: SELECT * FROM `zf_building` WHERE ( `status` = 1 ) ORDER BY id asc  [ RunTime:0.001000s ]
+
+[ 2017-10-23T11:16:13+08:00 ] ::1 /marke/index.php?s=/Raise/Room/getUnit
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise_info` [ RunTime:0.004000s ]
+SQL: SELECT * FROM `zf_raise_info` LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [8] Use of undefined constant START_TIME - assumed 'START_TIME' D:\phpStudy\WWW\marke\Application\Raise\Controller\HomeController.class.php 第 48 行.
+SQL: SHOW COLUMNS FROM `zf_unit` [ RunTime:0.005001s ]
+SQL: SELECT * FROM `zf_unit` WHERE ( `b_id` = 3 ) AND ( `status` = 1 ) ORDER BY u_order  [ RunTime:0.000000s ]
+
+[ 2017-10-23T11:16:13+08:00 ] ::1 /marke/index.php?s=/Raise/Room/getRoom
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise_info` [ RunTime:0.005001s ]
+SQL: SELECT * FROM `zf_raise_info` LIMIT 1   [ RunTime:0.001000s ]
+NOTIC: [8] Use of undefined constant START_TIME - assumed 'START_TIME' D:\phpStudy\WWW\marke\Application\Raise\Controller\HomeController.class.php 第 48 行.
+SQL: SHOW COLUMNS FROM `zf_room` [ RunTime:0.005000s ]
+SQL: SELECT r.id,r.u_id,r.floor,r.is_check,r.status,r.room_number,user.nick_name FROM zf_room r INNER JOIN zf_unit as u on r.u_id=u.id left JOIN zf_user as user on r.lastop_uid=user.id  WHERE ( r.u_id = '2' ) AND ( u.status = '1' ) AND ( r.status = 0 ) ORDER BY floor,room_number,is_check  [ RunTime:0.004000s ]
+
+[ 2017-10-23T11:24:34+08:00 ] ::1 /marke/index.php?s=/Home/text
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCache [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `zf_raise` [ RunTime:0.075004s ]
+SQL: SELECT * FROM `zf_raise`  [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+

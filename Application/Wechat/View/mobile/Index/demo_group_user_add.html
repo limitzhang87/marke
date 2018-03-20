@@ -1,0 +1,113 @@
+<extend name="Base/common" />
+<block name="body">
+    <style type="text/css">
+    .phonelist {
+        margin: 0 auto;
+        width: 350px;
+        background-color: #EBEBEB;
+        margin-top: 20px;
+        border-radius: 4px;
+        padding: 10px 0;
+    }
+    /*    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus {
+        -webkit-text-fill-color: #000;
+        -webkit-box-shadow: 0 0 0px 1000px #fff inset; //transition: background-color 5000s ease-in-out 0s;
+        border: solid #A0A0A0;
+        border-width: 0 0 1px 0;
+        width: 280px;
+        height: 40px;
+        text-align: center;
+        font-size: 16px;
+        margin-bottom: 30px;
+        background-color: rgba(0, 0, 0, 0) !important;
+        color: rgb(0, 0, 0) !important;
+    }
+*/
+
+    .input {
+        width: 300px;
+        margin: 5px auto;
+    }
+
+    input {
+        width: 85%;
+    }
+
+    .btn_add {
+        width: 250px;
+        height: 40px;
+        border-radius: 25px;
+        font-size: 20px;
+        color: #fff;
+        border: none;
+        text-align: center;
+        background-color: #FF4500;
+    }
+    </style>
+    <div>
+        <img class="swiper_img" src="__MIMG__/banner_1.png" style="width: 100%;">
+    </div>
+    <div style="width: 100%;">
+        <div class="group_scroll" onclick="console.log($('.group_scroll').scrollLeft());">
+            <div class="group">置业顾问</div>
+            <div class="group">置业顾问</div>
+            <div class="group">置业顾问</div>
+            <div class="group">置业顾问</div>
+            <div class="group_on">置业顾问</div>
+            <div class="group">置业顾问</div>
+            <div class="group">置业顾问</div>
+        </div>
+        <form action="" method="POST">
+            <div style="width: 100%;padding-top: 10px;font-size: 20px;text-align: center;">
+                添加置业顾问会员
+            </div>
+            <div class="phonelist" id="phone_div">
+                <div class="input">
+                    <input class="phone" type="number" name="phone[]" placeholder="请输入手机号码">
+                    <span onclick="del(this);"><li class="del_icon"></li></span>
+                </div>
+            </div>
+            <center class="phonelist" style="margin-top: -10px;">
+                <li class="add_icon"></li>
+            </center>
+            <div style="width: 250px;margin: 10px auto;height: 40px;">
+                <button class="btn_add">添加</button>
+            </div>
+        </form>
+    </div>
+</block>
+<block name="footer">
+    <include file="Public/footer_menu" />
+</block>
+<block name="script">
+    <script type="text/javascript">
+    var left = $('.group_on').offset().left - $(window).width() / 2 + $('.group_on').width() / 2;
+    $('.group_scroll').scrollLeft(left);
+
+    // $('#user div').removeClass('bottom_name');
+    // $('#user li').removeClass('guser_icon');
+    $('#user div').addClass('bottom_name_on');
+    $('#user li').addClass('guser_icon_on');
+
+    $('.add_icon').on('click', function() {
+        var html = '<div class="input">' +
+            '<input class="phone" type="number" name="phone[]"  placeholder="请输入手机号码">' +
+            '<span onclick="del(this);"><li class="del_icon"></li></span>' +
+            '</div>';
+        $('#phone_div').append(html);
+
+        // $('.del_icon').each(function(i){
+        //     $(this).on('click', function(){
+        //         $(this).parent().parent().remove();
+        //     });
+        // })
+    });
+
+
+    function del(i) {
+        $(i).parent().remove();
+    }
+    </script>
+</block>

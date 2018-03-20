@@ -1,0 +1,50 @@
+<block name="header">
+    <div class="header_fixed"  >
+        <div class="header_left">
+            <li class="back" ></li>
+        </div>
+        <div class="title">
+            <div style="display: -webkit-box;max-width: 1000px;margin: 0 auto;">
+            <div class="bottom_nav" onclick="redirect('{:U('Index/index')}')">
+                <div class="bottom_name">首页</div>
+            </div>
+            <volist name="_bottom" id="vo">
+            <div class="bottom_nav" onclick="redirect('{:U($vo[\"path\"])}')">
+                <div class="bottom_name">{$vo.title}</div>
+            </div>
+            </volist>
+            <div class="bottom_nav"  onclick="redirect('{:U('User/index')}')">
+                <div class="bottom_name">个人</div>
+            </div>
+        </div>
+        </div>
+        <div class="header_right">
+            <li class="more" onclick="redirect('{$_right_url}');" style="{$_right_type}"></li>
+        </div>
+    </div>
+    <div style="height:  40px;"></div>
+    <script type="text/javascript">
+    $('.header_left').on('click', function(){
+        window.history.go(-1);
+    });
+    function logout() {
+        $.ajax({
+            url: "{:U('login/logout')}",
+            type: "POST",
+            dataType: 'json',
+            success: function(data) {
+                if (data.status) {
+                    alert('退出成功！');
+                    setTimeout(function() {
+                        window.location.href = data.url;
+                    }, 1500);
+                } else {
+                    //self.find(".Validform_checktip").text(data.info);
+                }
+            },
+            error: function(er) {}
+        });
+    }
+    </script>
+</block>
+

@@ -1,0 +1,80 @@
+<extend name="Base/common" />
+<block name="body">
+    <style type="text/css">
+    .phonelist {
+        margin: 0 auto;
+        width: 90%;
+        background-color: #EBEBEB;
+        margin-top: 20px;
+        border-radius: 4px;
+        padding: 10px 0;
+    }
+    .input {
+        width: 96%;
+        margin: 3% auto;
+    }
+
+    input[name="phone[]"] {
+        width: 52%;
+    }
+    input[name="nick_name[]"] {
+        width: 33%;
+    }
+    .btn_add {
+        width: 250px;
+        height: 40px;
+        border-radius: 25px;
+        font-size: 20px;
+        color: #fff;
+        border: none;
+        text-align: center;
+        background-color: #FF4500;
+    }
+    </style>
+    <div>
+        <img class="swiper_img" src="__MIMG__/banner_1.png" style="width: 100%;">
+    </div>
+    <div style="width: 100%;">
+        <include file="nav"/>
+        <form action="" method="POST">
+            <div style="width: 100%;padding-top: 10px;font-size: 20px;text-align: center;">
+                添加{$g_name}会员
+            </div>
+            <div class="phonelist" id="phone_div">
+                <div class="input">
+                    <input class="phone" type="number" name="phone[]" placeholder="手机号码">
+                    <input type="text" name="nick_name[]" placeholder="姓名">
+                    <span onclick="del(this);"><li class="del_icon"></li></span>
+                </div>
+            </div>
+            <!-- <center class="phonelist" style="margin-top: -10px;">
+                <li class="add_icon"></li>
+            </center> -->
+            <div style="width: 250px;margin: 10px auto;height: 40px;">
+                <input type="hidden" name="id" value="{$_id}">
+                <button class="btn_add">添加会员</button>
+            </div>
+        </form>
+    </div>
+</block>
+<block name="script">
+    <script type="text/javascript">
+    var left = $('.group_on').offset().left - $(window).width() / 2 + $('.group_on').width() / 2;
+    $('.group_scroll').scrollLeft(left);
+
+    $('#user div').addClass('bottom_name_on');
+    $('#user li').addClass('guser_icon_on');
+
+    $('.add_icon').on('click', function() {
+        var html = '<div class="input">' +
+            '<input class="phone" type="number" name="phone[]"  placeholder="请输入手机号码">' +
+            '<input type="text" name="nick_name[]" placeholder="姓名">'+
+            '<span onclick="del(this);"><li class="del_icon"></li></span>' +
+            '</div>';
+        $('#phone_div').append(html);
+    });
+    function del(i) {
+        $(i).parent().remove();
+    }
+    </script>
+</block>

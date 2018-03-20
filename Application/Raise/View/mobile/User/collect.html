@@ -1,0 +1,73 @@
+<extend name="Base/common" />
+<block name="body">
+    <style type="text/css">
+        .info{
+            border: solid #EBEBEB 1px;
+            margin:2px;
+            border-radius: 4px;
+            min-height: 10rem;
+            width: calc(100%-10px);
+            padding: 10px 5px;
+        }
+        .info>div{
+            height: 2rem;
+            line-height: 2rem;
+            float: left;
+        }
+        .l_info{
+            width: 100%;
+            display: -webkit-box;
+        }
+        .s_info{
+            width: 49%;
+            display: -webkit-box;
+        }
+        .info_title{
+            min-width: 6rem;
+            font-weight: bold;
+        }
+    </style>
+    <div>
+        <volist name="list" id="info"  empty="$empty">
+            <div class="info" onclick="toRoom('{$info.id}')">
+                <div class="l_info">
+                    <div class="info_title">合同地址：</div>
+                    <div>{:getHouses('title')}{$info.b_name}(栋){$info.u_name}(单元){$info.room_number}</div>
+                </div>
+                <div class="l_info">
+                    <div class="info_title">收藏人数：</div>
+                    <div>{:getCollectNum($info['id'])}</div>
+                </div>
+                <div class="s_info">
+                    <div class="info_title">房号：</div>
+                    <div>{$info.u_name} - {$info.room_number}</div>
+                </div>
+                <div class="s_info">
+                    <div class="info_title">状态：</div>
+                    <div><if condition="$info['status'] eq '0' ">未售<else/>已售</if></div>
+                </div>
+                <div class="s_info">
+                    <div class="info_title">面积：</div>
+                    <div>{$info.area} m²</div>
+                </div>
+                <div class="s_info">
+                    <div class="info_title">朝向：</div>
+                    <div>{$info.orientation}</div>
+                </div>
+                <div class="l_info">
+                    <div class="info_title">间隔：</div>
+                    <div>{$info.apartment}室{$info.hall}厅{$info.kitchen}厨{$info.toilet}卫</div>
+                </div>
+            </div>
+        </volist>
+    </div>
+</block>
+<block name="script">
+    <script type="text/javascript">
+        hightLine('User/collect');
+        function toRoom(id){
+            var url = ThinkPHP.APP + '/Raise/Room/room_info/id/' + id;
+            window.location.href = url;
+        }
+    </script>
+</block>

@@ -1,0 +1,137 @@
+<extend name="Base/common" />
+<block name="body">
+    <style type="text/css">
+        strong{
+            font-size: 1.8rem;
+            text-align: center;
+            display: block;
+            margin: 10px;
+        }
+        table{
+            font-size: 1.3rem;
+        }
+        tr{
+            width: 100%;
+            height: 2rem;
+        }
+        .tdl{
+            text-align: right;
+            font-weight: bolder;
+            font-family: Tahoma, Geneva, sans-serif;
+            min-width: 7rem;
+        }
+        h2{
+            font-size: 1.6rem;
+            height: 3rem;
+            line-height: 3rem;
+            border: solid red;
+            border-width: 0 0 2px 0;
+            padding-left: 10px;
+        }
+    </style>
+    <strong>
+        {$data.title}
+    </strong>
+    <div class="mod-hd"><h2>基本信息</h2></div>
+    <div style="width: 96%;margin: 10px auto;">
+        <table>
+            <tr>
+                <td class="tdl">楼盘地址:</td>
+                <td>{$data.address}</td>
+            </tr>
+            <!-- <tr>
+                <td class="tdl">项目特色:</td>
+                <td><if condition="$data['housefeature'] eq null">暂无数据<else/>{$data.housefeature|get_checkbox="HOUSE_HOUSEFEATURE",###}</if></td>
+            </tr>
+            <tr>
+                <td class="tdl">装修情况:</td>
+                <td><if condition="$data['renovation'] eq null">暂无数据<else/>{$data.renovation|get_checkbox="HOUSE_RENOVATION",###}</if></td>
+            </tr>
+            <tr>
+                <td class="tdl">建筑类别:</td>
+                <td><if condition="$data['hcategory'] eq null">暂无数据<else/>{$data.hcategory|get_checkbox="HOUSE_HCATEGORY",###}</if></td>
+            </tr> -->
+            <tr>
+                <td class="tdl">占地面积:</td>
+                <td><if condition="$data['areacovered'] eq null">暂无数据<else/>{$data.areacovered}</if></td>
+            </tr>
+            <tr>
+                <td class="tdl">容 积 率:</td>
+                <td><if condition="$data['plotratio'] eq null">暂无数据<else/>{$data.plotratio}</if></td>
+            </tr>
+            <tr>
+                <td class="tdl">绿 化 率:</td>
+                <td><if condition="$data['greeningrate'] eq null">暂无数据<else/>{$data.greeningrate}</if></td>
+            </tr>
+            <tr>
+                <td class="tdl">开盘时间:</td>
+                <td>
+                    <php>
+                        if($data['openingtime']=='1970-01-01'){
+                            if($data['openingtime_remark']==''){
+                                echo "未定";
+                            }else{
+                                echo $data['openingtime_remark'];
+                            }
+                        }else{
+                            echo $data['openingtime'];
+                        }
+                    </php>
+                </td>
+            </tr>
+            <tr>
+                <td class="tdl">交房时间:</td>
+                <td>
+                    <php>
+                        if($data['launchtime']=='1970-01-01'){
+                            if($data['launchtime_remark']==''){
+                                echo "未定";
+                            }else{
+                                echo $data['launchtime_remark'];
+                            }
+                        }else{
+                            echo $data['launchtime'];
+                        }
+                    </php>
+                </td>
+            </tr>
+            <tr>
+                <td class="tdl">物业公司:</td>
+                <td><if condition="$data['mcompany'] eq null">暂无数据<else/>{$data.mcompany}</if></span></td>
+            </tr>
+            <tr>
+                <td class="tdl">物业类型:</td>
+                <td><if condition="$data['housetype'] eq null">暂无数据<else/>{$data.housetype|get_housetype}</if></td>
+            </tr>
+            <tr>
+                <td class="tdl">开 发 商:</td>
+                <td><if condition="$data['developer'] eq null">暂无数据<else/>{$data.developer}</if></td>
+            </tr>
+            <tr>
+                <td class="tdl">销售许可证:</td>
+                <td><if condition="$data['salepermit'] eq null">暂无数据<else/>{$data.salepermit}</if></td>
+            </tr>
+            <tr>
+                <td class="tdl">售楼地址:</td>
+                <td><if condition="$data['salesaddress'] eq null">暂无数据<else/>{$data.salesaddress}</if></td>
+            </tr>
+            <tr>
+                <td class="tdl">售楼电话:</td>
+                <td><if condition="$data['salesphone'] eq null">暂无数据<else/>{$data.salesphone}</if></td>
+            </tr>
+        </table>
+        <div>
+            <div class="mod-hd"><h2>楼盘介绍</h2></div>
+            <ul style='padding:0 10px;font-size: 1.3rem;'>
+                <li style='color:#000;font-family:"微软雅黑"' class='fon-si'><p style='text-indent:2em'>{$data.description}</p></li>
+            </ul>
+        </div>
+    </div>
+    <if condition="is_auth(AUTH_HOUSE_MANAGE)">
+        <div class="fixed_add" style="background-color: {$bg_color}; padding: 6px;" onclick="redirect('{:U('Houses/edit')}')">
+            <img src="__MIMG__/icon/edit.png">
+        </div>
+    </if>
+</block>
+<block name="script">
+</block>

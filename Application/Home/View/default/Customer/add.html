@@ -1,0 +1,256 @@
+<extend name="Base/common" />
+<block name="body">
+    <style type="text/css">
+        .tab-nav {
+            height: 3rem;
+            border: solid #E0E0E0;
+            border-width: 0 0 1px 0;
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            display: -webkit-box;
+        }
+        .tab-nav div {
+            height: calc(100% - 1px);
+            font-size: 1.2rem;
+            line-height: 3rem;
+            text-align: center;
+            width: 5rem;
+            border: solid #E0E0E0;
+            border-width: 0 1px;
+            margin-right: -1px;
+        }
+        .current {
+            color: {$bg_color};
+            border: solid  {$bg_color} !important;
+            border-width: 0 0 2px 0 !important;
+
+        }
+        .tab-pane {
+            display: none;
+            margin-left: 2em;
+        }
+        .in {
+            display: block;
+        }
+        .form-item {
+            margin: 15px 0;
+        }
+        .item-label{
+            font-weight: bold;
+        }
+        .input-medium {
+            width: 10rem;
+        }
+        .input-large {
+            width: 18rem;
+        }
+        .btn_submit {
+            width: 8rem;
+        }
+    </style>
+   <div class="tab-wrap">
+    <div class="tab-nav">
+        <volist name=":parse_config_attr($model['field_group'])" id="group">
+        <div data-tab="tab{$key}" <eq name="key" value="1">class="current"</eq>>{$group}</div>
+        </volist>
+    </div>
+    <br>
+    <div class="tab-content">
+    <!-- 表单 -->
+    <form id="form" action="{:U('add')}" method="post" class="form-horizontal">
+        <!-- 基础文档模型 -->
+        <volist name=":parse_config_attr($model['field_group'])" id="group">
+        <div id="tab{$key}" class="tab-pane <eq name="key" value="1">in</eq> tab{$key}">
+            <volist name="fields[$key]" id="field">
+                <if condition="$field['is_show'] == 1 || $field['is_show'] == 2">
+                <div class="form-item">
+                    <label class="item-label">{$field['title']} :<span class="check-tips"><notempty name="field['remark']">（{$field['remark']}）</notempty></span></label>
+                    <div class="controls">
+                        <switch name="field.type">
+                            <case value="num">
+                                <input type="text" class="input-medium" name="{$field.name}" value="">
+                            </case>
+                            <case value="string">
+                                <input type="text" class=" input-large" name="{$field.name}" value="">
+                            </case>
+                            <case value="textarea">
+                                <label class="textarea input-large">
+                                <textarea name="{$field.name}"></textarea>
+                                </label>
+                            </case>
+                            <case value="datetime">
+                                <input type="text" name="{$field.name}" class=" input-large time" value="" placeholder="请选择时间" />
+                            </case>
+                            <case value="bool">
+                                <select name="{$field.name}">
+                                    <volist name=":parse_field_attr($field['extra'])" id="vo">
+                                        <option value="{$key}" <eq name="field.value" value="$key">selected</eq>>{$vo}</option>
+                                    </volist>
+                                </select>
+                            </case>
+                            <case value="select">
+                                <select name="{$field.name}">
+                                    <volist name=":parse_field_attr($field['extra'])" id="vo">
+                                        <option value="{$key}" <eq name="field.value" value="$key">selected</eq>>{$vo}</option>
+                                    </volist>
+                                </select>
+                            </case>
+                            <case value="radio">
+                                <volist name=":parse_field_attr($field['extra'])" id="vo">
+                                    <label class="radio">
+                                    <input type="radio" value="{$key}" name="{$field.name}">{$vo}
+                                    </label>
+                                </volist>
+                            </case>
+                            <case value="checkbox">
+                                <volist name=":parse_field_attr($field['extra'])" id="vo">
+                                    <label class="checkbox">
+                                    <input type="checkbox" value="{$key}" name="{$field.name}[]">{$vo}
+                                    </label>
+                                </volist>
+                            </case>
+
+                            <default/>
+                            <input type="text" class="text input-large" name="{$field.name}" value="">
+                        </switch>
+                    </div>
+                </div>
+                </if>
+            </volist>
+        </div>
+        </volist>
+        <center>
+            <button class="button btn_submit status_error" type="submit">确 定</button>
+            <button class="button btn_submit status_success" type="button" onclick="javascript:history.go(-1);">返 回</button>
+        </center>
+    </form>
+    </div>
+</div>
+</block>
+<block name="script">
+    <link href="__STATIC__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('.time').datetimepicker({
+                format: 'yyyy-mm-dd',
+                language:"zh-CN",
+                minView:2,
+                autoclose:true
+            });
+
+        });
+
+        $('.tab-nav div').each(function(){
+            $(this).click(function(){
+                var tab = $(this).data('tab');
+                $('.current').removeClass('current');
+                $('.in').removeClass('in');
+                $(this).addClass('current');
+                $('#' + tab).addClass('in');
+            });
+        })
+        /*数据拼接*/
+        var temp_data = JSON.parse('{$temp_data}');
+        $(function(){
+            if(temp_data!=null){
+                $.each(temp_data,function(i,item){
+                    $('input[name="'+i+'"]').val(item);
+                })
+            }
+        })
+    </script>
+    <script type="text/javascript">
+        $(function(){
+            /*当置业顾问点数发生变化时，计算置业顾问佣金*/
+            $('input[name="sales_point"]').on('input propertychange',function(){
+                var base_commission =  $('input[name="base_commission"]').val();
+                var sales_commossion = $(this).val() * base_commission;
+                $('input[name="sales_commission"]').val(myToFixed(sales_commossion));
+            });
+            /*当分销商点数发生变化是，计算分销商佣金*/
+            $('input[name="distribution_point"]').on('input propertychange',function(){
+                var base_commission =  $('input[name="base_commission"]').val();
+                var distribution_commission = $(this).val() * base_commission;
+                $('input[name="distribution_commission"]').val(myToFixed(distribution_commission));
+            });
+
+            /*当渠道经理点数发生变化是，计算分销商佣金*/
+            $('input[name="manager_point"]').on('input propertychange',function(){
+                var base_commission =  $('input[name="base_commission"]').val();
+                var manager_commission = $(this).val() * base_commission;
+                $('input[name="manager_commission"]').val(myToFixed(manager_commission));
+            });
+
+            /*当案场主管点数发生变化是，计算分销商佣金*/
+            $('input[name="supervisor_point"]').on('input propertychange',function(){
+                var base_commission =  $('input[name="base_commission"]').val();
+                var supervisor_commission = $(this).val() * base_commission;
+                $('input[name="supervisor_commission"]').val(myToFixed(supervisor_commission));
+            });
+
+            /*点击置业顾问佣金的时候根据佣金基数和点数计算*/
+            $('input[name="sales_commission"]').focus(function(){
+                var base_commission =  $('input[name="base_commission"]').val();
+                var sales_point = $('input[name="sales_point"]').val();
+                $(this).val(myToFixed(base_commission * sales_point));
+            });
+
+            /*点击分销商佣金的时候根据佣金基数和点数计算*/
+            $('input[name="distribution_commission"]').focus(function(){
+                var base_commission =  $('input[name="base_commission"]').val();
+                var distribution_point = $('input[name="distribution_point"]').val();
+                $(this).val(myToFixed(base_commission * distribution_point));
+            });
+
+            /*点击渠道经理佣金的时候根据佣金基数和点数计算*/
+            $('input[name="manager_commission"]').focus(function(){
+                var base_commission =  $('input[name="base_commission"]').val();
+                var manager_point = $('input[name="distribution_point"]').val();
+                $(this).val(myToFixed(base_commission * manager_point));
+            });
+
+            /*点击案场主管佣金的时候根据佣金基数和点数计算*/
+            $('input[name="supervisor_commission"]').focus(function(){
+                var base_commission =  $('input[name="base_commission"]').val();
+                var supervisor_point = $('input[name="supervisor_point"]').val();
+                $(this).val(myToFixed(base_commission * supervisor_point));
+            });
+        })
+
+        /*在没有选择意向的时候下列禁止填写*/
+        $(function(){
+            /*首先将所有的*/
+            $('input[name="intention_money"]').parent().parent().addClass('hide');
+            $('input[name="intention_time"]').parent().parent().addClass('hide');
+            $('select[name="return_money"]').parent().parent().addClass('hide');
+            $('input[name="intention_room_style"]').parent().parent().addClass('hide');
+            $('input[name="serial_number"]').parent().parent().addClass('hide');
+            $('input[name="intention_money_return_time"]').parent().parent().addClass('hide');
+            $('select[name="is_intention"]').change(function(){
+                var is_tentiton = $(this).val();
+                if(is_tentiton == 1){
+                    $('input[name="intention_money"]').parent().parent().removeClass('hide');
+                    $('input[name="intention_time"]').parent().parent().removeClass('hide');
+                    $('select[name="return_money"]').parent().parent().removeClass('hide');
+                    $('input[name="intention_room_style"]').parent().parent().removeClass('hide');
+                    $('input[name="serial_number"]').parent().parent().removeClass('hide');
+                    $('input[name="intention_money_return_time"]').parent().parent().removeClass('hide');
+                }else{
+                    $('input[name="intention_money"]').parent().parent().addClass('hide');
+                    $('input[name="intention_time"]').parent().parent().addClass('hide');
+                    $('select[name="return_money"]').parent().parent().addClass('hide');
+                    $('input[name="intention_room_style"]').parent().parent().addClass('hide');
+                    $('input[name="serial_number"]').parent().parent().addClass('hide');
+                    $('input[name="intention_money_return_time"]').parent().parent().addClass('hide');
+                }
+            })
+        })
+        function myToFixed(num) {
+            return num.toFixed(2);
+        }
+    </script>
+</block>

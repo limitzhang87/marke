@@ -1,0 +1,47 @@
+<extend name="Base/common" />
+<block name="body">
+    <div id="content" style="width: 90%;margin: 5px auto;">
+        <volist name="list" id="vo">
+            <div id="p_{$vo.id}">
+                <div class="close_red right" onclick="delImg('{$vo.id}')">X</div>
+                <img src="__ROOT__{$vo.path}" data-url="{$vo.path}">
+            </div>
+        </volist>
+         <div id="navigation" align="center">
+        <!-- 页面导航-->
+            <a href="{:U('HousesImg/index')}&page=2"></a>
+            <!-- 此处可以是url，可以是action，要注意不是每种html都可以加，是跟当前网页有相同布局的才可以。另外一个重要的地方是page参数，这个一定要加在这里，它的作用是指出当前页面页码，每加载一次数据，page自动+1,我们可以从服务器用request拿到他然后进行后面的分页处理。-->
+        </div>
+    </div>
+     <if condition="is_auth(AUTH_HOUSESIMG_UPLOAD)">
+        <div class="fixed_add" style="background-color: {$bg_color}; padding: 6px;" onclick="redirect('{:U('HousesImg/add')}')">
+            <img src="__MIMG__/icon/add_big.png" >
+        </div>
+    </if>
+</block>
+<block name="script">
+    <script type="text/javascript" src="__STATIC__/plugins/infinitescroll/jquery.infinitescroll.js" charset="UTF-8"></script>
+    <script type="text/javascript" charset="utf-8">
+    /**
+     * 删除图片
+     * @param  {[type]} pic_path [description]
+     * @return {[type]}          [description]
+     */
+    function delImg(id) {
+        if(!confirm('是否要删除该图片！')){
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            data: 'id=' + id,
+            url: ThinkPHP.APP + '/Home/HousesImg/del_img',
+            success: function(msg) {
+                $('#p_' + id).remove(); //清除图片
+            },
+            error:function(){
+                alert('删除失败！');
+            }
+        });
+    }
+    </script>
+</block>

@@ -1,0 +1,110 @@
+<extend name="Base/common" />
+<block name="body">
+    <div class="hide">
+        <img class="swiper_img" src="__MIMG__/banner_1.png" style="width: 100%;">
+    </div>
+    <div style="height: 30px;width: 100%;border: #ccc solid;border-width: 0 0 2px 0;background-color: #fff;">
+        <div class="left" style="height:100%;width: 49%; font-size: 1.5rem;line-height: 30px;text-align: center;color: #f00;border: #f00 solid;border-width: 0 0 2px 0;">楼栋管理</div>
+        <span style="padding-left: 1px;background-color: #EBEBEB;padding-bottom: 17px;"></span>
+        <div class="right" style="height:100%;width: 49%;font-size: 1.5rem;line-height: 30px;text-align: center;" onclick="redirect('{:U('Room/building_list')}')">单元管理</div>
+    </div>
+    <form action="" method="POST">
+        <div style="width: 100%;padding-top: 10px;font-size: 20px;text-align: center;">
+            填写楼盘楼栋单元信息
+        </div>
+        <div class="house_content" id="house">
+            <notempty name="_list">
+                <volist name="_list" id="vo">
+                <div class="house_item">
+                    <div class="house_input_s"><input type="text" id="b_{$vo.id}" value="{$vo.b_name}"></div><label>栋名</label>
+                    <div class="house_input_s" style="width: 3rem;"><input type="number" value="{$vo.unit_num}" disabled="disabled"></div><label>单元数量</label>
+                    <div onclick="edit('{$vo.id}');" style="padding-top: 3px;" class="confirm"><li class="edit_s_icon"></li></div>
+                    <div onclick="del(this,'{$vo.id}');" style="padding-top: 3px;" class="confirm"><li class="del_icon"></li></div>
+                </div>
+                </volist>
+            <else/>
+                <div class="house_item">
+                    <div class="house_input_s"><input type="" name="b_name[]"></div><label>栋名</label>
+                    <div class="house_input_s" style="width: 3rem;"><input type="number" name="unit_num[]"></div><label>单元数量</label>
+                    <div onclick="del(this);" style="padding-top: 3px;"><li class="del_icon"></li></div>
+                </div>
+            </notempty>
+        </div>
+        <center class="house_content add" style="margin-top: -10px;padding-top: 20px;">
+            <li class="add_icon"></li>
+        </center>
+        <center style="margin: 20px auto;">
+            <button class="button_l btn_submit">提交</button>
+        </center>
+    </form>
+
+</block>
+<block name="script">
+    <script type="text/javascript" charset="utf-8">
+    $('.add').on('click', function() {
+        var html = '<div class="house_item">'+
+                '<div class="house_input_s"><input type="" name="b_name[]"></div><label>栋名</label>'+
+                '<div class="house_input_s"  style="width: 3rem;"><input type="number" name="unit_num[]" ></div><label>单元数量</label>'+
+                '<div onclick="del(this);" style="padding-top: 3px;"><li class="del_icon"></li></div>'+
+            '</div>';
+        $('#house').append(html);
+    });
+    hightLine('Room/index');
+    function del(i,id) {
+        id = id != undefined ? id : 0;
+        if(id != 0){
+            //删除原有的栋号
+            if(confirm('是否删除！')){
+                $.ajax({
+                    url:'__CONTROLLER__/del_building',
+                    data:'id=' + id,
+                    error:function(msg){
+                        alert('删除失败!' + msg);
+                        history.go(0);
+                    },
+                    success:function(msg){
+                        if(msg.status == 1){
+                            $(i).parent().remove();
+                        }else{
+                            alert('删除失败');
+                            history.go(0);
+                            return;
+                        }
+                    }
+                });
+            }
+        }else{
+            $(i).parent().remove();
+        }
+    }
+
+    /**
+     * 修改董浩名称
+     * @param  {[type]} $id [description]
+     * @return {[type]}     [description]
+     */
+    function edit($id) {
+        var b_name = $('#b_'+$id).val();
+        if(confirm('是否修改该栋名称?')){
+            $.ajax({
+                url:'__CONTROLLER__/edit_building',
+                data:{'id':$id,'b_name':b_name},
+                error:function(msg){
+                    alert('修改失败！');
+                    history.go(0);
+                    return;
+                },
+                success:function(msg){
+                    if(msg.status == 1){
+                        alert('修改成功！');
+                    }else{
+                        alert('修改失败！');
+                        history.go(0);
+                        return;
+                    }
+                }
+            });
+        }
+    }
+    </script>
+</block>

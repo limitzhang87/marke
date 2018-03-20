@@ -1,0 +1,30 @@
+<extend name="Base/Common"/>
+<block name="style">
+    <link rel="stylesheet" href="__STATIC__/swiper/css/swiper.min.css">
+</block>
+<block name="body">
+    <div >
+        <img class="swiper_img" src="__MIMG__/banner_1.png" style="width: 100%;">
+    </div>
+    <div class="module">
+        <volist name="groupList" id="vo">
+            <div class="item_s">
+                <div class="item_info" onclick="redirect('{:U('Group/menuList',array('id'=>$vo['id']))}')">
+                    <span class="item_title">{$vo.name}</span>
+                    <span class="group_num">{$vo.usernum}人</span>   
+                </div>
+                <div class="item_more">
+                    <li class="arrow"></li>
+                </div >
+            </div>
+        </volist>
+        <div class="footer_btn" onclick="redirect('{:U('add')}')">
+           添加会员组
+        </div>
+    </div>
+</block>
+<block name="script">
+    <script type="text/javascript">
+    hightLine('Group/index');
+    </script>
+</block>

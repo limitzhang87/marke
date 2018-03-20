@@ -1,0 +1,29 @@
+<extend name="Public/base" />
+<block name="body">
+<div class="wrap J_check_wrap">
+  <div class="h_a">发布方案列表</div>
+  <form name="myform" action="{:addons_url('Collection://Node/import_content', array('nodeid'=>$nodeid,'type'=>$type,'ids'=>$ids) )}" method="post" class="J_ajaxForm">
+    <div class="table_full">
+    <table width="100%" class="table_form">
+		<volist name="program_list" id="vo">
+        <tr>
+			<th width="200"><label><input type="radio" name="programid" value="{$vo.id}" <if condition='key eq 0'>checked="checked" </if>>{$vo.name}</label></th> 
+			<td>栏目：{$catlist[$vo['category_id']]['name']} &nbsp;&nbsp;&nbsp;&nbsp;操作：<a class="J_ajax_del" href='{:addons_url("Collection://Node/import_program_del",array("id"=>$vo['id']))}'>删除</a> | <a href='{:addons_url("Collection://Node/import_program_edit",array("id"=>$vo[id],"nodeid"=>$nodeid,"type"=>$type,"ids"=>$ids   ))}'>编辑</a></td>
+		</tr>
+        </volist>
+	</table>
+	    <table width="100%" class="table_form">
+		<tr>
+			<th width="120">栏目：</th> 
+			<td><select name="category_id">{$select_categorys}</select></td>
+		</tr>
+	</table>
+    </div>
+
+     <div class="">
+      <button type="submit" class="btn btn_submit mr10">提交</button>
+    </div>
+  </form>
+</div>
+<script src="{$config_siteurl}statics/js/common.js?v"></script>
+</block>

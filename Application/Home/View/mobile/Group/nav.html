@@ -1,0 +1,9 @@
+			<div class="group_scroll" onclick="console.log($('.group_scroll').scrollLeft());">
+			<volist name="groupList" id="vo">
+			    <if condition="$vo['id'] eq $_id">
+			        <div class="group_on">{$vo.name}</div>
+			    <else/>
+			        <div class="group" onclick="redirect('{:U('Group/'.ACTION_NAME,array('id'=>$vo['id']))}')">{$vo.name}</div>
+			    </if>
+			</volist>
+			</div>

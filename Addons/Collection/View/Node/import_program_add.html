@@ -1,0 +1,89 @@
+<extend name="Public/base" />
+<block name="body">
+<style>
+.h_a{
+	padding:5px 9px;
+	border-top:1px solid #ddd;
+	border-bottom:1px solid #ffffff;
+	color:#666666;
+	font-weight:700;
+	background:#e6e6e6;
+	font-size:12px;
+}
+.prompt_text{
+	padding:10px;
+	color:#666;
+	margin-bottom:10px;
+}
+.prompt_text:hover{
+	color:#000;
+}
+.prompt_text ol,
+.prompt_text ul{
+	padding:0 0 5px 2em;
+	margin:0;
+	line-height:1.5;
+}
+.prompt_text ul li{
+	list-style: disc outside;
+}</style>
+<div class="wrap J_check_wrap">
+  <div class="h_a">新建发布方案</div>
+  <form name="myform" action="{:addons_url('Collection://Node/import_program_add', array('nodeid'=>$nodeid,'type'=>$type,'ids'=>$ids,'model_id'=>$model_id) )}" method="post" >
+    <div class="table_full">
+      <table width="100%">
+        <tr>
+          <th width="120">方案名称：</th>
+          <td> <input type="text" name="name" value="新发布方案"   class="input"> </td>
+        </tr>
+      </table>
+    </div>
+    <div class="bk10"></div>
+    <div class="h_a">标签与数据库对应关系</div>
+    <div class="prompt_text">
+       <div class="h_a">说明</div>
+          <ol>
+            <li>内容入库前可以添加 “处理函数” ，处理函数必须有返回值。</li>
+            <li>处理函数可以添加到 <font color="#FF0000">Collection</font> 模块目录下的 <font color="#FF0000">Funs</font> 文件夹下的 <font color="#FF0000">funs.php</font> 文件中。</li>
+            <li><b>常用函数</b>：过滤空格(<b>trim</b>)、MD5加密(<b>md5</b>)、文字截取(<b>cut|0,100</b>)</li>
+          </ol>
+    </div>
+    <div class="table_list">
+      <table width="100%">
+        <thead>
+          <tr>
+            <td align="left">原数据库字段</td>
+            <td align="left">数据库字段说明</td>
+            <td align="left">类型</td>
+             <td align="left">是否必须</td>
+            <td align="left">标签字段（采集填充结果）</td>
+            <td align="left" width="200">当为空时填充内容</td>
+            <td align="left" width="200">处理函数</td>
+          </tr>
+        </thead>
+<?php
+	foreach($model_field as $k=>$v) {
+		if (in_array($v['name'], array('category_id', 'typeid', 'posids', 'groupid', 'readpoint','template'))) continue;
+?>
+          <tr>
+            <td>{$v.name}</td>
+            <td>{$v.title}</td>
+            <td>{$v.type}</td>
+            <td><php>echo ($v['is_must']==1)?'是':'否'</php></td>
+            <td><input type="hidden" name="model_field[]" value="<?php echo $v['name']?>"><?php echo select($node_field, (in_array($v['name'], array('inputtime', 'updatetime')) ? 'time' : $v['name']), 'name="node_field[]"')?></td>
+            <td><textarea name="default[]"></textarea></td>
+            <td><input type="text" name="funcs[]" class="input"></td>
+          </tr>
+<?php
+	}
+?>
+      </table>
+      
+    </div>
+    <div class="">
+      <button type="submit" class="btn btn_submit J_ajax_submit_btn mr10">提交</button>
+    </div>
+  </form>
+</div>
+<script src="{$config_siteurl}statics/js/common.js?v"></script>
+</block>

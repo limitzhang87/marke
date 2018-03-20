@@ -1,0 +1,225 @@
+<div class='controls' style='border: 1px dashed #ccc; background-color: #fff;padding:5px;'>
+    <link rel="stylesheet" href="__ADDONROOT__/style/UploadImages.css">
+    <script type="text/javascript" src="__ADDONROOT__/js/jquery.sortable.js"></script>
+    
+    <textarea id="fields_input_{$param['name']}" name="{$param['name']}" class='hidden'>{$param['value']}</textarea>
+    <div class='controls'>
+        <div class="upload-img-box" id="fields-list_{$param['name']}">
+        </div>
+    </div>
+    <div class='fields-option controls'>
+        <input id="file_upload_{$param['name']}" name="file_upload" type="file" multiple="true"/>
+        <div id="file_upload_{$param['name']}_error"></div>
+    </div>
+
+    <script type="text/javascript">
+        var handlePictures_{$param['name']}=function(){
+            var o = $("#fields_input_{$param['name']}");
+            var oOtherFields=$("#other_fields_{$param['name']}");
+            var oOtherFieldsLink=$("#other_fields_{$param['name']}_link");
+            var oTemplate = $("#fields_input_template_{$param['name']}");
+            var oResult = $('#fields-list_{$param['name']}');
+            var oError=$("#file_upload_{$param['name']}_error");
+            var oValueJson = o.text();
+            var oValue = $.parseJSON(oValueJson);
+            var oList=[];
+            var oFields=[];
+            var oBaseFields=['name','id','path'];
+            var have_num=oValue.length;
+            var uploadLimit={$param['uploadLimit']|default='999'};
+            var showError=function(value){
+                var errorItem=$('<div></div>');
+                errorItem.html(value);
+                errorItem.appendTo(oError);
+                setTimeout(function(){
+                    errorItem.remove();
+                },5000)
+            };
+            oOtherFieldsLink.bind('click',function(){
+//                "gasdf,fasd,gasdf,fasdf".split(',').join(',')
+//                /^[a-zA-Z]{1}[a-zA-Z0-9]+$/.test('fasdf09asdf')
+                var arr=oOtherFields.val().split(',');
+                oFields=[];
+                for(var i in arr){
+                    if(/^[a-zA-Z]{1}[a-zA-Z0-9]*$/.test(arr[i])&&$.inArray(arr[i],oFields)<0&&$.inArray(arr[i],oBaseFields)<0){
+                        oFields.push(arr[i]);
+                    }
+                }
+                oOtherFields.val(oFields.join(','));
+                checkOtherFields(false);
+                showValue();
+            });
+            var checkOtherFields=function(flag){
+                if(oValue.length>0){
+                    if(flag){
+                        var item=oValue[0];
+                        for(var i in item){
+                            if($.inArray(i,oBaseFields)<0&&$.inArray(i,oFields)<0){
+                                oFields.push(i);
+                            }
+                        }
+                        oOtherFields.val(oFields.join(','));
+                    }
+                    if(oFields.length>0){
+                        for(var i in oFields){
+                            for(j in oValue){
+                                if(!oValue[j][oFields[i]]){
+                                    oValue[j][oFields[i]]='';
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+            var showValue=function(checkFields){
+                o.text(JSON.stringify(oValue));
+                oResult.html("");
+                oList=[];
+                for(var i in oValue){
+                	 console.log(oValue[i]);
+                    var id=oValue[i].id;
+                    oList[id]=oValue[i];
+                    var resultItem=$('<div draggable="false" class="upload-pre-item" data-id="'+id+'"></div>');
+                    var html="";
+                    if(oFields.length>0){
+                        for(var j in oFields){
+                          //  html +='<label>'+oFields[j]+':<input data-id="'+id+'" data-field="'+oFields[j]+'" value="'+(oValue[i][oFields[j]]?oValue[i][oFields[j]]:'')+'"/></label>';
+                        }
+                    }
+					
+                  //  html+='<img src="__ADDONROOT__/images/'+oValue[i].ext+'.png" width=72 height=72>';
+					html +='<span data-id="'+id+'" class="btn-close" id="btn-close-'+id+'" title="删除文件"></span>';
+					html +='<div class="picname"><input data-id="'+id+'" data-field="name" value="'+oValue[i].name+'"/></div>';
+					resultItem.html(html);
+                    resultItem.appendTo(oResult);
+                   
+                   // console.log(uploadify_file_upload_picfigure.settings.uploadLimit);
+                    resultItem.find('.btn-close').bind('click',function(){
+                        delValue($(this).attr('data-id'));
+                     	check_pic_num();
+                    });
+                    resultItem.find('input').bind('change',function(){
+                        updateValue($(this).attr('data-id'),$(this).val(),$(this).attr('data-field'));
+                    });
+                }
+                if(oResult.find('.upload-pre-item').length>0){
+                    oResult.sortable().bind('sortupdate', function(event, ui) {
+                        oValue=[];
+                        oResult.find('.upload-pre-item').each(function(i){
+                            var id=$(this).attr('data-id');
+                            oValue.push(oList[id]);
+                        });
+                        showValue();
+                    });
+                }
+            };
+            var updateValue=function(id,value,field){
+                for(var i in oValue){
+                    if(oValue[i].id==id){
+                        oValue[i][field]=value;
+                        break;
+                    }
+                }
+                showValue();
+            };
+            var delValue=function(id){
+                for(var i in oValue){
+                    if(oValue[i].id==id){
+                        oValue.splice(i,1);
+                        break;
+                    }
+                }
+                showValue();
+            };
+            var uploadPictures = function (file, data) {
+            	// console.log(data);
+                var data = zf_decrypt(data);
+				data = eval("("+data+")");
+			
+				 console.log(data);
+                if(data.status==1){
+                    var item={path:data.path,id:data.id,ext:data.ext,name:file.name.replace(/(.mp4)|(.swf)/,"")};//添加所需要字段；
+                    have_num=have_num+1;
+                    oValue.push(item);
+                }else{
+                	 alert(data.info);return false;
+                }
+                showValue();
+                showError(file.name+":"+data.info);
+                check_pic_num();
+            };
+         	$("#file_upload_{$param['name']}").uploadify({
+                "height": 30,
+                "swf": "__STATIC__/plugins/uploadify/uploadify.swf",
+                "fileObjName": "download",
+                "buttonText":<php>echo ($param['uploadLimit']!=1)?'"上传多附件"': '"上传单附件"';</php>,
+                "uploader": "{:U('File/upload',array('session_id'=>session_id()))}",
+                "width": 120,
+                'removeTimeout': 1,
+                'multi ' :false, //并发上传数据 
+             //   'uploadLimit':uploadLimit,
+                'fileTypeExts': '*.mp4; *.swf;',
+                "onUploadSuccess": uploadPictures,
+                'onFallback': function () {
+               	 alert('未检测到兼容版本的Flash.');
+                },onSWFReady:function(file){
+                	 check_pic_num();
+                	 $("#file_upload_{$param['name']}").uploadify('settings','multi',<php>echo ($param['uploadLimit']>=1)?'false':'true';</php>);
+
+                },
+                onSelect : function(file) {
+                } ,
+                'formData': {
+                'timestamp': (new Date()).getTime()
+                }
+            });
+            checkOtherFields(true);
+            showValue();
+           
+            function check_pic_num(){
+            	if({$param['uploadLimit']|default=0}!=0){
+            		var num=$("#fields-list_{$param['name']}").children("div").length; 
+                	if({$param['uploadLimit']|default=0}!=0&&num>={$param['uploadLimit']|default=0}){
+                		//禁用按钮
+                		uploadify_file_upload_{$param['name']}.setButtonDisabled('true');
+                		if($("#file_upload_{$param['name']}").uploadify&&typeof($("#file_upload_{$param['name']}").uploadify)=="function"){ 
+                			//在uploadify加载后
+                			$("#file_upload_{$param['name']}").uploadify('disable', true);
+             
+                		}
+                		$("#file_upload_{$param['name']}").click(function(){
+                			alert("限制只能上传{$param['uploadLimit']}个文件");
+                		});
+                		//$("#file_upload_{$param['name']}").find(".uploadify-button-text").html("只能上传{$param['uploadLimit']}个文件");
+                	}else{
+                		uploadify_file_upload_{$param['name']}.setButtonDisabled('false');
+                		if($("#file_upload_{$param['name']}").uploadify&&typeof($("#file_upload_{$param['name']}").uploadify)=="function"){ 
+                			$("#file_upload_{$param['name']}").uploadify('disable', false);
+                			
+                		}
+                		$("#file_upload_{$param['name']}").unbind("click"); 
+                	}
+            	}
+            }
+           // uploadify_file_upload_{$param['name']}.queueData.uploadsSuccessful=oValue.length;
+        }
+        
+        $(function () {
+            handlePictures_{$param['name']}();    
+        });
+		function zf_decrypt(e){
+			var result;
+			var url="{:addons_url('UploadFiles://UploadFiles/zf_decrypt/')}";	
+			$.ajax({
+							url: url,
+							async: false,//改为同步方式
+							type: "POST",
+							data: {data:e},
+							success: function (data) {
+								result = data;
+							}
+					 });
+			return result;
+			}
+    </script>
+</div>

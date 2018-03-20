@@ -1,0 +1,265 @@
+<extend name="Base/common" />
+<block name="body">
+    <style type="text/css">
+        .unit_set_value label{
+            padding-left: 10px;
+            font-size: 1.5rem;
+            line-height: 3rem;
+        }
+        .tip div{
+            width: 100%;
+            text-align: center;
+            margin: 5px 0;
+            font-size: 1.5rem;
+            color: #8F8F8F;
+        }
+    .div_img{
+            width:90%;margin:5px auto;
+        }
+        .div_img>img{
+            margin-top: -2rem;
+        }
+        .div_img>.close_red {
+            top: 0;
+        }
+    </style>
+    <form method="POST">
+        <div class="unit_set_item">
+            <div class="unit_set_title">栋号</div>
+            <div class="unit_set_value">
+                 <label>{$room.b_name}栋</label>
+            </div>
+        </div>
+        <div class="unit_set_item">
+            <div class="unit_set_title">单元号</div>
+            <div class="unit_set_value">
+                <label>{$room.u_name}单元</label>
+            </div>
+        </div>
+        <div class="unit_set_item">
+            <div class="unit_set_title">房号</div>
+            <div class="unit_set_value">
+               <input class="input_m" type="text" name="room_number" class="input" value="{$room.room_number}" <neq name="edit" value="1">disabled="disabled"</neq> >
+            </div>
+        </div>
+        <div class="unit_set_item">
+            <div class="unit_set_title">房</div>
+            <div class="unit_set_value">
+                <input class="input_m" type="text" name="sameroom[apartment]" value="{$room.apartment}" <neq name="edit" value="1">disabled="disabled"</neq>>
+            </div>
+        </div>
+        <div class="unit_set_item">
+            <div class="unit_set_title">厅</div>
+            <div class="unit_set_value">
+                <input class="input_m" type="text" name="sameroom[hall]" value="{$room.hall}" <neq name="edit" value="1">disabled="disabled"</neq>>
+            </div>
+        </div>
+        <div class="unit_set_item">
+            <div class="unit_set_title">厨</div>
+            <div class="unit_set_value">
+                <input class="input_m" type="text" name="sameroom[kitchen]" value="{$room.kitchen}" <neq name="edit" value="1">disabled="disabled"</neq>>
+            </div>
+        </div>
+        <div class="unit_set_item">
+            <div class="unit_set_title">卫</div>
+            <div class="unit_set_value">
+                <input class="input_m" type="text" name="sameroom[toilet]" value="{$room.toilet}" <neq name="edit" value="1">disabled="disabled"</neq>>
+            </div>
+        </div>
+        <div class="unit_set_item">
+            <div class="unit_set_title">建筑面积</div>
+            <div class="unit_set_value">
+               <input class="input_m" type="text" name="sameroom[area]" class="input" value="{$room.area}" <neq name="edit" value="1">disabled="disabled"</neq> >m²
+            </div>
+        </div>
+        <div class="unit_set_item">
+            <div class="unit_set_title">建筑单价</div>
+            <div class="unit_set_value">
+                <input class="input_m" type="text" name="unit_price" class="input" value="{$room.unit_price}" <neq name="edit" value="1">disabled="disabled"</neq> >元/m²
+            </div>
+        </div>
+        <div class="unit_set_item">
+            <div class="unit_set_title">总价</div>
+            <div class="unit_set_value">
+                <input class="input_m" type="text" name="total_price" class="input" value="{$room.total_price}" <neq name="edit" value="1">disabled="disabled"</neq> >元
+            </div>
+        </div>
+        <div class="unit_set_item" style="height:auto;">
+            <div class="unit_set_title">户型图:</div>
+            <div class="unit_set_value">
+                <div class="button" onclick="fileSelect()" style="width:auto;margin:5px;padding:0 5px;">选择图片</div>
+                <input class="input_m" id="thumb" type="hidden" name="sameroom[thumb]" value="{$room.thumb}">
+            </div>
+        </div>
+        <div id="showPic" class="hide1" style="width:80%;margin:0 auto;">
+            <if condition="$room['thumb'] neq '' ">
+                <php>$room['thumb'] =  explode(',',$room['thumb']);$kk = $key+1;</php>
+                <volist name="room['thumb'] " id="thumb" k="k">
+                <div class="div_img" data-id="{$thumb}">
+                    <div class="close_red right" onclick="delImg('{$thumb}')">X</div>
+                    <img src="__ROOT__{:get_cover($thumb)}" style="width:100%;">
+                </div>
+                </volist>
+            </if>
+        </div>
+        <if condition="$edit eq 1" >
+        <center >
+            <input type="hidden" name="id" value="{$room.id}">
+            <input type="hidden" name="s_id" value="{$room.s_id}">
+            <button class="button btn_submit">提交</button>
+        </center>
+        <else/>
+        <div class="tip">
+            <div>该房间不是属于未售状态，不能编辑</div>
+        </div>
+        </if>
+    </form>
+    <form id="form" enctype="multipart/form-data">
+        <input class="input_m hide" id="fileToUpload" name="fileToUpload[]" type="file" multiple="" accept="image/png,image/jpg,image/gif,image/jpeg,image/svg" onchange="fileUpload()">
+    </form>
+</block>
+<block name="script">
+    <script type="text/javascript">
+        var unit_price = '{$room.unit_price}';
+        var area = '{$room.area}'
+        $('input[name="unit_price"]').on('input onpropertychange',function(){
+            if($(this).val() == ''){
+                $('#total_price').html( '0万元');
+                return ;
+            }
+            var price = parseFloat($(this).val());
+            price = price.toFixed(2);
+            if(isNaN(price)){
+                alert('输入错误！');
+                $(this).val(unit_price);
+                var total_price = area *unit_price;
+                $('#total_price').val( total_price.toFixed(0));
+                return;
+            }
+
+            var total_price = area *price;
+            $('#total_price').val( total_price.toFixed(0));
+        })
+
+
+
+    /**
+     * 触发文件选择框架
+     * @param  {[type]} id [description]
+     * @return {[type]}    [description]
+     */
+    function fileSelect() {
+        $('#fileToUpload').click();
+    }
+
+    /**
+     * 当文件选择框选择文件时自动上传。
+     * @param  {int} id 房号的暂时ID
+     */
+    function fileUpload() {
+        var formData = new FormData($('#form')[0]); //获取表单
+        //formData.append('brand_name',$('option[value="'+$('select').val()+'"]').html());
+        //FormData的参数只能是 HTMLFormElement,而JQ拿到的是一个对象，但是下标0的属性就是 HTMLFormElement
+        $.ajax({
+            url: ThinkPHP.APP + '/Home/UploadPic/uploadPicture',
+            type: 'POST',
+            data: formData, // Form数据
+            cache: false,
+            contentType: false, // 告诉jQuery不要去设置Content-Type请求头，然后在表单里面设置Content-Type为enctype="multipart/form-data"
+            processData: false, // 告诉jQuery不要去处理发送的数据
+            beforeSend: function() {
+                $('#loading').remove();
+                var html = '<div class="img_div" id="loading">' +
+                    '<img class="up_pic"  src="' + ThinkPHP.ROOT + '/Public/Mobile/images/icon/load.gif">' +
+                    '</div>';
+                $('#showPic').append(html);
+            },
+            success: function(msg) {
+                $('#loading').remove();
+                if (msg.status == 1) {
+                    imgHtml(msg.info);
+                }else{
+                     alert('上传失败');
+                }
+            },
+            error: function() {
+                $('#loading').remove();
+                alert('上传失败');
+            },
+        });
+    }
+
+    function imgHtml(info){
+        $(info).each(function(i,item){
+            var html ='<div class="div_img" name="pic" data-id="'+item.id+'"><div class="close_red right" onclick="delImg(' + item.id + ')">X</div>' +
+                '<img src="__ROOT__' + item.path + '" style="width:100%;"></div>' ;
+            $('#showPic').append(html);
+            $('#showPic').removeClass('hide');
+        });
+        var idA = new Array();
+        $('#showPic>div').each(function(i,item){
+            idA[i] = $(item).data('id');
+        });
+        var ids = idA.join(',');
+        $('#thumb').val(ids);
+    }
+    /**
+     * 删除图片
+     * @param  {[type]} pic_path [description]
+     * @return {[type]}          [description]
+     */
+    function delImg(pid) {
+        if(!confirm('是否删除图片！')){
+            return ;
+        }
+
+        $('#showPic>div[data-id="'+pid+'"]').remove();//清除图片
+        //$('input[name="thumb[]"]').val('');
+        var idA = new Array();
+        $('#showPic>div').each(function(i,item){
+            idA[i] = $(item).data('id');
+        });
+        var ids = idA.join(',');
+        $('#thumb').val(ids);
+        if(ids == ''){
+           $('#showPic').addClass('hide');
+        }
+        return ;
+        $.ajax({
+            type: 'POST',
+            data: 'id=' + pid,
+            url: ThinkPHP.APP + '/Home/UploadPic/del_Img',
+            success: function(msg) {
+                $('#showPic'+id+'>div[data-id="'+pid+'"]').remove();//清除图片
+                //$('input[name="thumb[]"]').val('');
+                var idA = new Array();
+                $('#showPic'+id+'>div').each(function(i,item){
+                    idA[i] = $(item).data('id');
+                });
+                var ids = idA.join(',');
+                $('#thumb'+id).val(ids);
+                if(ids == ''){
+                   $('#showPic'+id).addClass('hide');
+                }
+            }
+        });
+    }
+
+    
+    $('input[name="unit_price"]').on('input onpropertychange', function() {
+        var total_price = $(this).val() * $('input[name="sameroom[area]').val();
+        if( isNaN(total_price)){
+            total_price = 0;
+        }
+        $('input[name="total_price"]').val(parseInt(total_price));
+    });
+
+    $('input[name="total_price"]').on('input onpropertychange', function() {
+        var unit_price = $(this).val() / $('input[name="sameroom[area]').val();
+        if( isNaN(unit_price)){
+            unit_price = 0;
+        }
+        $('input[name="unit_price"]').val(parseInt(unit_price));
+    });
+    </script>
+</block>

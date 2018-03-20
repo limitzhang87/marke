@@ -1,0 +1,111 @@
+<extend name="Public/base" />
+<block name="body">
+    <style type="text/css">
+    .add {
+        border: solid #EBEBEB;
+        border-width: 1px;
+        border-radius: 4px;
+        font-size: 1.5em;
+        width: 28px;
+        height: 28px;
+        text-align: center;
+    }
+    </style>
+    <div class="main-title cf">
+        <h2>编辑{$title}权限</h2>
+    </div>
+    <!-- 标签页导航 -->
+    <div class="tab-wrap">
+        <!--     <ul class="tab-nav nav">
+            <volist name=":parse_config_attr($model['field_group'])" id="group">
+            <li data-tab="tab{$key}" <eq name="key" value="1">class="current"</eq>><a href="javascript:void(0);">{$group}</a></li>
+            </volist>
+    </ul> -->
+        <div class="tab-content">
+            <!-- 表单 -->
+            <form id="form" action="{:U('menu_auth',array('m_id'=>$m_id))}" method="post" class="form-horizontal">
+                <!-- 基础文档模型 -->
+                <div id="tab" class="tab-pane in">
+                    <label class="item-label">请输入添加权限并选择是否开启</label>
+                    <volist name="list" id="vo">
+                        <div class="controls" style="width: 400px;display: -webkit-box;">
+                            <input type="hidden" name="id[]" value="{$vo.id}">
+                            <input type="text" class="text input-large" name="title[]" value="{$vo.title}" style="width: 150px;">
+<!--                             <div style="margin: 0 10px;">
+                                <select name="is_auth[]">
+                                    <option value="1" <eq name="vo['is_auth']" value="1">selected</eq>>开启</option>
+                                    <option value="0" <neq name="vo['is_auth']" value="1">selected</neq>>关闭</option>
+                                </select>
+                            </div> -->
+                            <div class="btn submit-btn confirm" style="margin: 0 10px; padding: 5px 10px;" onclick="del(this,'{$vo.id}')">删除</div>
+                        </div>
+                    </volist>
+                </div>
+                <div style="margin: 10px 4px;">
+                    <div class="btn btn-return" style="padding: 5px 10px;" onclick="add()">添加</div>
+                </div>
+                <div class="form-item cf">
+                    <input type="hidden" name="m_id" value="{$m_id}">
+                    <button class="btn submit-btn ajax-post hidden" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+                    <a class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</block>
+<block name="script">
+    <link href="__STATIC__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+    <php>if(C('COLOR_STYLE')=='blue_color') echo '
+        <link href="__STATIC__/datetimepicker/css/datetimepicker_blue.css" rel="stylesheet" type="text/css">';</php>
+    <link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+    <script type="text/javascript">
+    $('#submit').click(function() {
+        $('#form').submit();
+    });
+
+    $(function() {
+        $('.time').datetimepicker({
+            format: 'yyyy-mm-dd hh:ii',
+            language: "zh-CN",
+            minView: 2,
+            autoclose: true
+        });
+        showTab();
+    });
+
+    function add() {
+        var html = '<div class="controls" style="width: 400px;display: -webkit-box;">' +
+            '<input type="text" class="text input-large" name="title[]" value="" style="width: 150px;">' +
+            '<div class="btn submit-btn" style="margin: 0 10px; padding: 5px 10px;" onclick="del(this)">删除</div>' +
+            '</div>';
+        $('#tab').append(html);
+    }
+
+    function del(i, id = 0) {
+        if (id != 0) {
+            if (confirm('是否删除？')) {
+                // /$(i).parent().remove();
+                $.ajax({
+                    type: "POST",
+                    url: "__CONTROLLER__/del_auth",
+                    data: "id="+id,
+                    error:function(){
+                        alert('删除失败');
+                    },
+                    success: function(msg) {
+                        if(msg == '1'){
+                            $(i).parent().remove();
+                        }else{
+                            alert('删除失败');
+                        }
+                    }
+                });
+            }
+        } else {
+            $(i).parent().remove();
+        }
+    }
+    </script>
+</block>

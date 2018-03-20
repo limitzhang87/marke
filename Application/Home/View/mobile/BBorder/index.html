@@ -1,0 +1,210 @@
+<extend name="Base/common" />
+<block name="body">
+    <style type="text/css">
+        .list{
+            display: block;
+            height: 7rem;
+            margin: 10px 8px;
+            border: solid #E0E0E0 1px;
+            border-radius: 3px;
+            background-color: #FBFBFB;
+            font-size: 1.2rem;
+            position: relative;
+        }
+         .list table{
+            width: 100%;
+         }
+        .list table tr{
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+        }
+        .list table tr td{
+            padding: 0.1em 0.2em;
+            min-height: 1.2em;
+            line-height: 1.2em;
+        }
+
+        .tit{
+            border-top: 1px dashed #d9d9d9;
+            font-size: 0.9em;
+            line-height: 1.8em;
+            color: #f19411;
+            text-align: center;
+        }
+        .tit>strong{
+            font-weight: normal;
+            display: block;
+            margin: 0 auto;
+            line-height: 1.6em !important;
+        }
+        a, a:visited {
+            text-decoration: none;
+            color: #000;
+        }
+        .func{
+            height: 5.5rem;
+            display: -webkit-box;
+            border-bottom: solid #ebebeb 1px;
+        }
+        .func>div{
+            width: 25%;
+            border: solid #EBEBEB;
+            border-width: 0 1px 0 0;
+        }
+        .func>div>div:first-child{
+            height: 4rem;
+            background-size: 4rem;
+            background-position: center;
+        }
+        .func>div>div:last-child{
+            height: 1rem;
+            text-align: center;
+        }
+        .all>div:first-child{
+            background: url(__MIMG__/icon/all.png) no-repeat;
+        }
+        .new>div:first-child{
+            background: url(__MIMG__/icon/new.png) no-repeat;
+        }
+        .in>div:first-child{
+            background: url(__MIMG__/icon/in.png) no-repeat;
+        }
+        .over>div:first-child{
+            background: url(__MIMG__/icon/over.png) no-repeat;
+        }
+        .on{
+            color: red;
+        }
+        .ifon{
+            position: absolute;
+            right: 0;
+            width: 1.2em;
+            height: auto;
+            font-size: 0.7em;
+            line-height: 1em;
+            color: #fff;
+            border: 0px solid #d9d9d9;
+            border-bottom: 0px wavy #d9d9d9;
+            background: #F60;
+            text-align: center;
+            z-index: 0;
+        }
+    </style>
+    <div>
+        <div class="func">
+            <volist name="button" id="value">
+                <div class="{$value.class}" data-id="{$value.class}">
+                    <div></div>
+                    <div>{$value.title}</div>
+                </div>
+            </volist>
+        </div>
+        <div id="content">
+        </div>
+        <center class="tip">
+            正在获取数据...
+        </center>
+    </div>
+
+    <if condition="is_auth(AUTH_BBORDER_ADD) || is_auth(AUTH_BBORDER_MANAGE)">
+    <div class="fixed_add" style="background-color: {$bg_color}; padding: 6px;" onclick="redirect('{:U('add')}')">
+        <img src="__MIMG__/icon/add_big.png">
+    </div>
+    </if>
+</block>
+<block name="script">
+    <script type="text/javascript">
+        var p = 1;
+        var row = 10;
+        var status = 0;
+        var uid = '{$uid}';
+        var button = '{$buttonJson}';
+        var map = '{$map}';
+        var where = '';
+        var type = '{$type}';
+        map = JSON.parse(map);
+        $(function(){
+            where = JSON.stringify(map[type]);
+            $('.' + type).addClass('on');
+            getList();
+
+            $('.func>div').click(function(){
+                type = $(this).data('id');
+                window.location.href = '__CONTROLLER__/index/type/' + type;
+                // where = JSON.stringify(map[$(this).data('id')]) ;
+                // p = 1;
+                // getList();
+            });
+        });
+
+        function getList() {
+            status = 0;
+            $.ajax({
+                url: ThinkPHP.APP + '/Home/BBorder/getList2',
+                type:'POST',
+                data:{'p':p,'where':where},
+                beforeSend:function(){
+                    $('.tip').removeClass('hide');
+                },
+                error:function(){
+                    alert('获取数据失败！');
+                },
+                success:function(msg){
+                    if(msg.status == 1){
+                        $('.tip').addClass('hide');
+                        listHtml(msg.info._data);
+                    }else{
+                        alert('获取数据失败！');
+                    }
+                }
+            })
+        }
+        function listHtml(list) {
+            if(list == null && p == 1){
+                $('#content').html('<center>没有更多数据</center>');
+                return;
+            }
+            var html = '';
+            $.each(list,function(i,item){
+                html += '<a class="list " href="'+ ThinkPHP.APP + '/Home/BBorder/detail/id/'+item.id +'">'+
+                            '<div class="ifon '+item.class+'">'+item.tip+'</div>'+
+                            '<table>'+
+                                '<tr><td>客户姓名：'+item.name+'</td></tr>'+
+                                '<tr><td>客户电话：'+item.phone+'</td><td style="text-align:right;"></td></tr>'+
+                                '<tr><td colspan="2">下单时间：'+item.first_time+'</td></tr>'+
+                                '<tr><td colspan="2" class="tit"><strong>查看订单详情</strong></td></tr>'+
+                            '</table>'+
+                        '</a>';
+
+            })
+            // return html;
+            if(p == 1){
+                if(html == ''){
+                    $('#content').html('<center>没有更多数据</center>');
+                    return ;
+                }
+                $('#content').html(html);
+            }else{
+                $('#content').append(html);
+                $('#content').append('<center>没有更多数据</center>');
+            }
+
+            if(list.length >= row){
+                status = 1;
+                p += 1;
+            }
+        }
+
+        //滚动加载
+        var h = $(window).height(); 
+        $(function(){
+            $(window).scroll(function(){
+                var top = $(this).scrollTop();
+                if(h-top <= 300 && status == 1){
+                    getList();
+                }
+            })
+        })
+    </script>
+</block>

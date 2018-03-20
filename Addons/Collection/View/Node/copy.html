@@ -1,0 +1,106 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>选择分类</title>
+	 <link href="__ROOT__/Public/favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" type="text/css" href="__CSS__/base.css" media="all">
+    <link rel="stylesheet" type="text/css" href="__CSS__/common.css" media="all">
+    <link rel="stylesheet" type="text/css" href="__CSS__/module.css">
+    <link rel="stylesheet" type="text/css" href="__CSS__/style.css" media="all">
+	<link rel="stylesheet" type="text/css" href="__CSS__/{$Think.config.COLOR_STYLE}.css" media="all">
+    <link rel="stylesheet" href="__CSS__/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="__CSS__/font-awesome/css/font-awesome-ie7.min.css"> 
+        <script type="text/javascript" src="__STATIC__/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="__JS__/jquery.mousewheel.js"></script>
+        <script type="text/javascript">
+    (function(){
+        var ThinkPHP = window.Think = {
+            "ROOT"   : "__ROOT__", //当前网站地址
+            "APP"    : "__APP__", //当前项目地址
+            "PUBLIC" : "__PUBLIC__", //项目公共目录地址
+            "DEEP"   : "{:C('URL_PATHINFO_DEPR')}", //PATHINFO分割符
+            "MODEL"  : ["{:C('URL_MODEL')}", "{:C('URL_CASE_INSENSITIVE')}", "{:C('URL_HTML_SUFFIX')}"],
+            "VAR"    : ["{:C('VAR_MODULE')}", "{:C('VAR_CONTROLLER')}", "{:C('VAR_ACTION')}"]
+        }
+    })();
+    </script>
+        <script type="text/javascript" src="__STATIC__/think.js"></script>
+    <script type="text/javascript" src="__JS__/common.js"></script>
+</head>
+<body style=" padding: 0px 0 0 0px;">
+
+<div class="wrap_pop ">
+  <div class="h_a">采集节点复制</div>
+    <div class="table_full"  style="overflow-x:hidden;">
+    <table width="100%" class="table_form">
+		<tr>
+			<th width="120">原采集点名：</th> 
+			<td>{$info.title}</td>
+		</tr>
+		<tr>
+			<th width="120">新采集点名：</th> 
+			<td><input type="text" name="name" id="name"  class="input" value="" /></td>
+		</tr>
+	</table>
+    </div><br/><br/><br/>
+     <div class="">
+<button id="submit" class="btn submit-btn ajax-post hidden" target-form="form-horizontal" type="submit">确定</button>
+<a class="btn btn-return" href="" id="back">返 回</a>
+    </div>
+
+</div>
+
+<script src="__STATIC__/plugins/artDialog/lib/sea.js"></script>
+<script>
+seajs.config({
+  alias: {
+    "jquery": "jquery-1.10.2.js"
+  }
+});
+</script>
+<script>
+window.console = window.console || {log:function () {}}
+seajs.use(['jquery'], function ($) {
+	$(function () {
+		try {
+			var dialog = top.dialog.get(window);
+		} catch (e) {
+			$('body').append(
+				'<p><strong>Error:</strong> 跨域无法无法操作 iframe 对象</p>'
+				+'<p>chrome 浏览器本地会认为跨域，请使用 http 方式访问当前页面</p>'
+			);
+			return;
+		};
+		$("input[type='checkbox']").click(function() {
+            if ($(this).prop("checked") == true) {
+                $("input[type='checkbox']").prop("checked", false);
+                $(this).prop("checked", true);
+            }
+        });
+		dialog.title('分类选择');
+		dialog.width(500);
+		dialog.height($(document).height());
+		dialog.reset();     // 重置对话框位置
+		var id_array = new Array();
+		var title_array = new Array();
+		$('#submit').on('click', function () {
+			dialog.close($('#name').val()); // 关闭（隐藏）对话框
+			dialog.remove();				 // 主动销毁对话框
+			return false;
+		});
+
+		$('#back').on('click', function () {
+			dialog.close(); // 关闭（隐藏）对话框
+			dialog.remove();				 // 主动销毁对话框
+			return false;
+		});
+
+
+	});
+
+});
+</script>
+</body>
+</html>

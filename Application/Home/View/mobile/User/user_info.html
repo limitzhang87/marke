@@ -1,0 +1,65 @@
+<extend name="Base/common" />
+<extend name="Base/common" />
+<block name="body">
+    <style type="text/css">
+        .titleN{
+            font-size: 1.5rem;
+            line-height: 50px;
+            margin-left: 10px;
+        }
+        .item_info{
+            width: 40%;
+        }
+        .right{
+            text-align: right;
+            padding-right: 20px;
+        }
+    </style>
+    <div class="item" onclick="redirect('{:U('User/editInfo', array('field'=>'head_img'))}')">
+        <div class="item_info">
+            <div class="titleN" >头像</div>
+        </div>
+        <div class="right item_info ">
+            <div  class="head_img right" style="padding-right: 0px;">
+                <img src="__ROOT__/{$user.head_img}">
+            </div>
+        </div>
+    </div>
+    <div class="item_s"  onclick="redirect('{:U('User/editInfo', array('field'=>'phone'))}')">
+        <div class="item_info">
+            <div  class="titleN" style="">手机号码</div>
+        </div>
+        <div class="right item_info ">
+            <div  class="titleN" style="">{$user.phone}</div>
+        </div>
+    </div>
+   <div class="item_s"  onclick="redirect('{:U('User/editInfo', array('field'=>'nick_name'))}')">
+        <div class="item_info">
+            <div  class="titleN" style="">昵称</div>
+        </div>
+        <div class="right item_info ">
+            <div  class="titleN" style="">{$user.nick_name}</div>
+        </div>
+    </div>
+    <div class="item_s"  onclick="redirect('{:U('User/editInfo', array('field'=>'sex'))}')">
+        <div class="item_info">
+            <div  class="titleN" style="">性别</div>
+        </div>
+        <div class="right item_info ">
+            <div  class="titleN" style="">{$user.sex}</div>
+        </div>
+    </div>
+    <div class="item_s"  onclick="redirect('{:U('User/editInfo', array('field'=>'password'))}')">
+        <div class="item_info">
+            <div  class="titleN" style="">修改密码</div>
+        </div>
+        <div class="item_more">
+            <li class="arrow"></li>
+        </div>
+    </div>
+</block>
+<block name="script">
+    <script type="text/javascript" charset="utf-8">
+    hightLine('User/index');
+    </script>
+</block>

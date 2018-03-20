@@ -1,0 +1,119 @@
+<extend name="Base/Common" />
+<block name="header"></block>
+<block name="body">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Mobile/share/nativeShare.css">
+    <style type="text/css">
+        .dialog {
+            position: static;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+        }
+        .dialog_shadow {
+            position: fixed;
+            z-index: 10001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+        }
+        .tips_div {
+            position: fixed;
+            height: 100%;
+            width: 260px;
+            z-index: 10002;
+            top: 2px;
+            right: 5px;
+        }
+        .tips_div img {
+            width: 260px;
+            height: 165px;
+        }
+        .tips_div a {
+            width: 240px;
+            height: 34px;
+            background: #eee;
+            border: 1px solid #c2c2c2;
+            font-size: 16px;
+            text-align: center;
+            line-height: 34px;
+            margin: 25px auto 0;
+            color: #666;
+            display: block;
+        }
+        .btn1 {
+        }
+        .btn2 {
+            border-radius: 5px;
+        }
+    </style>
+
+    <div class="lp-con col-xs-12">
+        <div class="lp-pic-txt  lp-sfd " style="width: 98%;">
+            <div class="loupan-detail-con">
+                <div style='font-family:"微软雅黑";'>
+                    <div id="main">
+                        <div style="padding-bottom: 10px;">
+                            <img src="{$info.path}" style="width: 100%;">
+                        </div>
+                        <div id="share">
+                            <div id="nativeShare"></div>
+                        </div>
+                        <div id="remind" style="color: red;display: none;">图片已经生成，可点击底部列表查看</div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- 发送邀请提示框 （分享到微信） -->
+    <div id="shareHint" class="dialog" style="display: none;">
+        <div class="dialog_shadow" onclick="hideDialog();">
+        </div>
+        <div class="tips_div">
+            <div>
+                <img src="__MIMG__/icon/tips.png"></div>
+            <div style="text-align: center;">
+                <a href="javascript:void(0)" onclick="hideHint()" title="关闭提示">关闭提示</a></div>
+        </div>
+    </div>
+</block>
+<block name="footer"></block>
+<block name="script">
+    <!-- <script src="__PUBLIC__/Home/js/main.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__STATIC__/bootstrap/js/bootstrap.min.js"></script> -->
+    <script src="__PUBLIC__/Mobile/share/nativeShare.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+    //提示分享框
+    function showHint() {
+        var isApp = 0;
+        //isApp = isAppBrowser();
+        if(isApp==1){
+            setupWebViewJavascriptBridge(function(bridge) {
+                bridge.callHandler('Share', {'url': url,'title':title,'message':content,'logo_type':'1'}, function(response) {});
+            });
+        }else{
+            $("#shareHint").show();
+            setTimeout("hideHint()", 5000);
+        }
+    }
+
+    function hideHint() {
+        $("#shareHint").hide();
+    }
+
+
+    var config = {
+        url:'http://www.zfangw.net/index.php?s=Home/OwnerShip/ownership_pic_show/id/{$id}',
+        title:'置业计划',
+        desc:'置业计划',
+        img:'{$info.path}',
+        img_title:'置业计划',
+        from:'中房通'
+    };
+    var share_obj = new nativeShare('nativeShare',config);
+    </script>
+</block>

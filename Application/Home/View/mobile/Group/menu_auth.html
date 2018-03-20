@@ -1,0 +1,44 @@
+<extend name="Base/common" />
+<block name="body">
+    <div>
+        <img class="swiper_img" src="__MIMG__/banner_1.png" style="width: 100%;">
+    </div>
+    <form action="" method="POST">
+        <include file="nav"/>
+        <div style="width: 100%;height:2rem; background-color: #EBEBEB;">
+            <div style="line-height: 2rem;padding-left: 10px;">添加权限({:count($_list)})(添加菜单没有添加权限，同样不能访问)</div>
+        </div>
+        <div>
+        <volist name="_list" id="vo">
+            <div class="item_s">
+                <div class="item_info" style="width: 100%;">
+                    <span class="item_menu" style="background: url('__ROOT__{:get_cover($vo['icon'])}') no-repeat;">{$vo.title}</span>
+                    <span class="menu_auth">
+                        <volist name="vo.auth" id="auth">
+                            <div  style="display: -webkit-box;margin: 0 3px;height: 100%;;">
+                                <input type="checkbox" name="gm_{$vo.gm_id}[]" value="{$auth.id}" <if condition="in_array($auth['id'],$vo['auth_ids'])"> checked</if>>
+                                <span>{$auth.title}</span>
+                            </div>
+                        </volist>
+                    </span>
+                </div>
+            </div>
+        </volist>
+        </div>
+        <center>
+            <button class="button btn_submit" style="margin: 10px auto;"  type="submit">
+               提交
+            </button>
+        </center>
+    </form>
+</block>
+<block name="footer">
+    <include file="Public/footer_menu"/>
+</block>
+<block name="script">
+    <script type="text/javascript">
+        hightLine('Group/menuList');
+        var left = $('.group_on').offset().left - $(window).width() / 2 + $('.group_on').width() / 2;
+        $('.group_scroll').scrollLeft(left);
+    </script>
+</block>

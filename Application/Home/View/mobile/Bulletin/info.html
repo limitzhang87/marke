@@ -1,0 +1,79 @@
+<extend name="Base/common" />
+<block name="body">
+	<style type="text/css">
+        .bulletin_title {
+            height: 60%;
+        }
+        .bulletin_title label{
+            margin-left: 5px;
+            font-size: 2rem;
+            line-height: 3rem;
+        }
+        #picdiv>img{
+        	width: 90%;
+        	margin: 5px 5%;
+        }
+        .upload-pre-file {
+			margin: 5px auto;
+			width: 90%;
+			height: 2rem;
+			line-height: 2rem;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			border: 1px dashed #ccc;
+			background-color: #fff;
+		}
+		.upload_icon_all {
+			width: 15px;
+			height: 15px;
+			background: url(__MIMG__/icon/attachment_1.png);
+			display: inline-block;
+			vertical-align: middle;
+			margin-right: 5px
+		}
+		a{
+			text-decoration:none;
+		}
+    </style>
+    <div style="padding: 0 10px;">
+    	<div class="bulletin_title">
+			<li></li>
+			<label>{$info.title}</label>
+		</div>
+
+		<div style="height: 40%;display: -webkit-box;color: #AAAAAA;font-size: 0.8em;">
+	        <div style="margin-left: 10px;width: 12rem;">发布于：<span id="create_time">{$info.created_time}</span> </div>
+	        <div>浏览数：{$info.view}</div>
+	    </div>
+		<div style="margin: 10px 0;text-indent:25px;font-size: 1.5rem;">
+			{$info.content}
+		</div>
+		<div id="picdiv">
+			<volist name="info['pictures']"  id="picture">
+				<img src="./{:get_cover($picture)}">
+			</volist>
+		</div>
+		<div>
+			<volist name="info['file']"  id="file">
+				<div class="upload-pre-file"><span class="upload_icon_all"></span><a href="{:U('File/download',array('id'=>$file))}">{:get_filename($file)} </a></div>
+			</volist>
+		</div>
+    </div>
+	<div style="z-index: -1;position: fixed;bottom: 50px;">
+		<img src="__MIMG__/icon/houses_bg.png">
+	</div>
+    <if condition="is_auth(AUTH_BULL_MANAGE)">
+        <div class="fixed_add" style="background-color: {$bg_color}; padding: 6px;" onclick="redirect('{:U('Bulletin/edit',array('id'=>$info['id']))}')">
+            <img src="__MIMG__/icon/edit.png">
+        </div>
+    </if>
+</block>
+<block name="script">
+	<script type="text/javascript">
+		hightLine('Bulletin/index');
+		$(function(){
+			$('#create_time').html(getDateDiff( $('#create_time').html() ));
+		});
+	</script>
+</block>

@@ -1,0 +1,71 @@
+<extend name="Public/base" />
+
+<block name="body">
+    <div class="main-title cf">
+        <h2>新增邀请码</h2>
+    </div>
+    <!-- 标签页导航 -->
+<div class="tab-wrap">
+    <div class="tab-content">
+    <!-- 表单 -->
+    <form id="form" method="post" class="form-horizontal" onsubmit="getHousesTitle()" > 
+        <!-- 基础文档模型 -->
+        <div id="tab" class="tab-pane in" style="margin: 20px;">
+            <label class="item-label">楼盘名称：</label>
+            <input type="text"  name="houses_title" class="text input-large">
+            <label class="item-label">二级域名（数据库）：</label>
+            <input type="text"  name="sld" class="text input-large">
+            <label class="item-label">生成的系列号：</label>
+            <input type="text" name="code" class="text input-large" id="code"  readonly="true"><br><br>
+            <div class="btn  btn-return" onclick="superCode()" id="creadeButton">生成系列号</div>
+        </div>
+        <div class="form-item cf">
+            <button class="btn submit-btn ajax-post hidden"  id="submit" type="submit"  target-form="form-horizontal">确 定</button>
+            <a class="btn btn-return" href="javascript:;" >返 回</a>
+        </div>
+    </form>
+    </div>
+</div>
+<script type="text/javascript">
+
+
+    function superCode() {
+        $.ajax({
+            url:'__CONTROLLER__/createCode',
+            type:'POST',
+            data:{'type':'create'},
+            error:function(){
+                alert('系列号生成失败，请刷新重试！');
+            },
+            success:function(msg){
+                if(msg.status != 1){
+                    alert('系列号生成失败，请刷新重试！');
+                    return ;
+                }
+
+                $('#code').val(msg.info);
+                disableButton();
+            }
+        })
+    }
+    var time = 30;
+    function disableButton() {
+        var button = $('#creadeButton');
+        button.html(time + '秒后可重新生成');
+        button.attr('disabled','disabled');
+        button.removeAttr('onclick');
+        var timer = setInterval(function(){
+            time -= 1;
+            if(time <= 0){
+                button.html('生成系列号');
+                button.removeAttr('disabled');
+                button.attr('onclick','superCode()');
+                time = 30;
+                clearInterval(timer);
+                return ;
+            }
+            button.html(time + '秒后可重新生成');
+        },1000);
+    }
+</script>
+</block>

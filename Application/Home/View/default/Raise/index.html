@@ -1,0 +1,112 @@
+<extend name="Base/common" />
+<block name="body">
+    <style type="text/css">
+        .page {
+            height: 100%;
+            width: calc(25% - 1px);
+            font-size: 1.5rem;
+            line-height: 30px;
+            text-align: center;
+        }
+
+        .page_on {
+            color: #f00;
+            border: #f00 solid;
+            border-width: 0 0 2px 0;
+        }
+
+        button {
+            border:none;
+            font-size: 1.2rem;
+            height: 2em;
+            width: 8rem;
+            margin-left: 1rem;
+        }
+    </style>
+    <div style="height: 30px;width: 100%;border: #ccc solid;border-width: 0 0 2px 0;background-color: #fff;">
+        <div style="height: 30px;width: 100%;border: #ccc solid;border-width: 0 0 2px 0;background-color: #fff; display: -webkit-box;">
+            <div class="page page_on"  >商城管理</div>
+            <span style="padding-left: 1px;background-color: #EBEBEB;padding-bottom: 17px;" ></span>
+            <div class="page"  onclick="redirect('{:U('bulletinList',array('type'=>1))}')">公告列表</div>
+            <span style="padding-left: 1px;background-color: #EBEBEB;padding-bottom: 17px;" ></span>
+            <div class="page"  onclick="redirect('{:U('bulletinList',array('type'=>0))}')">信息列表</div>
+            <span style="padding-left: 1px;background-color: #EBEBEB;padding-bottom: 17px;" ></span>
+            <div class="page" onclick="redirect('{:U('lists')}')">认购列表</div>
+        </div>
+    </div>
+    <div id="time" style="width: 100%;height: 1.2rem;background-color: #EEEE00;text-align: center;">
+        开盘时间倒计时
+    </div>
+
+    <center style="margin-top: 10px;">
+        <button class="status_success" onclick="redirect('{:U('addBulletin',array('type'=>1))}')">发布公告</button>
+        <button class="status_success" onclick="redirect('{:U('addBulletin',array('type'=>0))}')">发布信息</button>
+    </center>
+    <div style="min-height: 20rem;">
+        <if condition="$info['start_time'] gt 0">
+            <div style="text-align: center;font-size: 1.6rem;">
+                <p >开盘时间</p>
+                <p>{$info.start_time|date='Y年m月d日 H:i:s',###}</p>
+            </div>
+        <else/>
+            <div style="font-size: 2rem;text-align: center;">
+                <p>请设置开盘时间</p>
+            </div>
+        </if>
+        <div style="width: 80%;margin: 0 auto;">
+            <p>登录协议：</p>
+            <p style="text-indent:2rem;">{$info.agreement}</p>
+        </div>
+        <div style="width: 80%;margin: 0 auto;">
+            <p>备注：</p>
+            <p style="text-indent:2rem;">{$info.remark}</p>
+        </div>
+    </div>
+    <center>
+        <div class="button btn_submit" onclick="redirect('{:U('houses_info')}')">编辑</div>
+    </center>
+</block>
+<block name="script">
+    <script type="text/javascript">
+        var start_time = '{$info.start_time}';
+        if(start_time>0){
+            if(new Date() >= new Date(start_time * 1000)){
+                 $('#time').html("楼盘已经开始认购！");
+            }else{
+                getCountDown(start_time);
+            }
+        }
+        function getCountDown(timestamp){
+            setInterval(function(){
+                var nowTime = new Date();
+                var endTime = new Date(timestamp * 1000);
+
+                var t = endTime.getTime() - nowTime.getTime();
+                if(t<=0){
+                    $('#time').html("楼盘已经开始认购！");
+                    console.log(111);
+                    return ;
+                }
+                var d=Math.floor(t/1000/60/60/24);
+                var hour=Math.floor(t/1000/60/60%24);
+                var min=Math.floor(t/1000/60%60);
+                var sec=Math.floor(t/1000%60);
+                if (d < 10) {
+                     d = "0" +  d;
+                }
+                if (hour < 10) {
+                     hour = "0" + hour;
+                }
+                if (min < 10) {
+                     min = "0" + min;
+                }
+                if (sec < 10) {
+                     sec = "0" + sec;
+                }
+                var countDownTime = '开盘倒计时：<span style="color:red;">'+　d +'</span>天<span style="color:red;">'+ hour + '</span>小时<span style="color:red;">' + min + '</span>分<span style="color:red;">' + sec +'</span>秒';
+                $('#time').html(countDownTime);
+            },1000);
+        }
+       //调用函数：getCountDown(1451556000);//
+    </script>
+</block>

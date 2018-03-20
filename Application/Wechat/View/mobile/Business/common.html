@@ -1,0 +1,57 @@
+<extend name="Base/common" />
+<block name="body">
+   <include file="nav"/>
+   <div id="list">
+
+   </div>
+</block>
+<block name="script">
+    <script type="text/javascript" charset="utf-8">
+    var status = '{$status}';
+    var Noperationer = '{$Noperationer}';//无操作人员，为了取出需要审核的房号
+    var page = 1;
+    var is_check = '{$is_check}';
+    $(function(){
+    	$.ajax({
+    		url:'__CONTROLLER__/getList',
+    		type:'POST',
+    		data:{'page':page,'status':status,'Noperationer':Noperationer,'is_check':is_check},
+    		error:function(){
+    			$('#list').append('<center>没有数据！</center>');
+    		},
+    		success:function(msg){
+    			if(msg.status == 1){
+    				addHtml(msg.info);
+    			}else{
+                     $('#list').append('<center>没有数据！</center>');
+    			}
+    		}
+    	})
+    })
+
+
+    function addHtml(list) {
+     	var html = '';
+        if(list == ''){
+            $('#list').append('<center>没有数据！</center>');
+        }
+    	$(list).each(function(i, item){
+    		html += '<div class="item_s" onclick="toRoom(\''+item.id+'\');">'+
+            '<div class="item_info"">'+
+                '<div class="item_title_s">'+item.b_name+'-'+item.u_name+'-'+item.room_number+'</div>'+
+                '<div class="item_status '+ ((item.is_check== 0)?'status_over">未审核' : 'status_success">已审核') +'</div>'+
+            '</div>'+
+            '<div class="item_more">'+
+            	'<li class="arrow"></li>'+
+            '</div>'+
+        '</div>';
+    	})
+    	$('#list').append(html);
+    }
+
+    function toRoom(id){
+	    var url = ThinkPHP.APP + '/Home/Room/room_info/id/' + id;
+	    window.location.href = url;
+	}
+    </script>
+</block>

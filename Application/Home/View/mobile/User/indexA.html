@@ -1,0 +1,167 @@
+<extend name="Base/common" />
+<block name="body">
+    <style type="text/css">
+        .titleN{
+            font-size: 1.6rem;
+            line-height: 4.5rem;
+            padding-left: 20px;
+            display: -webkit-box;
+        }
+        .icon{
+            margin-top: 1.3rem;
+            height: 2rem;
+            width: 2rem;
+            display: block;
+            background: url('__MIMG__/icon/user_info.png') no-repeat;
+            background-size: auto 1.8rem;
+        }
+        .btn_submit {
+            width: 12rem;
+        }
+    </style>
+    <div class="user_header" style="background-color: {$bg_color};">
+        <img class="user_head" src="{$user.head_img}">
+        <div class="user_nick_name">
+            {$user.nick_name}
+        </div>
+    </div>
+    <div>
+        <div class="item_s">
+            <div style="font-size: 2rem;line-height: 4.5rem;margin-left: 10px;">会员管理</div>
+        </div>
+        <div class="item_s" onclick="redirect('{:U('User/user_info',array('id'=>$user['id']))}')">
+            <div class="item_info">
+                <div class="titleN" style=""><li class="icon" style="background-position: 0 0;"></li>会员信息</div>
+            </div>
+            <div class="item_more">
+                <li class="arrow"></li>
+            </div>
+        </div>
+        <div class="item_s" onclick="redirect('{:U('User/jobAdjust',array('id'=>$user['id']))}')">
+            <div class="item_info">
+                <div class="titleN" style=""><li class="icon" style="background-position: 0 0;"></li>职位调整</div>
+            </div>
+            <div class="item_more">
+                <li class="arrow"></li>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="item_s">
+            <div style="font-size: 2rem;line-height: 4.5rem;margin-left: 10px;">业绩统计</div>
+        </div>
+        <div class="item_s" onclick="redirect('{:U('Report/index',array('type'=>2,'uid'=>$user['id']))}')">
+            <div class="item_info">
+                <div class="titleN" style=""> <li class="icon" style="background-position: -4.5rem 0;"></li>他的成交统计</div>
+            </div>
+            <div class="item_more">
+                <li class="arrow"></li>
+            </div>
+        </div>
+        <div class="item_s" onclick="redirect('{:U('Report/index',array('type'=>1,'uid'=>$user['id']))}')">
+            <div class="item_info">
+                <div  class="titleN" style=""><li class="icon" style="background-position: -6.85rem 0;"></li>他的锁定统计</div>
+            </div>
+            <div class="item_more">
+                <li class="arrow"></li>
+            </div>
+        </div>
+    </div>
+    <!-- <center style="display: -webkit-box;width: 100%:">
+        <if condition="$user['status'] eq '1' ">
+            <div style="width: 40%;margin: 0px 3%;" class="button btn_submit " onclick="forUser();">禁用 </div>
+        <else/>
+            <div style="width:40%;margin: 0px 3%;" class="button btn_submit status_over " onclick="acUser();">启用 </div>
+        </if>
+        <button class="button btn_submit status_success" type="button" onclick="javascript:history.go(-1);">返回</button>
+    </center> -->
+     <center style="display: -webkit-box;width: 100%:">
+        <if condition="$user['status'] eq '1' ">
+            <button class="button btn_submit " onclick="forUser();">禁用 </button>
+        <else/>
+            <button class="button btn_submit status_over " onclick="acUser();">启用 </button>
+        </if>
+            <button class="button btn_submit status_success" type="button" onclick="javascript:history.go(-1);">返回</button>
+            <!-- <div style="width:40%;margin: 0px 3%;" class="button btn_submit " onclick="delUser();">删除 </div> -->
+    </center>
+</block>
+<block name="script">
+    <script type="text/javascript" charset="utf-8">
+    hightLine('User/index');
+
+    function delUser(){
+        var res = confirm('是否删除该会员？删除后该会员的数据将全部清空。');
+        if(res === false){
+            return ;
+        }
+        var id = '{$user.id}';
+        $.ajax({
+            url:'__CONTROLLER__/delUser',
+            type:'POST',
+            data:{'id':id},
+            error:function(){
+                console.log(1);
+            },
+            success:function(msg){
+                if(msg.status == 1){
+                    alert('删除成功！');
+                    window.location.href = document.referrer;
+                }else{
+                    alert('删除失败！');
+                     window.location.href = document.referrer;
+                }
+            }
+        });
+    }
+
+     function forUser(){
+        var res = confirm('是否禁用会员？');
+        if(res === false){
+            return ;
+        }
+        var id = '{$user.id}';
+        $.ajax({
+            url:'__CONTROLLER__/forUser',
+            type:'POST',
+            data:{'id':id},
+            error:function(){
+                console.log(1);
+            },
+            success:function(msg){
+                if(msg.status == 1){
+                    alert('禁用成功！');
+                    location.reload();
+                }else{
+                    alert('禁用失败！');
+                    location.reload();
+                }
+            }
+        });
+    }
+
+    function acUser(){
+        var res = confirm('是否启用会员？');
+        if(res === false){
+            return ;
+        }
+        var id = '{$user.id}';
+        $.ajax({
+            url:'__CONTROLLER__/acUser',
+            type:'POST',
+            data:{'id':id},
+            error:function(){
+                console.log(1);
+            },
+            success:function(msg){
+                if(msg.status == 1){
+                    alert('启用成功！');
+                    location.reload();
+                }else{
+                    alert('启用失败！');
+                    location.reload();
+                }
+            }
+        });
+    }
+    </script>
+</block>

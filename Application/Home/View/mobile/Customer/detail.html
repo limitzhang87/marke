@@ -1,0 +1,176 @@
+<extend name="Base/common" />
+<block name="body">
+    <style type="text/css">
+        .tab-nav {
+            height: 3rem;
+            border: solid #E0E0E0;
+            border-width: 0 0 1px 0;
+            width: 100%;
+            display: -webkit-box;
+        }
+        .tab-nav div {
+            height: calc(100% - 1px);
+            font-size: 1.2rem;
+            line-height: 3rem;
+            text-align: center;
+            width: calc(33.3% - 1px);
+            border: solid #E0E0E0;
+            border-width: 0 1px;
+            margin-right: -1px;
+        }
+        .current {
+            color: {$bg_color};
+            border: solid  {$bg_color} !important;
+            border-width: 0 0 2px 0 !important;
+        }
+        .tab-pane {
+            display: none;
+            margin: 0 1em;
+
+        }
+        .in {
+            display: block;
+        }
+        .form-item {
+            margin: 15px 0;
+            display: -webkit-box;
+            border: solid #EBEBEB;
+            border-width:  0 0 1px 0;
+        }
+        .item-label{
+            font-weight: bold;
+            width: 50%;
+            margin-right: 5px;
+        }
+        .input-medium {
+            width: 10rem;
+        }
+        .input-large {
+            width: 18rem;
+        }
+        .btn_submit {
+            width: 8rem;
+        }
+    </style>
+   <div class="tab-wrap">
+    <div class="tab-nav">
+        <volist name="groups" id="group">
+        <div data-tab="tab{$key}" <eq name="key" value="1">class="current"</eq>>{$group}</div>
+        </volist>
+    </div>
+    <br>
+    <div class="tab-contentform-horizontal">
+    <!-- 表单 -->
+        <!-- 基础文档模型 -->
+        <volist name="groups" id="group">
+        <div id="tab{$key}" class="tab-pane <eq name="key" value="1">in</eq> tab{$key}">
+            <volist name="fields[$key]" id="field">
+                <if condition="$field['is_show'] == 1 || $field['is_show'] == 3">
+                <div class="form-item cf">
+                    <div class="item-label">{$field['title']}<span class="check-tips"><notempty name="field['remark']">（{$field['remark']}）</notempty>:</span></div>
+                    <div class="controls">
+                        <switch name="field.type">
+                            <case value="num">
+                                <!-- <input type="text" class="text input-medium" name="{$field.name}" value="{$data[$field['name']]}"> -->
+                                <span>{$data[$field['name']]}</span>
+                            </case>
+                            <case value="string">
+                                <!-- <input type="text" class="text input-large" name="{$field.name}" value="{$data[$field['name']]}"> -->
+                                <span>{$data[$field['name']]}</span>
+                            </case>
+                            <case value="textarea">
+                                <label class="textarea input-large">
+                                <!-- <textarea name="{$field.name}">{$data[$field['name']]}</textarea> -->
+                                <span>{$data[$field['name']]}</span>
+                                </label>
+                            </case>
+                            <case value="datetime">
+                                <!-- <input type="text" name="{$field.name}" class="text input-large time" <if condition="$data[$field['name']] gt 0">value="{$data[$field['name']]|date='Y-m-d',###}"</if> placeholder="请选择时间" /> -->
+                                <span><if condition="$data[$field['name']] gt 0">{$data[$field['name']]|date='Y年m月d日',###}</if></span>
+                            </case>
+                            <case value="bool">
+                                <select disabled name="{$field.name}">
+                                    <volist name=":parse_field_attr($field['extra'])" id="vo">
+                                        <option value="{$key}" <eq name="data[$field['name']]" value="$key">selected</eq>>{$vo}</option>
+                                    </volist>
+                                </select>
+                            </case>
+                            <case value="select">
+                                <select disabled name="{$field.name}">
+                                    <volist  name=":parse_field_attr($field['extra'])" id="vo">
+                                        <option value="{$key}" <eq name="data[$field['name']]" value="$key">selected</eq>>{$vo}</option>
+                                    </volist>
+                                </select>
+                            </case>
+                            <case value="radio">
+                                <volist name=":parse_field_attr($field['extra'])" id="vo">
+                                    <label class="radio">
+                                    <input disabled type="radio" value="{$key}" name="{$field.name}" <eq name="data[$field['name']]" value="$key">checked="checked"</eq>>{$vo}
+                                    </label>
+                                </volist>
+                            </case>
+                            <case value="checkbox">
+                                <volist name=":parse_field_attr($field['extra'])" id="vo">
+                                    <label class="checkbox">
+                                    <input type="checkbox" disabled value="{$key}" name="{$field.name}[]" <in name="key" value="$data[$field['name']]" >checked="checked"</in>>{$vo}
+                                    </label>
+                                </volist>
+                            </case>
+                            <default/>
+                            <input type="text" class="text input-large" name="{$field.name}" value="{$data[$field['name']]}">
+                        </switch>
+                    </div>
+                </div>
+                </if>
+            </volist>
+        </div>
+        </volist>
+<!--         <center>
+            <input type="hidden" name="id" value="{$data.id}">
+            <button class="button btn_submit status_error" type="submit"></button>
+            <button class="button btn_submit status_success" type="button" onclick="javascript:history.go(-1);">返 回</button>
+        </center> -->
+        <if condition="is_auth(AUTH_CUSTMER_ADD) || is_auth(AUTH_CUSTMER__MANAGE)">
+        <div class="fixed_add" style="background-color: {$bg_color}; padding: 6px;"  onclick="redirect('{:U('edit',array('id'=>$data['id']))}')">
+            <img src="__MIMG__/icon/edit.png">
+        </div>
+    </if>
+    </div>
+</div>
+</block>
+<block name="script">
+    <link href="__STATIC__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+    <script type="text/javascript">
+    $('#submit').click(function(){
+        $('#form').submit();
+    });
+
+    $(function(){
+        $('.time').datetimepicker({
+            format: 'yyyy-mm-dd',
+            language:"zh-CN",
+            minView:2,
+            autoclose:true
+        });
+
+    });
+
+    $('.tab-nav div').each(function(){
+        $(this).click(function(){
+            var tab = $(this).data('tab');
+            $('.current').removeClass('current');
+            $('.in').removeClass('in');
+            $(this).addClass('current');
+            $('#' + tab).addClass('in');
+        });
+    })
+    </script>
+    <script type="text/javascript">
+        function myToFixed(num) {
+            return num.toFixed(2);
+        }
+    </script>
+</block>

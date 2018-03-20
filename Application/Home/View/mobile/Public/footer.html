@@ -1,0 +1,44 @@
+<block name="footer">
+	<div style="height:4.5rem;"></div>
+	<footer class="footer_fixed">
+		<div class="bottom_nav"  style="width: {$_bottom_w}" onclick="redirect('{:U('Index/index')}')">
+	    	<li class="bottom_icon"  style="background: url('__MIMG__/icon/home.png') no-repeat; -webkit-background-size: auto 4.6em;"></li>
+	       	<div class="bottom_name">首页</div>
+	    </div>
+	    <volist name="_bottom" id="vo">
+	    <div class="bottom_nav"  style="width: {$_bottom_w}" onclick="redirect('{:U($vo[\"path\"])}')">
+	    	<li class="bottom_icon"  style="background: url('__ROOT__{$vo['icon']}') no-repeat; -webkit-background-size: auto 4.6em;"></li>
+	       	<div class="bottom_name">{$vo.title}</div>
+	    </div>
+	    </volist>
+	    <div class="bottom_nav"  style="width: {$_bottom_w}" onclick="redirect('{:U('User/index')}')">
+	    	<li class="bottom_icon"  style="background: url('__MIMG__/icon/my.png') no-repeat;-webkit-background-size: auto 4.6em;"></li>
+	       	<div class="bottom_name">个人</div>
+	    </div>
+	</footer>
+	<div id="dialog" class="dialog" name="dialog">
+        <div class="dialog_shadow" onclick="hidedialog()"></div>
+        <div class="dialog_window">
+            <li class="dialog_close">X</li>
+            <div class="dialog_content">
+                <label class="c_title">这是标题</label>
+                <div class="c_main">这话四内提供 阿斯蒂芬姐啊算咯姐姐啊弗朗基安静啊咧啊垃圾</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dialog_load" class="dialog" >
+        <div class="dialog_shadow" onclick="hidedialog()"></div>
+		<div style="position: fixed;z-index: 1002;top:45%;width: 100%;">
+    		<img src="__MIMG__/icon/load_3.gif" style="width: 50px;margin: 0 auto;display: block;">
+		</div>
+    </div>
+    <div id="dialog_empty" class="dialog newdialog" >
+    	<div class="close_red" onclick="hidedialog()" style="position: fixed;z-index: 1005;top:2%;right: 1%;width: 3rem;height: 3rem;line-height: 2.8rem;font-size: 3rem;">x</div>
+		<div style="z-index: 1002;width: 100%;margin-top: 10px;" id="empty_content">
+		</div>
+    </div>
+</block>
+<include file="Public/var" />
+<block name="script"></block>
+

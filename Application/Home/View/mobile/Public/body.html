@@ -1,0 +1,30 @@
+<div id="main-container" class="container">
+    <block name="body"></block>
+</div>
+<script type="text/javascript">
+    // $(function(){
+    //     $(window).resize(function(){
+    //         $("#main-container").css("min-height", $(window).height() - 120);
+    //     }).resize();
+    // });
+    (function (doc, win) {
+        var docEl = doc.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function () {
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth) return;
+                if(clientWidth>=640){
+                    docEl.style.fontSize = '18px';
+                }else{
+                    docEl.style.fontSize = 20 * (clientWidth / 640) + 'px';
+                }
+            };
+
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+    })(document, window);
+	// 作者：_minooo_
+	// 链接：http://www.jianshu.com/p/b00cd3506782
+	// 來源：简书// 
+</script>

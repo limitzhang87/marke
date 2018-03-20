@@ -1,0 +1,83 @@
+<extend name="Base/common" />
+<block name="body">
+    <style type="text/css">
+        .titleN{
+            font-size: 1.6rem;
+            line-height: 4.5rem;
+            padding-left: 20px;
+            display: -webkit-box;
+        }
+        .icon{
+            margin-top: 1.3rem;
+            height: 2rem;
+            width: 2rem;
+            display: block;
+            background: url('__MIMG__/icon/user_info.png') no-repeat;
+            background-size: auto 1.8rem;
+        }
+    </style>
+    <div class="user_header" style="background-color: {$bg_color};">
+        <img class="user_head" src="{$user.head_img}">
+        <div class="user_nick_name">
+            {$user.nick_name}
+        </div>
+    </div>
+    <div>
+        <div class="item_s">
+            <div style="font-size: 2rem;line-height: 4.5rem;margin-left: 10px;">帐号管理</div>
+        </div>
+        <div class="item_s" onclick="redirect('{:U('User/user_info')}')">
+            <div class="item_info">
+                <div class="titleN" style=""><li class="icon" style="background-position: 0 0;"></li>个人信息</div>
+            </div>
+            <div class="item_more">
+                <li class="arrow"></li>
+            </div>
+        </div>
+        <if condition="!is_super()"  >
+        <div class="item_s" onclick="redirect('{:U('User/group_info')}')">
+            <div class="item_info">
+                <div  class="titleN" style=""><li class="icon" style="background-position: -2.2rem 0;"></li>分组信息</div>
+            </div>
+            <div class="item_more">
+                <li class="arrow"></li>
+            </div>
+        </div>
+        </if>
+    </div>
+    <if condition="is_auth(AUTH_REPORT_MANAGE)"  >
+    <div>
+        <div class="item_s">
+            <div style="font-size: 2rem;line-height: 4.5rem;margin-left: 10px;">业绩统计</div>
+        </div>
+        <div class="item_s" onclick="redirect('{:U('Report/index',array('type'=>2,'uid'=>$user['uid']))}')">
+            <div class="item_info">
+                <div class="titleN" style=""> <li class="icon" style="background-position: -4.5rem 0;" ></li>成交统计</div>
+            </div>
+            <div class="item_more">
+                <li class="arrow"></li>
+            </div>
+        </div>
+        <div class="item_s"  onclick="redirect('{:U('Report/index',array('type'=>1,'uid'=>$user['uid']))}')">
+            <div class="item_info">
+                <div  class="titleN" style=""><li class="icon" style="background-position: -6.85rem 0;"></li>锁定统计</div>
+            </div>
+            <div class="item_more">
+                <li class="arrow"></li>
+            </div>
+        </div>
+    </div>
+    </if>
+
+    <center>
+        <button class="button btn_submit" style="margin: 10px auto;background-color: {$bg_color}" onclick="redirect('{:U('Login/logout')}');">
+           退出登录
+        </button>
+    </center>
+</block>
+<block name="script">
+    <script type="text/javascript" charset="utf-8">
+    var houses_id = '{$house}';
+    hightLine('User/index');
+    </script>
+</block>

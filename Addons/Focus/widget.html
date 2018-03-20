@@ -1,0 +1,15 @@
+
+    <volist name="list" id="lo">
+<div style="{$lo.color}" class="bannger_inbox">
+   <!--
+    <a class="bannger_inbox" href="{$lo.url}" rel="nofollow" target="_blank"></a>
+    -->
+    <eq name='type' value='2'>
+    {$lo.title}
+    <else/>
+   <a   href="{$lo.url}"> <img src="{$lo.path}"  width="2000" height="550" alt="{$lo.title}" /></a>
+    </eq>
+    
+   
+    </div>
+</volist>
